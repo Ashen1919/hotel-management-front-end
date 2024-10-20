@@ -1,0 +1,7 @@
+header{
+    width : 100%;
+    background-color: aquamarine;
+    display: flex;
+    position: relative;
+    height: 70px;
+}
