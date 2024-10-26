@@ -1,5 +1,12 @@
 import { Link, Route, Routes } from "react-router-dom";
 import { FaRegBookmark, FaDoorOpen, FaUsers, FaComments, FaImages, FaCalendarCheck, FaTicketAlt } from "react-icons/fa";
+import AdminCategories from "../admin/category/adminCategory.jsx";
+import AdminRooms from "../admin/rooms/adminRooms.jsx";
+import AdminUsers from "../admin/users/adminUsers.jsx";
+import AdminFeedback from "../admin/feedback/adminFeedback.jsx";
+import AdminGalleryItem from "../admin/galleryItem/AdminGalleryItem.jsx";
+import AdminBooking from "../admin/Booking/adminBooking.jsx";
+import AdminTicketing from "../admin/ticketing/adminTicketing.jsx";
 
 export default function AdminPage() {
   return (
@@ -36,13 +43,13 @@ export default function AdminPage() {
       </div>
       <div className="w-[80%] max-h-[100vh] bg-blue-700">
         <Routes path="/*">
-            <Route path="/categories" element={<h1>Categories</h1>}/>
-            <Route path="/rooms" element={<h1>Rooms</h1>}/>
-            <Route path="/users" element={<h1>Users</h1>}/>
-            <Route path="/feedback" element={<h1>Feedback</h1>}/>
-            <Route path="/galleryitems" element={<h1>Galley Items</h1>}/>
-            <Route path="/bookings" element={<h1>Bookings</h1>}/>
-            <Route path="/ticketing" element={<h1>Ticketing</h1>}/>
+            <Route path="/categories" element={<AdminCategories/>}/>
+            <Route path="/rooms" element={<AdminRooms/>}/>
+            <Route path="/users" element={<AdminUsers/>}/>
+            <Route path="/feedback" element={<AdminFeedback/>}/>
+            <Route path="/galleryitems" element={<AdminGalleryItem/>}/>
+            <Route path="/bookings" element={<AdminBooking/>}/>
+            <Route path="/ticketing" element={<AdminTicketing/>}/>
         </Routes>
       </div>
     </div>
