@@ -7,14 +7,17 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
 
     function handleLogin() {
-        axios.post("http://localhost:5000/api/users/login", {
+        axios.post(import.meta.env.VITE_MONGO_URL+ "/api/users/login" , {
             email: email,
             password: password
         }).then((result) => {
-            console.log(result);
             localStorage.setItem("token", result.data.token)
-            const token = localStorage.getItem("token")
-            console.log(token)
+            if(result.data.user.type == "customer"){
+                window.location.href = "/"
+            }
+            else if(result.data.user.type == "admin"){
+                window.location.href = "/admin"
+            }
         }).catch((err) => {
             console.log(err);
         });
