@@ -7,7 +7,7 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
 
     function handleLogin() {
-        axios.post(import.meta.env.VITE_MONGO_URL+ "/api/users/login" , {
+        axios.post(import.meta.env.VITE_BACKEND_URL+ "/api/users/login" , {
             email: email,
             password: password
         }).then((result) => {
