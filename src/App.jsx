@@ -12,7 +12,8 @@ function App() {
         <Route path = "/*" element = {<HomePage/>}></Route>
         <Route path = "/admin/*" element = {<AdminPage/>}/>
         <Route path="/login" element = {<LoginPage/>} />
-        
+        <Route path="/test" element = {<TestComponent/>} />
+
       </Routes>
     </BrowserRouter>
   )
