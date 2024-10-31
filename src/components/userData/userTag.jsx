@@ -1,3 +1,4 @@
+import axios from "axios";
 
 
 function UserTag(props){
@@ -5,6 +6,14 @@ function UserTag(props){
 
     if(token != null){
         console.log(token)
+        axios.get(import.meta.env.VITE_BACKEND_URL+"/api/users/", {
+            headers: {
+                Authorization: "Bearer "+ token,
+                "Content-Type": "application/json",
+            },
+        }).then((res)=>{
+            console.log(res)
+        })
     }
 
     return(
