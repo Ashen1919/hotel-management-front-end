@@ -11,7 +11,7 @@ import AdminTicketing from "../admin/ticketing/adminTicketing.jsx";
 export default function AdminPage() {
   return (
     <div className="w-full max-h-[100vh] overflow-hidden flex">
-      <div className="w-[20%] h-[100vh] bg-blue-400 flex flex-col p-2">
+      <div className="w-[20%] h-[100vh] bg-blue-400 flex flex-col p-2 space-y-5">
         <div className="text-white text-[20px] font-normal flex items-center space-x-2 hover:font-medium hover:text-white">
           <FaRegBookmark className="cursor-pointer" />
           <Link to="/admin/categories">Categories</Link>
