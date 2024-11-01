@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import HomePage from "./pages/client-page/homePage.jsx"
 import AdminPage from "./pages/adminPage/adminPage.jsx"
-import TestComponent from "./components/test/test.jsx"
 import LoginPage from "./pages/login/login.jsx"
+import CategoriesPage from "./pages/client-page/categories.jsx"
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
         <Route path = "/*" element = {<HomePage/>}></Route>
         <Route path = "/admin/*" element = {<AdminPage/>}/>
         <Route path="/login" element = {<LoginPage/>} />
-        <Route path="/test" element = {<TestComponent/>} />
+        <Route path="/categories" element = {<CategoriesPage/>} />
 
       </Routes>
     </BrowserRouter>
