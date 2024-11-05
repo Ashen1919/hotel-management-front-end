@@ -1,4 +1,8 @@
-import { Client } from 'appwrite';
+import { Client } from "appwrite";
 
-const client = new Client();
-client.setProject(VITE_SETPROJECT);
+export default function Configuration() {
+  const client = new Client();
+  client
+    .setEndpoint(import.meta.env.VITE_ENDPOINT)
+    .setProject(import.meta.env.VITE_PROJECT_ID);
+}
