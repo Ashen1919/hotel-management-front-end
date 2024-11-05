@@ -1,13 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function CategoriesPage() {
+  const token = localStorage.getItem("token");
+
+  if (token == null) {
+    window.location.href = "/login";
+  }
+
   const [categories, setCategories] = useState([]);
   const [categoriesIsLoaded, setCategoriesIsLoaded] = useState(false);
 
   useEffect(() => {
     if (!categoriesIsLoaded) {
-      axios.get(import.meta.env.VITE_BACKEND_URL + "/api/category/")
+      axios
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/category/")
         .then((res) => {
           setCategories(res.data.categories);
           setCategoriesIsLoaded(true);
@@ -19,10 +27,18 @@ export default function CategoriesPage() {
   }, [categoriesIsLoaded]);
 
   function deleteItem(name) {
-    if (window.confirm("Are you sure? Do you want to delete " + name + " category")) {
-      axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/category/" + name)
+    if (
+      window.confirm(
+        "Are you sure? Do you want to delete " + name + " category"
+      )
+    ) {
+      axios
+        .delete(import.meta.env.VITE_BACKEND_URL + "/api/category/" + name , {
+          headers : {
+            Authorization : "Bearer" + token
+          }
+        })
         .then((res) => {
-          console.log(res.data.message);
           setCategoriesIsLoaded(false);
         })
         .catch((err) => {
@@ -48,7 +64,9 @@ export default function CategoriesPage() {
           {categories.map((category) => (
             <tr key={category.name} className="hover:bg-gray-100">
               <td className="p-2 border border-gray-300">{category.name}</td>
-              <td className="p-2 border border-gray-300">{category.description}</td>
+              <td className="p-2 border border-gray-300">
+                {category.description}
+              </td>
               <td className="p-2 border border-gray-300">{category.price}</td>
               <td className="p-2 border border-gray-300">
                 <img
@@ -61,11 +79,14 @@ export default function CategoriesPage() {
                 {category.features.join(", ")}
               </td>
               <td className="p-2 border border-gray-300">
+                <button className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 space-x-2">
+                  <FaEdit />
+                </button>
                 <button
-                  className="bg-red-500 p-1 text-white rounded-sm hover:bg-red-600 w-20"
+                  className="bg-red-500 p-1 text-white rounded-sm hover:bg-red-600 w-auto"
                   onClick={() => deleteItem(category.name)}
                 >
-                  Delete
+                  <FaTrash />
                 </button>
               </td>
             </tr>
