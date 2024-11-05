@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function CategoriesPage() {
   const token = localStorage.getItem("token");
@@ -12,6 +13,8 @@ export default function CategoriesPage() {
 
   const [categories, setCategories] = useState([]);
   const [categoriesIsLoaded, setCategoriesIsLoaded] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!categoriesIsLoaded) {
@@ -48,8 +51,15 @@ export default function CategoriesPage() {
     }
   }
 
+  function handlePlusClick(){
+    navigate("/admin/add-categories")
+  }
+
   return (
     <div className="p-4 w-full">
+      <button className="w-[60px] h-[60px] bg-red-600 rounded-full justify-center items-center flex text-2xl bottom-5 right-5 fixed" onClick={()=>{
+        handlePlusClick();
+      }}><FaPlus color="white"/></button>
       <table className="w-full bg-white border border-gray-400 text-left">
         <thead>
           <tr className="bg-gray-200">
