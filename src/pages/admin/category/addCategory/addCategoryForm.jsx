@@ -23,8 +23,7 @@ export default function AddCategoryForm() {
 
   async function handleForm(e) {
     e.preventDefault();
-    toast.success("Form submited successfully")
-
+    
     if (!image) {
       console.log("No image selected");
       return;
@@ -42,6 +41,9 @@ export default function AddCategoryForm() {
     } catch (error) {
       console.error("File upload failed:", error);
     }
+    
+    toast.success("Form submited")
+
   }
 
   return (
