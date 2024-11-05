@@ -7,6 +7,7 @@ import AdminFeedback from "../admin/feedback/adminFeedback.jsx";
 import AdminGalleryItem from "../admin/galleryItem/AdminGalleryItem.jsx";
 import AdminBooking from "../admin/Booking/adminBooking.jsx";
 import AdminTicketing from "../admin/ticketing/adminTicketing.jsx";
+import AddCategoryForm from "../admin/category/addCategory/addCategoryForm.jsx";
 
 export default function AdminPage() {
   return (
@@ -44,6 +45,7 @@ export default function AdminPage() {
       <div className="w-[80%] max-h-[100vh] bg-blue-700">
         <Routes path="/*">
             <Route path="/categories" element={<AdminCategories/>}/>
+            <Route path="/add-categories" element={<AddCategoryForm/>}/>
             <Route path="/rooms" element={<AdminRooms/>}/>
             <Route path="/users" element={<AdminUsers/>}/>
             <Route path="/feedback" element={<AdminFeedback/>}/>
