@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function CategoriesPage() {
@@ -32,17 +33,17 @@ export default function CategoriesPage() {
         "Are you sure? Do you want to delete " + name + " category"
       )
     ) {
-      axios
-        .delete(import.meta.env.VITE_BACKEND_URL + "/api/category/" + name , {
+      axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/category/" + name , {
           headers : {
-            Authorization : "Bearer" + token
+            Authorization : "Bearer " + token
           }
         })
         .then((res) => {
+          toast.success("Category deleted successfully")
           setCategoriesIsLoaded(false);
         })
         .catch((err) => {
-          console.error("Failed to delete category:", err);
+          toast.error("Failed to delete Category")
         });
     }
   }
