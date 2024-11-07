@@ -14,6 +14,7 @@ export default function AddCategoryForm() {
   const [features, setFeatures] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -23,6 +24,7 @@ export default function AddCategoryForm() {
 
   async function handleForm(e) {
     e.preventDefault();
+    setIsLoading(true)
     
     if (!image) {
       console.log("No image selected");
@@ -101,9 +103,13 @@ export default function AddCategoryForm() {
 
         <button
           type="submit"
-          className="w-full p-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+          className="w-full p-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 flex justify-center"
         >
-          Add Category
+          {
+            isLoading?
+            <div className="border-white border-t-2 w-[20px] min-h-[20px] rounded-full animate-spin"></div>
+            :<span>Add Category</span>
+          }
         </button>
       </form>
     </div>
