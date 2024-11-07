@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Client, Storage, ID } from "appwrite";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const client = new Client()
   .setEndpoint(import.meta.env.VITE_ENDPOINT)
@@ -22,9 +23,12 @@ export default function AddCategoryForm() {
     }
   };
 
-  // Helper function to generate the file URL
+  const token = localStorage.getItem("token");
+
   const getFileUrl = (fileId) => {
-    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
+    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${
+      import.meta.env.VITE_BUCKET_ID
+    }/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
   };
 
   async function handleForm(e) {
@@ -33,26 +37,41 @@ export default function AddCategoryForm() {
 
     if (!image) {
       console.log("No image selected");
-      setIsLoading(false);
+      setIsLoading(true);
       return;
     }
+    const featureArray = features.split(",");
+    
 
     try {
-      // Upload the file to Appwrite and get the file ID
       const response = await storage.createFile(
         import.meta.env.VITE_BUCKET_ID,
         ID.unique(),
         image
       );
-
       const fileId = response.$id;
       const imageUrl = getFileUrl(fileId);
+
+      const categoryInfo = {
+        name: name,
+        price: price,
+        features: featureArray,
+        description: description,
+        image: imageUrl,
+      };
+      axios.post(
+        import.meta.env.VITE_BACKEND_URL + "/api/category",
+        categoryInfo,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      
       console.log("File uploaded successfully:", imageUrl);
 
-      // Here, you can save imageUrl and other form data to MongoDB or handle further as needed
-
       toast.success("Category added successfully!");
-
     } catch (error) {
       console.error("File upload failed:", error);
       toast.error("File upload failed.");
