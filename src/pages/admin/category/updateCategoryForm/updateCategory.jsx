@@ -9,7 +9,7 @@ const client = new Client()
 
 const storage = new Storage(client);
 
-export default function AddCategoryForm() {
+export default function UpdateCategoryForm() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [features, setFeatures] = useState("");
