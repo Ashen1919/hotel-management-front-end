@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CategoriesPage() {
   const token = localStorage.getItem("token");
@@ -90,9 +90,9 @@ export default function CategoriesPage() {
                 {category.features.join(", ")}
               </td>
               <td className="p-2 border border-gray-300">
-                <button className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 space-x-2">
+                <Link className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 space-x-2 mr-2 " to={`/admin/update-category/${category.name}`}>
                   <FaEdit />
-                </button>
+                </Link>
                 <button
                   className="bg-red-500 p-1 text-white rounded-sm hover:bg-red-600 w-auto"
                   onClick={() => deleteItem(category.name)}
