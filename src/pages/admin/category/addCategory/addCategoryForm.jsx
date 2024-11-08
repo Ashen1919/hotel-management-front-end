@@ -26,9 +26,7 @@ export default function AddCategoryForm() {
   const token = localStorage.getItem("token");
 
   const getFileUrl = (fileId) => {
-    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${
-      import.meta.env.VITE_BUCKET_ID
-    }/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
+    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
   };
 
   async function handleForm(e) {
