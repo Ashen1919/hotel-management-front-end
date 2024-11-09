@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Client, Storage, ID } from "appwrite";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const client = new Client()
   .setEndpoint(import.meta.env.VITE_ENDPOINT)
@@ -13,6 +13,7 @@ const storage = new Storage(client);
 export default function UpdateCategoryForm() {
   const location = useLocation();
 
+  const navigate = useNavigate();
   if (location.state == null) {
     window.location.href = "/admin/categories";
   }
@@ -73,6 +74,7 @@ export default function UpdateCategoryForm() {
       );
 
       toast.success("Category updated successfully!");
+      navigate("/admin/categories")
     } catch (error) {
       console.error("Update failed:", error);
       toast.error("Update failed.");
