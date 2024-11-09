@@ -47,7 +47,7 @@ export default function AdminPage() {
         <Routes path="/*">
             <Route path="/categories" element={<AdminCategories/>}/>
             <Route path="/add-categories" element={<AddCategoryForm/>}/>
-            <Route path="/update-category/:name" element={<UpdateCategoryForm/>}/>
+            <Route path="/update-category" element={<UpdateCategoryForm/>}/>
             <Route path="/rooms" element={<AdminRooms/>}/>
             <Route path="/users" element={<AdminUsers/>}/>
             <Route path="/feedback" element={<AdminFeedback/>}/>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Client, Storage, ID } from "appwrite";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const client = new Client()
   .setEndpoint(import.meta.env.VITE_ENDPOINT)
@@ -11,7 +11,11 @@ const client = new Client()
 const storage = new Storage(client);
 
 export default function UpdateCategoryForm() {
-  const location = useLocation()
+  const location = useLocation();
+
+  if (location.state == null) {
+    window.location.href = "/admin/categories";
+  }
   const [name, setName] = useState(location.state.name);
   const [price, setPrice] = useState(location.state.price);
   const [features, setFeatures] = useState(location.state.features.join(", "));
@@ -35,32 +39,31 @@ export default function UpdateCategoryForm() {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!image) {
-      console.log("No image selected");
-      setIsLoading(true);
-      return;
-    }
     const featureArray = features.split(",");
-    
 
     try {
-      const response = await storage.createFile(
-        import.meta.env.VITE_BUCKET_ID,
-        ID.unique(),
-        image
-      );
-      const fileId = response.$id;
-      const imageUrl = getFileUrl(fileId);
+      let imageUrl = location.state.image; // Default to existing image if no new image is uploaded
+
+      if (image) {
+        // Only upload a new file if an image is selected
+        const response = await storage.createFile(
+          import.meta.env.VITE_BUCKET_ID,
+          ID.unique(),
+          image
+        );
+        imageUrl = getFileUrl(response.$id);
+        console.log("File uploaded successfully:", imageUrl);
+      }
 
       const categoryInfo = {
-        name: name,
         price: price,
         features: featureArray,
         description: description,
         image: imageUrl,
       };
-      axios.post(
-        import.meta.env.VITE_BACKEND_URL + "/api/category",
+
+      await axios.put(
+        import.meta.env.VITE_BACKEND_URL + "/api/category/"+name,
         categoryInfo,
         {
           headers: {
@@ -68,13 +71,11 @@ export default function UpdateCategoryForm() {
           },
         }
       );
-      
-      console.log("File uploaded successfully:", imageUrl);
 
-      toast.success("Category added successfully!");
+      toast.success("Category updated successfully!");
     } catch (error) {
-      console.error("File upload failed:", error);
-      toast.error("File upload failed.");
+      console.error("Update failed:", error);
+      toast.error("Update failed.");
     } finally {
       setIsLoading(false);
     }
@@ -96,6 +97,7 @@ export default function UpdateCategoryForm() {
           className="w-full p-2 mb-4 border border-gray-300 rounded"
           placeholder="Category name"
           required
+          disabled
         />
 
         <label className="block mb-2">Price ($):</label>
@@ -132,7 +134,6 @@ export default function UpdateCategoryForm() {
           type="file"
           onChange={handleImageChange}
           className="w-full p-2 mb-4"
-          required
           id="uploader"
         />
 

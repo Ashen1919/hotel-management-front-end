@@ -97,7 +97,7 @@ export default function CategoriesPage() {
               </td>
               <td className="p-2 border border-gray-300">
                 <Link
-                  to={`/admin/update-category/${category.name}`}
+                  to={`/admin/update-category/`}
                   className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 inline-flex items-center space-x-1 mr-2"
                   state={category}
                 >
