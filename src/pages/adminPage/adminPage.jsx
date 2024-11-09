@@ -9,6 +9,7 @@ import AdminBooking from "../admin/Booking/adminBooking.jsx";
 import AdminTicketing from "../admin/ticketing/adminTicketing.jsx";
 import AddCategoryForm from "../admin/category/addCategory/addCategoryForm.jsx";
 import UpdateCategoryForm from "../admin/category/updateCategoryForm/updateCategory.jsx";
+import AddGalleryItemForm from "../admin/galleryItem/addGalleryItem/addGalleryItemForm.jsx";
 
 export default function AdminPage() {
   return (
@@ -52,6 +53,7 @@ export default function AdminPage() {
             <Route path="/users" element={<AdminUsers/>}/>
             <Route path="/feedback" element={<AdminFeedback/>}/>
             <Route path="/galleryitems" element={<AdminGalleryItem/>}/>
+            <Route path="/add-gallery-item" element={<AddGalleryItemForm/>}/>
             <Route path="/bookings" element={<AdminBooking/>}/>
             <Route path="/ticketing" element={<AdminTicketing/>}/>
         </Routes>
