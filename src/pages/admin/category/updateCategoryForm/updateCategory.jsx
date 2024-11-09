@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Client, Storage, ID } from "appwrite";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const client = new Client()
   .setEndpoint(import.meta.env.VITE_ENDPOINT)
@@ -10,10 +11,11 @@ const client = new Client()
 const storage = new Storage(client);
 
 export default function UpdateCategoryForm() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [features, setFeatures] = useState("");
-  const [description, setDescription] = useState("");
+  const location = useLocation()
+  const [name, setName] = useState(location.state.name);
+  const [price, setPrice] = useState(location.state.price);
+  const [features, setFeatures] = useState(location.state.features.join(", "));
+  const [description, setDescription] = useState(location.state.description);
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 

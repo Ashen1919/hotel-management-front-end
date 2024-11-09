@@ -36,30 +36,36 @@ export default function CategoriesPage() {
         "Are you sure? Do you want to delete " + name + " category"
       )
     ) {
-      axios.delete(import.meta.env.VITE_BACKEND_URL + "/api/category/" + name , {
-          headers : {
-            Authorization : "Bearer " + token
-          }
+      axios
+        .delete(import.meta.env.VITE_BACKEND_URL + "/api/category/" + name, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         })
         .then((res) => {
-          toast.success("Category deleted successfully")
+          toast.success("Category deleted successfully");
           setCategoriesIsLoaded(false);
         })
         .catch((err) => {
-          toast.error("Failed to delete Category")
+          toast.error("Failed to delete Category");
         });
     }
   }
 
-  function handlePlusClick(){
-    navigate("/admin/add-categories")
+  function handlePlusClick() {
+    navigate("/admin/add-categories");
   }
 
   return (
     <div className="p-4 w-full">
-      <button className="w-[60px] h-[60px] bg-red-600 rounded-full justify-center items-center flex text-2xl bottom-5 right-5 fixed" onClick={()=>{
-        handlePlusClick();
-      }}><FaPlus color="white"/></button>
+      <button
+        className="w-[60px] h-[60px] bg-red-600 rounded-full justify-center items-center flex text-2xl bottom-5 right-5 fixed"
+        onClick={() => {
+          handlePlusClick();
+        }}
+      >
+        <FaPlus color="white" />
+      </button>
       <table className="w-full bg-white border border-gray-400 text-left">
         <thead>
           <tr className="bg-gray-200">
@@ -90,9 +96,14 @@ export default function CategoriesPage() {
                 {category.features.join(", ")}
               </td>
               <td className="p-2 border border-gray-300">
-                <Link className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 space-x-2 mr-2 " to={`/admin/update-category/${category.name}`}>
+                <Link
+                  to={`/admin/update-category/${category.name}`}
+                  className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 inline-flex items-center space-x-1 mr-2"
+                  state={category}
+                >
                   <FaEdit />
                 </Link>
+
                 <button
                   className="bg-red-500 p-1 text-white rounded-sm hover:bg-red-600 w-auto"
                   onClick={() => deleteItem(category.name)}
