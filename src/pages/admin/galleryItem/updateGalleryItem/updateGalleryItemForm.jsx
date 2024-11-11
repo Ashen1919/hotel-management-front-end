@@ -50,7 +50,6 @@ export default function UpdateGalleryItemForm() {
           image
         );
         imageUrl = getFileUrl(response.$id);
-        console.log("File uploaded successfully:", imageUrl);
       }
 
       const categoryInfo = {
