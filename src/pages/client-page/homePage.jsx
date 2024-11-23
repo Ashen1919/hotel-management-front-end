@@ -34,7 +34,7 @@ export default function HomePage() {
           </button>
         </div>
         <h1 className="text-white text-[50px] mt-8">
-          Welcome To The Leonine Villa
+          Welcome To The Everpeak Lodge
         </h1>
       </div>
     </>
