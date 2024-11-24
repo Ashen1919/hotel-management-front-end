@@ -19,6 +19,13 @@ export default function LoginPage() {
                 window.location.href = "/admin"
             }
         }).catch((err) => {
+            if (err.response) {
+                alert(err.response.data.message || "Login failed. Please try again.");
+            } else if (err.request) {
+                alert("Network error. Please check your internet connection.");
+            } else {
+                alert("An unexpected error occurred.");
+            }
             console.log(err);
         });
     }
