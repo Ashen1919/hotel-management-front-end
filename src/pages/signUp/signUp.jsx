@@ -60,7 +60,7 @@ export default function SignUpPage() {
       {/* Back Button */}
       <button
         onClick={() => navigate("/")}
-        className="absolute top-4 left-4 flex items-center text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70"
+        className="absolute top-4 left-4 items-center text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70 hidden lg:flex"
       >
         <AiOutlineArrowLeft className="text-xl" />
         <span className="ml-2 text-sm font-medium">Back</span>
@@ -69,7 +69,7 @@ export default function SignUpPage() {
       <div className="flex w-3/4 max-w-4xl overflow-hidden rounded-lg bg-white shadow-lg relative z-10">
         {/* Left Section */}
         <div
-          className="w-1/2 bg-cover bg-center relative"
+          className="w-1/2 bg-cover bg-center relative hidden lg:block"
           style={{
             backgroundImage: `url('https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6744a2bd0005c4aab034/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin')`,
           }}
@@ -84,7 +84,7 @@ export default function SignUpPage() {
         </div>
 
         {/* Right Section */}
-        <div className="w-1/2 p-10">
+        <div className="w-full p-5 lg:w-1/2 lg:p-10">
           <h2 className="text-2xl font-bold mb-2 text-gray-800">Register</h2>
           <p className="text-sm text-gray-600 mb-6">
             Create your account. It's free and only takes a minute.
