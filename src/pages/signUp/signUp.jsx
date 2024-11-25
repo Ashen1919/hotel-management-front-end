@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  AiOutlineMail,
-  AiOutlineLock,
-  AiOutlineWhatsApp,
-  AiOutlineArrowLeft,
-} from "react-icons/ai";
+import { AiOutlineMail, AiOutlineLock, AiOutlineWhatsApp, AiOutlineArrowLeft } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";  // Import Axios
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -31,7 +27,7 @@ export default function SignUpPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.termsAccepted) {
       toast.error("Please accept the terms and conditions.");
@@ -41,8 +37,27 @@ export default function SignUpPage() {
       toast.error("Passwords do not match.");
       return;
     }
-    toast.success("Signed up successfully!");
-    console.log("Form Data:", formData);
+
+    // Prepare data for sending to the backend
+    const userData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      whatsapp: formData.whatsapp,
+    };
+
+    try {
+      // Send a POST request to the backend API
+      const response = await axios.post(import.meta.env.VITE_BACKEND_URL+ "/api/users/signup", userData);
+
+      if (response.status === 200) {
+        toast.success("Signed up successfully!");
+        navigate("/login");  // Redirect to login page after success
+      }
+    } catch (error) {
+      toast.error("Error during registration: " + error.response.data.message);
+    }
   };
 
   return (
