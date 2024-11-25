@@ -65,9 +65,11 @@ function Header() {
           Login
         </button>
         </Link>
+        <Link to={'/signup'}>
         <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
           Sign Up
         </button>
+        </Link>
       </div>
 
       {/* Hamburger Menu for Small Screens */}
@@ -145,12 +147,16 @@ function Header() {
         </a>
 
         <div className="flex flex-col items-center space-y-4 mt-4">
+          <Link to={'/login'}>
           <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
             Login
           </button>
+          </Link>
+          <Link to={'/signup'}>
           <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
             Sign Up
           </button>
+          </Link>
         </div>
       </div>
     </header>

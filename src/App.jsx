@@ -4,6 +4,7 @@ import AdminPage from "./pages/adminPage/adminPage.jsx";
 import LoginPage from "./pages/login/login.jsx";
 import CategoriesPage from "./pages/client-page/categories.jsx";
 import { Toaster } from "react-hot-toast";
+import SignUpPage from "./pages/signUp/signUp.jsx";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/*" element={<HomePage />}></Route>
         <Route path="/admin/*" element={<AdminPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage/>}/>
         <Route path="/categories" element={<CategoriesPage />} />
       </Routes>
     </BrowserRouter>
