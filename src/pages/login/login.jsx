@@ -3,8 +3,10 @@ import axios from "axios";
 import "./login.css";
 import { toast } from "react-toastify";
 import {AiOutlineArrowLeft,} from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+    const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
