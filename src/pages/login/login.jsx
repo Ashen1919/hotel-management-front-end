@@ -18,7 +18,7 @@ export default function LoginPage() {
           toast.success("Loged in successfully!");
           navigate("/home");
         } else if (result.data.user.type == "admin") {
-          window.location.href = "/admin";
+            navigate("/admin");
         }
       })
       .catch((err) => {
