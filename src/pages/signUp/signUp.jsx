@@ -5,16 +5,16 @@ import { AiOutlineMail, AiOutlineLock, AiOutlineWhatsApp, AiOutlineArrowLeft } f
 import { BsPerson } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Client, Storage, ID } from "appwrite"; 
+import { Client, Storage, ID } from "appwrite";
 
 const client = new Client()
   .setEndpoint(import.meta.env.VITE_ENDPOINT)
   .setProject(import.meta.env.VITE_PROJECT_ID);
 
 const storage = new Storage(client);
-const navigate = useNavigate()
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
   const [firstName, setName] = useState("");
   const [lastName, setLName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,6 +22,7 @@ export default function SignUpPage() {
   const [confirmPassword, setConPassword] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [image, setImage] = useState(null);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleImageChange = (e) => {
@@ -34,10 +35,33 @@ export default function SignUpPage() {
     return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
   };
 
+  const handleChange = (e) => {
+    if (e.target.name === "termsAccepted") {
+      setTermsAccepted(e.target.checked);
+    }
+  };
+
   async function handleForm(e) {
     e.preventDefault();
     setIsLoading(true);
 
+    if (!termsAccepted) {
+      toast.error("Please accept the Terms of Use and Privacy Policy.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!image) {
+      toast.error("Please upload a profile picture.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const response = await storage.createFile(
@@ -49,26 +73,28 @@ export default function SignUpPage() {
       const imageUrl = getFileUrl(fileId);
 
       const signUpInfo = {
-        fname: firstName,
-        lName : lastName,
-        email : email,
-        password: password,
-        confirmPassword: confirmPassword,
-        whatsapp : whatsapp,
+        firstName,
+        lastName,
+        email,
+        password,
+        whatsapp,
         profileImage: imageUrl,
       };
-      axios.post(
-        import.meta.env.VITE_BACKEND_URL + "/api/users/signup",
-        signUpInfo,
-      );
-      
-      console.log("File uploaded successfully:", imageUrl);
 
-      toast.success("User created successfully!");
-      navigate("/login");
+      const apiResponse = await axios.post(
+        import.meta.env.VITE_BACKEND_URL + "/api/users/signup",
+        signUpInfo
+      );
+
+      if (apiResponse.status === 201) {
+        toast.success("User created successfully!");
+        navigate("/login");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     } catch (error) {
-      console.error("File upload failed:", error);
-      toast.error("File upload failed.");
+      console.error("Signup failed:", error);
+      toast.error("Signup failed. Please check your inputs and try again.");
     } finally {
       setIsLoading(false);
     }
@@ -216,7 +242,7 @@ export default function SignUpPage() {
               <input
                 type="checkbox"
                 name="termsAccepted"
-                checked={formData.termsAccepted}
+                checked={termsAccepted}
                 onChange={handleChange}
                 className="mr-2"
               />
