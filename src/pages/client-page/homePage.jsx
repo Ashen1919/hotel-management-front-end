@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/header/header.jsx";
 import TopBar from "../../components/topBar/topBar.jsx";
-import Preloader from "../../components/preloader/Preloader"; 
+import Preloader from "../../components/preloader/preLoader.jsx"; 
 import './homePage.css';
 
 export default function HomePage() {
