@@ -5,92 +5,74 @@ import { AiOutlineMail, AiOutlineLock, AiOutlineWhatsApp, AiOutlineArrowLeft } f
 import { BsPerson } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Client, Storage, ID } from "appwrite"; // Appwrite imports
+import { Client, Storage, ID } from "appwrite"; 
 
-// Initialize Appwrite client and storage
 const client = new Client()
-  .setEndpoint(import.meta.env.VITE_ENDPOINT) // Your Appwrite endpoint
-  .setProject(import.meta.env.VITE_PROJECT_ID); // Your Appwrite project ID
+  .setEndpoint(import.meta.env.VITE_ENDPOINT)
+  .setProject(import.meta.env.VITE_PROJECT_ID);
 
 const storage = new Storage(client);
+const navigate = useNavigate()
 
 export default function SignUpPage() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    whatsapp: "",
-    termsAccepted: false,
-    profilePicture: null,
-  });
+  const [firstName, setName] = useState("");
+  const [lastName, setLName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConPassword] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [image, setImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value,
-    });
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
   };
 
-  const handleSubmit = async (e) => {
+  const getFileUrl = (fileId) => {
+    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
+  };
+
+  async function handleForm(e) {
     e.preventDefault();
+    setIsLoading(true);
 
-    if (!formData.termsAccepted) {
-      toast.error("Please accept the terms and conditions.");
-      return;
-    }
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match.");
-      return;
-    }
-
-    // Prepare FormData to send to backend
-    const userData = new FormData();
-    userData.append("firstName", formData.firstName);
-    userData.append("lastName", formData.lastName);
-    userData.append("email", formData.email);
-    userData.append("password", formData.password);
-    userData.append("whatsapp", formData.whatsapp);
 
     try {
-      // Upload profile picture to Appwrite
-      if (formData.profilePicture) {
-        const file = formData.profilePicture;
-        const response = await storage.createFile(
-          import.meta.env.VITE_BUCKET_ID, // Your bucket ID
-          ID.unique(), // Generate a unique file ID
-          file // The file to upload
-        );
-        
-        // Get the file URL after successful upload
-        const imageUrl = `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${response.$id}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
-        
-        // Append the image URL to the user data
-        userData.append("profilePicture", imageUrl);
-      }
-
-      // Make the API call to your backend
-      const response = await axios.post(
-        import.meta.env.VITE_BACKEND_URL + "/api/users/signup", // Your backend URL
-        userData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+      const response = await storage.createFile(
+        import.meta.env.VITE_BUCKET_ID,
+        ID.unique(),
+        image
       );
+      const fileId = response.$id;
+      const imageUrl = getFileUrl(fileId);
 
-      if (response.status === 200) {
-        toast.success("Signed up successfully!");
-        navigate("/login");
-      }
+      const categoryInfo = {
+        fname: firstName,
+        lName : lastName,
+        email : email,
+        password: password,
+        confirmPassword: confirmPassword,
+        whatsapp : whatsapp,
+        profileImage: imageUrl,
+      };
+      axios.post(
+        import.meta.env.VITE_BACKEND_URL + "/api/users/signup",
+        categoryInfo,
+      );
+      
+      console.log("File uploaded successfully:", imageUrl);
+
+      toast.success("User created successfully!");
+      navigate("/login");
     } catch (error) {
-      toast.error("Error during registration: " + (error.response?.data?.message || error.message));
+      console.error("File upload failed:", error);
+      toast.error("File upload failed.");
+    } finally {
+      setIsLoading(false);
     }
-  };
-
+  }
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-r from-purple-400 to-blue-500">
       {/* Background Image */}
@@ -135,16 +117,15 @@ export default function SignUpPage() {
           <p className="text-sm text-gray-600 mb-6">
             Create your account. It's free and only takes a minute.
           </p>
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <form onSubmit={handleForm} encType="multipart/form-data">
             {/* First Name and Last Name */}
             <div className="flex gap-4 mb-4">
               <div className="flex items-center border border-gray-300 rounded p-2 w-1/2">
                 <BsPerson className="text-blue-600 mr-2" />
                 <input
                   type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
+                  value={firstName}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="First Name"
                   required
                   className="w-full focus:outline-none"
@@ -154,9 +135,8 @@ export default function SignUpPage() {
                 <BsPerson className="text-blue-600 mr-2" />
                 <input
                   type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
+                  value={lastName}
+                  onChange={(e) => setLName(e.target.value)}
                   placeholder="Last Name"
                   required
                   className="w-full focus:outline-none"
@@ -169,9 +149,8 @@ export default function SignUpPage() {
               <AiOutlineMail className="text-red-600 mr-2" />
               <input
                 type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 required
                 className="w-full focus:outline-none"
@@ -183,9 +162,8 @@ export default function SignUpPage() {
               <AiOutlineLock className="text-gray-700 mr-2" />
               <input
                 type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 required
                 className="w-full focus:outline-none"
@@ -197,9 +175,8 @@ export default function SignUpPage() {
               <AiOutlineLock className="text-gray-700 mr-2" />
               <input
                 type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
+                value={confirmPassword}
+                onChange={(e) => setConPassword(e.target.value)}
                 placeholder="Confirm Password"
                 required
                 className="w-full focus:outline-none"
@@ -211,9 +188,8 @@ export default function SignUpPage() {
               <AiOutlineWhatsApp className="text-green-500 mr-2" />
               <input
                 type="text"
-                name="whatsapp"
-                value={formData.whatsapp}
-                onChange={handleChange}
+                value={whatsapp}
+                onChange={(e) => setWhatsapp(e.target.value)}
                 placeholder="WhatsApp Number"
                 required
                 className="w-full focus:outline-none"
@@ -228,9 +204,10 @@ export default function SignUpPage() {
               <input
                 type="file"
                 name="profilePicture"
-                onChange={handleChange}
+                onChange={handleImageChange}
                 accept="image/*"
                 className="w-full p-2 border border-gray-300 rounded"
+                id="uploader"
               />
             </div>
 
@@ -259,8 +236,12 @@ export default function SignUpPage() {
             <button
               type="submit"
               className="w-full p-3 text-white bg-purple-600 hover:bg-purple-700 rounded"
-            >
-              Register Now
+              disabled={isLoading}
+            >{isLoading ? (
+              <div className="border-white border-t-2 w-[20px] min-h-[20px] rounded-full animate-spin"></div>
+            ) : (
+              <span>Register Now</span>
+            )}
             </button>
             <p className="mt-4 text-center text-sm text-gray-600">
               Already have an account?{" "}
