@@ -4,7 +4,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { AiOutlineMail, AiOutlineLock, AiOutlineWhatsApp, AiOutlineArrowLeft } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";  // Import Axios
+import axios from "axios";
+import { Client, Storage, ID } from "appwrite"; // Appwrite imports
+
+// Initialize Appwrite client and storage
+const client = new Client()
+  .setEndpoint(import.meta.env.VITE_ENDPOINT) // Your Appwrite endpoint
+  .setProject(import.meta.env.VITE_PROJECT_ID); // Your Appwrite project ID
+
+const storage = new Storage(client);
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -15,20 +23,22 @@ export default function SignUpPage() {
     confirmPassword: "",
     whatsapp: "",
     termsAccepted: false,
+    profilePicture: null,
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked, files } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.termsAccepted) {
       toast.error("Please accept the terms and conditions.");
       return;
@@ -38,25 +48,46 @@ export default function SignUpPage() {
       return;
     }
 
-    // Prepare data for sending to the backend
-    const userData = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      password: formData.password,
-      whatsapp: formData.whatsapp,
-    };
+    // Prepare FormData to send to backend
+    const userData = new FormData();
+    userData.append("firstName", formData.firstName);
+    userData.append("lastName", formData.lastName);
+    userData.append("email", formData.email);
+    userData.append("password", formData.password);
+    userData.append("whatsapp", formData.whatsapp);
 
     try {
-      // Send a POST request to the backend API
-      const response = await axios.post(import.meta.env.VITE_BACKEND_URL+ "/api/users/signup", userData);
+      // Upload profile picture to Appwrite
+      if (formData.profilePicture) {
+        const file = formData.profilePicture;
+        const response = await storage.createFile(
+          import.meta.env.VITE_BUCKET_ID, // Your bucket ID
+          ID.unique(), // Generate a unique file ID
+          file // The file to upload
+        );
+        
+        // Get the file URL after successful upload
+        const imageUrl = `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${response.$id}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
+        
+        // Append the image URL to the user data
+        userData.append("profilePicture", imageUrl);
+      }
+
+      // Make the API call to your backend
+      const response = await axios.post(
+        import.meta.env.VITE_BACKEND_URL + "/api/users/signup", // Your backend URL
+        userData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       if (response.status === 200) {
         toast.success("Signed up successfully!");
-        navigate("/login");  // Redirect to login page after success
+        navigate("/login");
       }
     } catch (error) {
-      toast.error("Error during registration: " + error.response.data.message);
+      toast.error("Error during registration: " + (error.response?.data?.message || error.message));
     }
   };
 
@@ -69,9 +100,9 @@ export default function SignUpPage() {
           backgroundImage: `url('https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6744a914000be7d7c8b3/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin')`,
         }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-80"></div> 
+        <div className="absolute inset-0 bg-black bg-opacity-80"></div>
       </div>
-      
+
       {/* Back Button */}
       <button
         onClick={() => navigate("/")}
@@ -104,7 +135,7 @@ export default function SignUpPage() {
           <p className="text-sm text-gray-600 mb-6">
             Create your account. It's free and only takes a minute.
           </p>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
             {/* First Name and Last Name */}
             <div className="flex gap-4 mb-4">
               <div className="flex items-center border border-gray-300 rounded p-2 w-1/2">
@@ -186,6 +217,20 @@ export default function SignUpPage() {
                 placeholder="WhatsApp Number"
                 required
                 className="w-full focus:outline-none"
+              />
+            </div>
+
+            {/* Profile Picture */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-600 mb-1">
+                Profile Picture
+              </label>
+              <input
+                type="file"
+                name="profilePicture"
+                onChange={handleChange}
+                accept="image/*"
+                className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
 
