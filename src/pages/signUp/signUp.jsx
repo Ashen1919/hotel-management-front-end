@@ -85,13 +85,10 @@ export default function SignUpPage() {
         import.meta.env.VITE_BACKEND_URL + "/api/users/signup",
         signUpInfo
       );
-
-      if (apiResponse.status === 201) {
+      
         toast.success("User created successfully!");
         navigate("/login");
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
+      
     } catch (error) {
       console.error("Signup failed:", error);
       toast.error("Signup failed. Please check your inputs and try again.");
