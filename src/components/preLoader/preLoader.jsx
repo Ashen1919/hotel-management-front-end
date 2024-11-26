@@ -1,5 +1,5 @@
 import React from "react";
-import './preloader.css'; // You can add custom styles for the preloader
+import './preloader.css'; 
 
 const Preloader = () => {
   return (
