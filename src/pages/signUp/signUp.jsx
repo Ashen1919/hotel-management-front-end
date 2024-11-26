@@ -52,7 +52,7 @@ export default function SignUpPage() {
     }
 
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match!");
+      toast.error("Passwords do not match please try again!");
       setIsLoading(false);
       return;
     }
