@@ -85,7 +85,7 @@ export default function SignUpPage() {
         email,
         password,
         whatsapp,
-        profileImage: imageUrl,
+        profilePicture: imageUrl,
       };
 
       const apiResponse = await axios.post(
