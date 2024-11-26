@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AiOutlineMail, AiOutlineLock, AiOutlineWhatsApp, AiOutlineArrowLeft } from "react-icons/ai";
+import {
+  AiOutlineMail,
+  AiOutlineLock,
+  AiOutlineWhatsApp,
+  AiOutlineArrowLeft,
+} from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -32,7 +37,9 @@ export default function SignUpPage() {
   };
 
   const getFileUrl = (fileId) => {
-    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
+    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${
+      import.meta.env.VITE_BUCKET_ID
+    }/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
   };
 
   const handleChange = (e) => {
@@ -85,13 +92,15 @@ export default function SignUpPage() {
         import.meta.env.VITE_BACKEND_URL + "/api/users/signup",
         signUpInfo
       );
-      
-        toast.success("User created successfully!");
-        navigate("/login");
-      
+
+      toast.success("User created successfully!");
+      navigate("/login");
     } catch (error) {
-      console.error("Signup failed:", error);
-      toast.error("Signup failed. Please check your inputs and try again.");
+      console.error("API call failed:", error.response || error);
+
+      const errorMessage =
+        error.response?.data?.message || "Signup failed. Please try again.";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -260,11 +269,12 @@ export default function SignUpPage() {
               type="submit"
               className="w-full p-3 text-white bg-purple-600 hover:bg-purple-700 rounded"
               disabled={isLoading}
-            >{isLoading ? (
-              <div className="border-white border-t-2 w-[20px] min-h-[20px] rounded-full animate-spin"></div>
-            ) : (
-              <span>Register Now</span>
-            )}
+            >
+              {isLoading ? (
+                <div className="border-white border-t-2 w-[20px] min-h-[20px] rounded-full animate-spin"></div>
+              ) : (
+                <span>Register Now</span>
+              )}
             </button>
             <p className="mt-4 text-center text-sm text-gray-600">
               Already have an account?{" "}
