@@ -11,9 +11,10 @@ export default function LoginPage() {
             email: email,
             password: password
         }).then((result) => {
+            console.log("User type:", result.data.user.type);
             localStorage.setItem("token", result.data.token)
             if(result.data.user.type == "customer"){
-                window.location.href = "/"
+                window.location.href = "/*"
             }
             else if(result.data.user.type == "admin"){
                 window.location.href = "/admin"
