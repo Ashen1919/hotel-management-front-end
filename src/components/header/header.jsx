@@ -152,7 +152,7 @@ function Header() {
             Login
           </button>
           </Link>
-          <Link to={'/'}>
+          <Link to={'/signup'}>
           <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
             Sign Up
           </button>
