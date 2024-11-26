@@ -103,7 +103,7 @@ export default function SignUpPage() {
             error.response?.data?.message || "Signup failed. Please try again.";
 
         // Check if it's a duplicate email error
-        if (status === 400 && errorMessage.includes("Email is already in use")) {
+        if (status === 500 && errorMessage.includes("Email is already in use")) {
             toast.error("This email is already registered. Please try logging in.");
         } else {
             toast.error(errorMessage);
