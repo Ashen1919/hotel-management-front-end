@@ -48,7 +48,7 @@ export default function SignUpPage() {
       const fileId = response.$id;
       const imageUrl = getFileUrl(fileId);
 
-      const categoryInfo = {
+      const signUpInfo = {
         fname: firstName,
         lName : lastName,
         email : email,
@@ -59,7 +59,7 @@ export default function SignUpPage() {
       };
       axios.post(
         import.meta.env.VITE_BACKEND_URL + "/api/users/signup",
-        categoryInfo,
+        signUpInfo,
       );
       
       console.log("File uploaded successfully:", imageUrl);
