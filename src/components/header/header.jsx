@@ -19,24 +19,70 @@ function Header() {
     const token = localStorage.getItem("token");
 
     if (token && storedName) {
-      setIsLoggedIn(true); 
-      setName(storedName); 
+      setIsLoggedIn(true);
+      setName(storedName);
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); 
-    localStorage.removeItem("name"); 
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
     setIsLoggedIn(false);
     setName("");
-    navigate("/"); 
+    navigate("/");
   };
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   return (
-    <header className="bg-gray-800 p-4 text-white flex justify-between items-center">
-      <h1 className="text-2xl font-bold">EverPeak Lodge</h1>
+    <header className="w-full h-[60px] bg-gray-800 flex items-center justify-between px-6 md:h-[70px]">
+      {/* Logo */}
+      <div className="flex items-center">
+        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <img
+            src="https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/674442ad003129203858/view?project=672a1dc2000b4396bb7d&mode=admin"
+            className="h-10 md:h-[90px]"
+            alt="EverPeak Logo"
+          />
+          <span className="self-center text-xl md:text-2xl font-semibold whitespace-nowrap text-white">
+            EverPeak Lodge
+          </span>
+        </a>
+      </div>
+      {/* Navigation Links */}
+      <nav className="hidden lg:flex space-x-8">
+        <a
+          href="#home"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          Home
+        </a>
+        <a
+          href="#about"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          About
+        </a>
+        <a
+          href="#rooms"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          Rooms
+        </a>
+        <a
+          href="#gallery"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          Gallery
+        </a>
+        <a
+          href="#contact"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          Contact
+        </a>
+      </nav>
+
       <div className="relative">
         {isLoggedIn ? (
           <span
@@ -47,9 +93,20 @@ function Header() {
             <FaChevronDown />
           </span>
         ) : (
-          <Link to="/login" className="text-white">
-            Login
-          </Link>
+          <>
+            <div className="flex space-x-4">
+              <Link to="/login">
+                <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
+                  Login
+                </button>
+              </Link>
+              <Link to="/signup">
+                <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
+                  Sign Up
+                </button>
+              </Link>
+            </div>
+          </>
         )}
         {isLoggedIn && isDropdownOpen && (
           <div className="absolute right-0 mt-2 bg-gray-700 text-white rounded-lg shadow-lg p-4">
