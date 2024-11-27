@@ -1,36 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  FaChevronDown,
-  FaRegCalendarAlt,
-  FaUser,
-  FaCog,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import axios from "axios";
+import { FaChevronDown } from "react-icons/fa";
 
 function Header() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(true); // New loading state
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedName = localStorage.getItem("name");
     const token = localStorage.getItem("token");
-
-    if (token && storedName) {
-      setIsLoggedIn(true);
-      setName(storedName);
+    if (token !== null) {
+      axios
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/", {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setName(res.data.user.firstName);
+          setIsLoggedIn(true);
+        })
+        .catch((err) => {
+          console.error("User not found!", err);
+          setIsLoggedIn(false); // Handle invalid token scenario
+        })
+        .finally(() => {
+          setIsLoading(false); // Set loading to false after fetching
+        });
+    } else {
+      setIsLoggedIn(false); // No token, so user is not logged in
+      setIsLoading(false); // Set loading to false
     }
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("name");
     setIsLoggedIn(false);
     setName("");
     navigate("/");
   };
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
@@ -49,6 +65,7 @@ function Header() {
           </span>
         </a>
       </div>
+
       {/* Navigation Links */}
       <nav className="hidden lg:flex space-x-8">
         <a
@@ -83,32 +100,20 @@ function Header() {
         </a>
       </nav>
 
-      <div className="relative">
-        {isLoggedIn ? (
-          <span
-            className="cursor-pointer flex items-center"
-            onClick={toggleDropdown}
-          >
-            <span className="mr-2">Welcome, {name}</span>
-            <FaChevronDown />
-          </span>
-        ) : (
-          <>
-            <div className="flex space-x-4">
-              <Link to="/login">
-                <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
-                  Login
-                </button>
-              </Link>
-              <Link to="/signup">
-                <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
-                  Sign Up
-                </button>
-              </Link>
-            </div>
-          </>
-        )}
-        {isLoggedIn && isDropdownOpen && (
+      {/* User Dropdown or Buttons */}
+      <div className="hidden lg:flex items-center space-x-4">
+        {isLoading ? ( 
+          <span className="text-white">Loading...</span>
+        ) : isLoggedIn ? (
+          <div className="relative flex items-center">
+            <span
+              className="text-white ml-2 cursor-pointer flex items-center space-x-1"
+              onClick={toggleDropdown}
+            >
+              <span className="text-xl">{"Welcome " + name}</span>
+              <FaChevronDown className="text-white" />
+            </span>
+            {isLoggedIn && isDropdownOpen && (
           <div className="absolute right-0 mt-2 bg-gray-700 text-white rounded-lg shadow-lg p-4">
             <Link
               to="/bookings"
@@ -139,6 +144,21 @@ function Header() {
               Log Out
             </button>
           </div>
+        )}
+          </div>
+        ) : (
+          <>
+            <Link to="/login">
+              <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
+                Login
+              </button>
+            </Link>
+            <Link to="/signup">
+              <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
+                Sign Up
+              </button>
+            </Link>
+          </>
         )}
       </div>
     </header>
