@@ -50,7 +50,7 @@ export default function LoginPage() {
         <span className="ml-2 text-sm font-medium">Back</span>
       </button>
 
-      <div className="w-[400px] bg-white p-8 rounded-lg shadow-lg relative z-10 backdrop-blur-md">
+      <div className="w-[350px] md:w-[400px] bg-white p-8 rounded-lg shadow-lg relative z-10 backdrop-blur-md">
         <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">
           Login
         </h2>
