@@ -53,65 +53,65 @@ export default function SignUpPage() {
     setIsLoading(true);
 
     if (!termsAccepted) {
-        toast.error("Please accept the Terms of Use and Privacy Policy.");
-        setIsLoading(false);
-        return;
+      toast.error("Please accept the Terms of Use and Privacy Policy.");
+      setIsLoading(false);
+      return;
     }
 
     if (password !== confirmPassword) {
-        toast.error("Passwords do not match. Please try again!");
-        setIsLoading(false);
-        return;
+      toast.error("Passwords do not match. Please try again!");
+      setIsLoading(false);
+      return;
     }
 
     if (!image) {
-        toast.error("Please upload a profile picture.");
-        setIsLoading(false);
-        return;
+      toast.error("Please upload a profile picture.");
+      setIsLoading(false);
+      return;
     }
 
     try {
-        const response = await storage.createFile(
-            import.meta.env.VITE_BUCKET_ID,
-            ID.unique(),
-            image
-        );
-        const fileId = response.$id;
-        const imageUrl = getFileUrl(fileId);
+      const response = await storage.createFile(
+        import.meta.env.VITE_BUCKET_ID,
+        ID.unique(),
+        image
+      );
+      const fileId = response.$id;
+      const imageUrl = getFileUrl(fileId);
 
-        const signUpInfo = {
-            firstName,
-            lastName,
-            email,
-            password,
-            whatsapp,
-            profilePicture: imageUrl,
-        };
+      const signUpInfo = {
+        firstName,
+        lastName,
+        email,
+        password,
+        whatsapp,
+        profilePicture: imageUrl,
+      };
 
-        const apiResponse = await axios.post(
-            import.meta.env.VITE_BACKEND_URL + "/api/users/signup",
-            signUpInfo
-        );
+      const apiResponse = await axios.post(
+        import.meta.env.VITE_BACKEND_URL + "/api/users/signup",
+        signUpInfo
+      );
 
-        toast.success("User created successfully!");
-        navigate("/login");
+      toast.success("User created successfully!");
+      navigate("/login");
     } catch (error) {
-        console.error("API call failed:", error.response || error);
+      console.error("API call failed:", error.response || error);
 
-        const status = error.response?.status;
-        const errorMessage =
-            error.response?.data?.message || "Signup failed. Please try again.";
+      const status = error.response?.status;
+      const errorMessage =
+        error.response?.data?.message || "Signup failed. Please try again.";
 
-        // Check if it's a duplicate email error
-        if (status === 500 && errorMessage.includes("Email is already in use")) {
-            toast.error("This email is already registered. Please try logging in.");
-        } else {
-            toast.error(errorMessage);
-        }
+      // Check if it's a duplicate email error
+      if (status === 500 && errorMessage.includes("Email is already in use")) {
+        toast.error("This email is already registered. Please try logging in.");
+      } else {
+        toast.error(errorMessage);
+      }
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
-}
+  }
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-r from-purple-400 to-blue-500">
@@ -275,15 +275,18 @@ export default function SignUpPage() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full p-3 text-white bg-purple-600 hover:bg-purple-700 rounded"
+              className="w-full p-3 text-white bg-purple-600 hover:bg-purple-700 rounded flex items-center justify-center"
               disabled={isLoading}
             >
               {isLoading ? (
-                <div className="border-white border-t-2 w-[20px] min-h-[20px] rounded-full animate-spin items-center justify-center"></div>
+                <div className="flex items-center justify-center">
+                  <div className="border-white border-t-2 w-[20px] h-[20px] rounded-full animate-spin"></div>
+                </div>
               ) : (
                 <span>Register Now</span>
               )}
             </button>
+
             <p className="mt-4 text-center text-sm text-gray-600">
               Already have an account?{" "}
               <a href="/login" className="text-purple-600 hover:underline">
