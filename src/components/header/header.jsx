@@ -1,48 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function Header() {
+function Header(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({ name: "", image: "" });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const[name, setName] = useState("")
+  const [userFound, setUserFound] = useState(false)
   const navigate = useNavigate();
 
-  // Check if user is logged in on component mount
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // Fetch user data using token
-      fetchUserData(token);
-      setIsLoggedIn(true);
+  useEffect(()=>{
+    const token = localStorage.getItem("token")
+    if(token != null){
+        console.log(token)
+        axios.get(import.meta.env.VITE_BACKEND_URL+"/api/users/", {
+            headers: {
+                Authorization: "Bearer "+ token,
+                "Content-Type": "application/json",
+            },
+        }).then((res)=>{
+            console.log(res)
+            setName(res.data.user.firstName+ " "+ res.data.user.lastName);
+            setUserFound(true);
+        })
+    }else{
+        setName("");
     }
-  }, []);
+  }, [userFound]);
 
-  const fetchUserData = (token) => {
-    // Replace with your API endpoint for fetching user data
-    fetch(import.meta.env.VITE_BACKEND_URL + "/api/users", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUser({
-          name: `${data.user.firstName} ${data.user.lastName}`,
-          image: data.user.profilePicture || "/default-avatar.png", // Fallback image
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-        setIsLoggedIn(false);
-      });
-  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate("/login"); // Redirect to login page after logout
+    navigate("/"); 
   };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -104,7 +95,7 @@ function Header() {
         {isLoggedIn ? (
           <div className="relative flex items-center">
             <img
-              src={user.image}
+              src={props.imageLink}
               alt="User Avatar"
               className="w-10 h-10 rounded-full cursor-pointer"
               onClick={toggleDropdown}
@@ -113,7 +104,7 @@ function Header() {
               className="text-white ml-2 cursor-pointer"
               onClick={toggleDropdown}
             >
-              {user.name}
+              {name}
             </span>
             {isDropdownOpen && (
               <div className="absolute top-[50px] right-0 bg-gray-700 text-white rounded-lg shadow-lg p-4">
