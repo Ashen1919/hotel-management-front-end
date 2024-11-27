@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown,FaRegCalendarAlt,FaUser,FaCog,FaSignOutAlt, } from "react-icons/fa";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
