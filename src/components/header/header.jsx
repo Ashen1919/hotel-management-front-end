@@ -6,34 +6,41 @@ function Header(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const[name, setName] = useState("")
-  const [userFound, setUserFound] = useState(false)
+  const [name, setName] = useState("");
+  const [userFound, setUserFound] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    const token = localStorage.getItem("token")
-    if(token != null){
-        console.log(token)
-        axios.get(import.meta.env.VITE_BACKEND_URL+"/api/users/", {
-            headers: {
-                Authorization: "Bearer "+ token,
-                "Content-Type": "application/json",
-            },
-        }).then((res)=>{
-            console.log(res)
-            setName(res.data.user.firstName+ " "+ res.data.user.lastName);
-            setUserFound(true);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      console.log(token);
+      axios
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/", {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
         })
-    }else{
-        setName("");
+        .then((res) => {
+          console.log(res);
+          setName(res.data.user.firstName + " " + res.data.user.lastName);
+          setIsLoggedIn(true); // Set user as logged in
+          setUserFound(true);
+        })
+        .catch((err) => {
+          console.error("User not found!", err);
+          setIsLoggedIn(false); // Handle invalid token scenario
+        });
+    } else {
+      setIsLoggedIn(false); // No token, so user is not logged in
     }
-  }, [userFound]);
-
+  }, [userFound]); // Runs when the userFound state changes
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate("/"); 
+    setName(""); // Clear the user name on logout
+    navigate("/");
   };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
