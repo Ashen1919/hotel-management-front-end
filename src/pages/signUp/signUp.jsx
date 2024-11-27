@@ -134,7 +134,7 @@ export default function SignUpPage() {
         <span className="ml-2 text-sm font-medium">Back</span>
       </button>
       <ToastContainer />
-      <div className="flex w-3/4 max-w-4xl overflow-hidden rounded-lg bg-white shadow-lg relative z-10">
+      <div className="flex w-[370px] md:w-3/4 max-w-4xl overflow-hidden rounded-lg bg-white shadow-lg relative z-10">
         {/* Left Section */}
         <div
           className="w-1/2 bg-cover bg-center relative hidden lg:block"
