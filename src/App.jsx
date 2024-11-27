@@ -6,6 +6,8 @@ import SignUpPage from "./pages/signUp/signUp.jsx";
 import CategoriesPage from "./pages/client-page/categories.jsx";
 import { Toaster } from "react-hot-toast";
 
+
+
 function App() {
   return (
     <BrowserRouter>
