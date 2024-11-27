@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaArrowDown } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(true); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,15 +23,19 @@ function Header() {
         })
         .then((res) => {
           console.log(res);
-          setName(res.data.user.firstName );
+          setName(res.data.user.firstName);
           setIsLoggedIn(true);
         })
         .catch((err) => {
           console.error("User not found!", err);
-          setIsLoggedIn(false); // Handle invalid token scenario
+          setIsLoggedIn(false); 
+        })
+        .finally(() => {
+          setIsLoading(false); 
         });
     } else {
-      setIsLoggedIn(false); // No token, so user is not logged in
+      setIsLoggedIn(false); 
+      setIsLoading(false); 
     }
   }, []);
 
@@ -61,8 +66,8 @@ function Header() {
         </a>
       </div>
 
-       {/* Navigation Links */}
-       <nav className="hidden lg:flex space-x-8">
+      {/* Navigation Links */}
+      <nav className="hidden lg:flex space-x-8">
         <a
           href="#home"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
@@ -95,16 +100,18 @@ function Header() {
         </a>
       </nav>
 
-      {/* User Dropdown */}
+      {/* User Dropdown or Buttons */}
       <div className="hidden lg:flex items-center space-x-4">
-        {isLoggedIn ? (
+        {isLoading ? ( 
+          <span className="text-white">Loading...</span>
+        ) : isLoggedIn ? (
           <div className="relative flex items-center">
             <span
-              className="text-white ml-2 cursor-pointer"
+              className="text-white ml-2 cursor-pointer flex items-center space-x-1"
               onClick={toggleDropdown}
             >
-              {"Welcome " + name}
-              <FaArrowDown/>
+              <span className="text-xl">{"Welcome " + name}</span>
+              <FaChevronDown className="text-white" />
             </span>
             {isDropdownOpen && (
               <div className="absolute top-[50px] right-0 bg-gray-700 text-white rounded-lg shadow-lg p-4">
