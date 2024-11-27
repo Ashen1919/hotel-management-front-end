@@ -114,7 +114,7 @@ function Header() {
               <FaChevronDown className="text-white" />
             </span>
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-5 bg-gray-700 text-white rounded-lg shadow-lg p-4">
+              <div className="absolute top-[50px] right-0 bg-gray-700 text-white rounded-lg shadow-lg p-4">
               <Link
                 to="/bookings"
                 className="flex items-center py-2 hover:text-red-500"
