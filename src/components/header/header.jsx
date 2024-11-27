@@ -102,7 +102,7 @@ function Header() {
 
       {/* User Dropdown or Buttons */}
       <div className="hidden lg:flex items-center space-x-4">
-        {isLoading ? ( 
+        {isLoading ? ( // Show loading state while fetching data
           <span className="text-white">Loading...</span>
         ) : isLoggedIn ? (
           <div className="relative flex items-center">
@@ -113,38 +113,25 @@ function Header() {
               <span className="text-xl">{"Welcome " + name}</span>
               <FaChevronDown className="text-white" />
             </span>
-            {isLoggedIn && isDropdownOpen && (
-          <div className="absolute right-0 mt-2 bg-gray-700 text-white rounded-lg shadow-lg p-4">
-            <Link
-              to="/bookings"
-              className="flex items-center py-2 hover:text-red-500"
-            >
-              <FaRegCalendarAlt className="mr-2" />
-              Bookings
-            </Link>
-            <Link
-              to="/profile"
-              className="flex items-center py-2 hover:text-red-500"
-            >
-              <FaUser className="mr-2" />
-              Profile
-            </Link>
-            <Link
-              to="/settings"
-              className="flex items-center py-2 hover:text-red-500"
-            >
-              <FaCog className="mr-2" />
-              Settings
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="flex items-center w-full text-left py-2 hover:text-red-500"
-            >
-              <FaSignOutAlt className="mr-2" />
-              Log Out
-            </button>
-          </div>
-        )}
+            {isDropdownOpen && (
+              <div className="absolute top-[50px] right-0 bg-gray-700 text-white rounded-lg shadow-lg p-4">
+                <Link to="/bookings" className="block py-2 hover:text-red-500">
+                  Bookings
+                </Link>
+                <Link to="/profile" className="block py-2 hover:text-red-500">
+                  Profile
+                </Link>
+                <Link to="/settings" className="block py-2 hover:text-red-500">
+                  Settings
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left py-2 hover:text-red-500"
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <>
