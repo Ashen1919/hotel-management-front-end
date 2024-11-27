@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Client, Storage, ID } from "appwrite";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const client = new Client()
   .setEndpoint(import.meta.env.VITE_ENDPOINT)
@@ -10,6 +11,7 @@ const client = new Client()
 const storage = new Storage(client);
 
 export default function AddCategoryForm() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [features, setFeatures] = useState("");
@@ -70,6 +72,7 @@ export default function AddCategoryForm() {
       console.log("File uploaded successfully:", imageUrl);
 
       toast.success("Category added successfully!");
+      navigate('/categories');
     } catch (error) {
       console.error("File upload failed:", error);
       toast.error("File upload failed.");

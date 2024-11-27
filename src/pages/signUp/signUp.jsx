@@ -65,6 +65,13 @@ export default function SignUpPage() {
       setIsLoading(false);
       return;
     }
+
+    if (!image) {
+      toast.error("Please upload a profile picture.");
+      setIsLoading(false);
+      return;
+    }
+    
   
     // Check the file type and size (e.g., allow only image files under 2MB)
     const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -91,7 +98,6 @@ export default function SignUpPage() {
       // Get the file ID and generate the URL
       const fileId = response.$id;
       const imageUrl = getFileUrl(fileId);
-      console.log(imageUrl);  // Optional: for debugging
   
       // Prepare the sign-up data
       const signUpInfo = {
@@ -110,6 +116,7 @@ export default function SignUpPage() {
       );
   
       toast.success("User created successfully!");
+      console.log("File uploaded successfully:", imageUrl);
       navigate("/login");
   
     } catch (error) {
