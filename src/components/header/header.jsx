@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaArrowDown } from "react-icons/fa";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [name, setName] = useState("");
-  const [profileImage, setProfileImage] = useState(""); // Add profileImage state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,8 +22,7 @@ function Header() {
         })
         .then((res) => {
           console.log(res);
-          setName(res.data.user.firstName + " " + res.data.user.lastName);
-          setProfileImage(res.data.user.profileImage); // Set profile image
+          setName(res.data.user.firstName );
           setIsLoggedIn(true);
         })
         .catch((err) => {
@@ -39,7 +38,6 @@ function Header() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setName("");
-    setProfileImage(""); // Clear profile image on logout
     navigate("/");
   };
 
@@ -63,21 +61,50 @@ function Header() {
         </a>
       </div>
 
+       {/* Navigation Links */}
+       <nav className="hidden lg:flex space-x-8">
+        <a
+          href="#home"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          Home
+        </a>
+        <a
+          href="#about"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          About
+        </a>
+        <a
+          href="#rooms"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          Rooms
+        </a>
+        <a
+          href="#gallery"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          Gallery
+        </a>
+        <a
+          href="#contact"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          Contact
+        </a>
+      </nav>
+
       {/* User Dropdown */}
       <div className="hidden lg:flex items-center space-x-4">
         {isLoggedIn ? (
           <div className="relative flex items-center">
-            <img
-              src={profileImage} // Use the profileImage state here
-              alt="User Avatar"
-              className="w-10 h-10 rounded-full cursor-pointer"
-              onClick={toggleDropdown}
-            />
             <span
               className="text-white ml-2 cursor-pointer"
               onClick={toggleDropdown}
             >
-              {name}
+              {"Welcome " + name}
+              <FaArrowDown/>
             </span>
             {isDropdownOpen && (
               <div className="absolute top-[50px] right-0 bg-gray-700 text-white rounded-lg shadow-lg p-4">
