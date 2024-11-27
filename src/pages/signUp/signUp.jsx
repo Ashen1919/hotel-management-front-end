@@ -51,62 +51,73 @@ export default function SignUpPage() {
   async function handleForm(e) {
     e.preventDefault();
     setIsLoading(true);
-
+  
+    // Check if terms are accepted
     if (!termsAccepted) {
       toast.error("Please accept the Terms of Use and Privacy Policy.");
       setIsLoading(false);
       return;
     }
-
+  
+    // Check if passwords match
     if (password !== confirmPassword) {
       toast.error("Passwords do not match. Please try again!");
       setIsLoading(false);
       return;
     }
-
-    if (!image) {
-      const defaultImage = "https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/674578c80028b7645a44/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin";
-      
-      setImage(defaultImage);
-      
+  
+    // Check the file type and size (e.g., allow only image files under 2MB)
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const maxSize = 4 * 1024 * 1024; 
+    if (!validImageTypes.includes(image.type)) {
+      toast.error("Invalid image type. Please upload a JPEG, PNG, or GIF.");
       setIsLoading(false);
       return;
     }
-    
-
+    if (image.size > maxSize) {
+      toast.error("Image file is too large. Please upload a file smaller than 2MB.");
+      setIsLoading(false);
+      return;
+    }
+  
     try {
+      // Upload the image to Appwrite
       const response = await storage.createFile(
         import.meta.env.VITE_BUCKET_ID,
         ID.unique(),
         image
       );
+  
+      // Get the file ID and generate the URL
       const fileId = response.$id;
       const imageUrl = getFileUrl(fileId);
-
+      console.log(imageUrl);  // Optional: for debugging
+  
+      // Prepare the sign-up data
       const signUpInfo = {
         firstName,
         lastName,
         email,
         password,
         whatsapp,
-        profilePicture: imageUrl,
+        profileImage: imageUrl,  // Store the image URL here
       };
-
+  
+      // Send the sign-up data to your backend
       const apiResponse = await axios.post(
         import.meta.env.VITE_BACKEND_URL + "/api/users/signup",
         signUpInfo
       );
-
+  
       toast.success("User created successfully!");
       navigate("/login");
+  
     } catch (error) {
       console.error("API call failed:", error.response || error);
-
       const status = error.response?.status;
       const errorMessage =
         error.response?.data?.message || "Signup failed. Please try again.";
-
-      // Check if it's a duplicate email error
+  
       if (status === 500 && errorMessage.includes("Email is already in use")) {
         toast.error("This email is already registered. Please try logging in.");
       } else {
@@ -116,6 +127,7 @@ export default function SignUpPage() {
       setIsLoading(false);
     }
   }
+  
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-r from-purple-400 to-blue-500">
