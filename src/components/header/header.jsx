@@ -102,7 +102,7 @@ function Header(props) {
         {isLoggedIn ? (
           <div className="relative flex items-center">
             <img
-              src={props.imageLink}
+              src={props.profileImage}
               alt="User Avatar"
               className="w-10 h-10 rounded-full cursor-pointer"
               onClick={toggleDropdown}
