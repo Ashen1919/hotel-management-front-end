@@ -11,7 +11,8 @@ import {
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Desktop Dropdown
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false); // Mobile Dropdown
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -54,6 +55,8 @@ function Header() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const toggleMobileDropdown = () => setIsMobileDropdownOpen(!isMobileDropdownOpen);
 
   return (
     <header className="w-full h-[60px] bg-gray-800 flex items-center justify-between px-6 md:h-[70px]">
@@ -107,7 +110,7 @@ function Header() {
 
       {/* User Dropdown or Buttons */}
       <div className="hidden lg:flex items-center space-x-4">
-        {isLoading ? ( // Show loading state while fetching data
+        {isLoading ? (
           <span className="text-white">Loading...</span>
         ) : isLoggedIn ? (
           <div className="relative flex items-center">
@@ -199,7 +202,11 @@ function Header() {
 
       {/* Mobile Navigation Links */}
       {isMenuOpen && (
-        <nav className="absolute top-[90px] left-0 w-full bg-gray-800 flex flex-col items-center space-y-4 p-4 lg:hidden">
+        <nav
+          className={`fixed z-10 top-[90px] right-0 w-[200px] h-[330px] bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden transform ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          } transition-transform ease-in-out duration-300`}
+        >
           <a href="#home" className="text-white text-lg hover:text-red-500">
             Home
           </a>
@@ -215,115 +222,35 @@ function Header() {
           <a href="#contact" className="text-white text-lg hover:text-red-500">
             Contact
           </a>
-
-          {/* Conditional Rendering for Authenticated Users */}
-          {isLoggedIn ? (
-            <div className="relative flex flex-col items-center space-y-4 mt-6">
-              <button
-                className="text-white flex items-center space-x-1"
-                onClick={toggleDropdown}
-              >
-                <span className="text-lg">{"Welcome " + name}</span>
-                <FaChevronDown />
-              </button>
-              {isDropdownOpen && (
-                <div className="w-full bg-gray-700 text-white rounded-lg shadow-lg mt-2 p-4">
-                  <Link
-                    to="/bookings"
-                    className="block py-2 hover:text-red-500 text-center"
-                  >
-                    <FaRegCalendarAlt className="inline-block mr-2" />
-                    Bookings
-                  </Link>
-                  <Link
-                    to="/profile"
-                    className="block py-2 hover:text-red-500 text-center"
-                  >
-                    <FaUser className="inline-block mr-2" />
-                    Profile
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full py-2 hover:text-red-500 text-center"
-                  >
-                    <FaSignOutAlt className="inline-block mr-2" />
-                    Log Out
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex flex-col items-center space-y-4 mt-6">
+          <div className="w-full mt-6">
+            {isLoggedIn ? (
+              <div className="flex flex-col items-center space-y-4">
+                <span className="text-white text-xl">Welcome {name}</span>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white px-4 py-2 rounded-md"
+                >
+                  Log Out
+                </button>
+              </div>
+            ) : (
+              <>
+              <div className="flex flex-col items-center justify-center space-y-3">
               <Link to="/login">
-                <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
-                  Login
-                </button>
-              </Link>
-              <Link to="/signup">
-                <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
-                  Sign Up
-                </button>
-              </Link>
-            </div>
-          )}
+                  <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
+                    Login
+                  </button>
+                </Link>
+                <Link to="/signup">
+                  <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
+                    Sign Up
+                  </button>
+                </Link>
+              </div>
+              </>
+            )}
+          </div>
         </nav>
-      )}
-
-      {/* User Dropdown or Buttons */}
-      {isLoggedIn && (
-        <div className="hidden lg:flex items-center space-x-4">
-          {isLoading ? ( // Show loading state while fetching data
-            <span className="text-white">Loading...</span>
-          ) : isLoggedIn ? (
-            <div className="relative flex items-center">
-              <span
-                className="text-white ml-2 cursor-pointer flex items-center space-x-1"
-                onClick={toggleDropdown}
-              >
-                <span className="text-xl">{"Welcome " + name}</span>
-                <FaChevronDown className="text-white" />
-              </span>
-              {isDropdownOpen && (
-                <div className="absolute top-[50px] right-0 bg-gray-700 text-white rounded-lg shadow-lg p-4">
-                  <Link
-                    to="/bookings"
-                    className="flex items-center py-2 hover:text-red-500"
-                  >
-                    <FaRegCalendarAlt className="mr-2" />
-                    Bookings
-                  </Link>
-                  <Link
-                    to="/profile"
-                    className="flex items-center py-2 hover:text-red-500"
-                  >
-                    <FaUser className="mr-2" />
-                    Profile
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center w-full text-left py-2 hover:text-red-500"
-                  >
-                    <FaSignOutAlt className="mr-2" />
-                    Log Out
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <>
-              <Link to="/login">
-                <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
-                  Login
-                </button>
-              </Link>
-              <Link to="/signup">
-                <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
-                  Sign Up
-                </button>
-              </Link>
-            </>
-          )}
-        </div>
       )}
     </header>
   );
