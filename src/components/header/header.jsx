@@ -222,7 +222,7 @@ function Header() {
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           } transition-transform ease-in-out duration-300`}
         >
-          <a href="#home" className="text-white text-lg hover:text-red-500">
+          <a href="/" className="text-white text-lg hover:text-red-500">
             Home
           </a>
           <a href="#about" className="text-white text-lg hover:text-red-500">

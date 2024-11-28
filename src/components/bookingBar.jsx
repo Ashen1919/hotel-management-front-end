@@ -14,7 +14,7 @@ export default function BookingBar() {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/category");
-        setCategories(response.data);
+        setCategories(response.data.categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -32,7 +32,7 @@ export default function BookingBar() {
   };
 
   return (
-    <div className="bg-gray-100 my-3 py-4 w-[350px] md:w-[800px] lg:w-[850px] booking" id="booking">
+    <div className="my-3 py-4 w-[350px] md:w-[800px] lg:w-[850px] booking" id="booking">
       <div className="flex flex-col md:flex-row items-center justify-center bg-white shadow-lg p-4 rounded-lg space-y-4 md:space-y-0 md:space-x-8 border-4 border-sky-500 md:rounded-l-full md:rounded-r-full">
         
         {/* Check-in Date */}
