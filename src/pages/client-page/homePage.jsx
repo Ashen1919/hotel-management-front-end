@@ -3,6 +3,7 @@ import Header from "../../components/header/header.jsx";
 import TopBar from "../../components/topBar/topBar.jsx";
 import PreLoader from "../../components/preLoader/preLoader.jsx";
 import HomeContent from "./homeContent.jsx";
+import BookingBar from "../../components/bookingBar.jsx";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +23,7 @@ export default function HomePage() {
             <TopBar />
             <Header />
             <HomeContent/>
+            <BookingBar/>
           </div>
         )}
       </div>

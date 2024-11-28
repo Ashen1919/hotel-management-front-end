@@ -15,7 +15,18 @@ function Header() {
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false); // Mobile Dropdown
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50); // Set scroll threshold
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -59,7 +70,11 @@ function Header() {
   const toggleMobileDropdown = () => setIsMobileDropdownOpen(!isMobileDropdownOpen);
 
   return (
-    <header className="w-full h-[60px] bg-gray-800 flex items-center justify-between px-6 md:h-[70px]">
+    <header
+      className={`w-full h-[60px] sticky top-0 z-20 flex items-center justify-between px-6 md:h-[70px] transition-all ${
+        isScrolled ? "bg-gray-700 shadow-md" : "bg-gray-800"
+      }`}
+    >
       {/* Logo */}
       <div className="flex items-center">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -203,7 +218,7 @@ function Header() {
       {/* Mobile Navigation Links */}
       {isMenuOpen && (
         <nav
-          className={`fixed z-10 top-[90px] right-0 w-[200px] h-[330px] bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden transform ${
+          className={`fixed z-10 top-[50px] md:top-[90px] right-0 w-[200px] h-[330px] bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden transform ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           } transition-transform ease-in-out duration-300`}
         >
