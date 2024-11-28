@@ -72,7 +72,7 @@ function Header() {
   return (
     <header
       className={`w-full h-[60px] sticky top-0 z-20 flex items-center justify-between px-6 md:h-[70px] transition-all ${
-        isScrolled ? "bg-gray-700 shadow-md" : "bg-gray-800"
+        isScrolled ? "bg-black opacity-80 shadow-md" : "bg-gray-800"
       }`}
     >
       {/* Logo */}

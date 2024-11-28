@@ -14,7 +14,7 @@ export default function TopBar() {
   }, []);
 
   return (
-    <div className="w-full h-[30px] bg-red-500 flex items-center justify-between px-5 md:h-[45px]">
+    <div className="w-full h-[37px] bg-red-500 flex items-center justify-between py-1 px-5 md:h-[45px]">
       <div className="text-white text-sm font-medium md:text-lg">
         <span >{currentTime.toLocaleDateString()}</span>
         <span className="mx-3 md:mx-4">|</span>
