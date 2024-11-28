@@ -216,7 +216,44 @@ function Header() {
           <a href="#contact" className="text-white text-lg hover:text-red-500">
             Contact
           </a>
-          {!isLoggedIn && (
+
+          {/* Conditional Rendering for Authenticated Users */}
+          {isLoggedIn ? (
+            <div className="relative flex flex-col items-center space-y-4 mt-6">
+              <button
+                className="text-white flex items-center space-x-1"
+                onClick={toggleDropdown}
+              >
+                <span className="text-lg">{"Welcome " + name}</span>
+                <FaChevronDown />
+              </button>
+              {isDropdownOpen && (
+                <div className="w-full bg-gray-700 text-white rounded-lg shadow-lg mt-2 p-4">
+                  <Link
+                    to="/bookings"
+                    className="block py-2 hover:text-red-500 text-center"
+                  >
+                    <FaRegCalendarAlt className="inline-block mr-2" />
+                    Bookings
+                  </Link>
+                  <Link
+                    to="/profile"
+                    className="block py-2 hover:text-red-500 text-center"
+                  >
+                    <FaUser className="inline-block mr-2" />
+                    Profile
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left py-2 hover:text-red-500 text-center"
+                  >
+                    <FaSignOutAlt className="inline-block mr-2" />
+                    Log Out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
             <div className="flex flex-col items-center space-y-4 mt-6">
               <Link to="/login">
                 <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
@@ -234,7 +271,7 @@ function Header() {
       )}
 
       {/* User Dropdown or Buttons */}
-      {isLoggedIn && isMenuOpen && (
+      {isLoggedIn && (
         <div className="hidden lg:flex items-center space-x-4">
           {isLoading ? ( // Show loading state while fetching data
             <span className="text-white">Loading...</span>
