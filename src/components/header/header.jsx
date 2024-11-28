@@ -5,7 +5,6 @@ import {
   FaChevronDown,
   FaRegCalendarAlt,
   FaUser,
-  FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
 
@@ -245,7 +244,7 @@ function Header() {
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left py-2 hover:text-red-500 text-center"
+                    className="w-full py-2 hover:text-red-500 text-center"
                   >
                     <FaSignOutAlt className="inline-block mr-2" />
                     Log Out
