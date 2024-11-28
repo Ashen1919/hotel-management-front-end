@@ -24,15 +24,16 @@ export default function HomeContent() {
   }, [images.length]);
 
   return (
-    <div className="relative w-full h-[600px] mx-auto">
-      {/* Image Container */}
-      <div className="overflow-hidden h-[600px] relative">
+    <div className="relative w-full h-[600px] mx-auto overflow-hidden">
+      {/* Slide Container */}
+      <div
+        className="flex transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+      >
         {images.map((image, index) => (
           <div
             key={index}
-            className={`absolute w-full h-full transition-opacity duration-700 ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
-            }`}
+            className="w-full flex-shrink-0 h-[600px] relative"
           >
             {/* Background Image */}
             <img
@@ -53,7 +54,7 @@ export default function HomeContent() {
               <div className="mt-5">
                 <a href="/">
                   <button
-                    className="relative py-3 px-2 md:py-4 md:px-3 md:text-lg font-semibold text-white  bg-amber-500 rounded-md flex items-center space-x-2 hover:bg-amber-600 transition duration-300"
+                    className="relative py-3 px-4 md:py-4 md:px-6 md:text-lg font-semibold text-white bg-amber-500 rounded-md flex items-center space-x-2 hover:bg-transparent border-2 border-amber-500 hover:text-amber-500 transition duration-300"
                   >
                     <span>Let's Booking</span>
                     <BsBoxArrowInRight className="font-semibold" />
@@ -64,37 +65,6 @@ export default function HomeContent() {
           </div>
         ))}
       </div>
-
-      {/* Navigation Dots */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide ? "bg-blue-600" : "bg-gray-300"
-            }`}
-          ></button>
-        ))}
-      </div>
-
-      {/* Previous Button */}
-      <button
-        onClick={() =>
-          setCurrentSlide((prev) => (prev - 1 + images.length) % images.length)
-        }
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full focus:outline-none hover:bg-gray-600"
-      >
-        &#8249;
-      </button>
-
-      {/* Next Button */}
-      <button
-        onClick={() => setCurrentSlide((prev) => (prev + 1) % images.length)}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full focus:outline-none hover:bg-gray-600"
-      >
-        &#8250;
-      </button>
     </div>
   );
 }
