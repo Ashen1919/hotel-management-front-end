@@ -234,7 +234,7 @@ function Header() {
       )}
 
       {/* User Dropdown or Buttons */}
-      {isMenuOpen && (
+      {isLoggedIn && isMenuOpen && (
         <div className="hidden lg:flex items-center space-x-4">
           {isLoading ? ( // Show loading state while fetching data
             <span className="text-white">Loading...</span>
