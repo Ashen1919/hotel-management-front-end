@@ -24,10 +24,11 @@ export default function HomeContent() {
   }, [images.length]);
 
   return (
-    <div className="relative w-full h-[600px] mx-auto overflow-hidden">
+    <div className="relative w-full h-[600px] mx-auto ">
       {/* Slide Container */}
+      <div className="overflow-hidden">
       <div
-        className="flex transition-transform duration-700 ease-in-out"
+        className="flex transition-transform duration-700 ease-in-out "
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {images.map((image, index) => (
@@ -64,6 +65,7 @@ export default function HomeContent() {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );
