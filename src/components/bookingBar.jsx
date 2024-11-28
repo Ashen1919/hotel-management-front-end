@@ -13,8 +13,8 @@ export default function BookingBar() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/categories");
-        setCategories(response.data); 
+        const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/category");
+        setCategories(response.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
