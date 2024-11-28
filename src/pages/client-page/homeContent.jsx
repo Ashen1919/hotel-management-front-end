@@ -53,7 +53,7 @@ export default function HomeContent() {
                 Discover the perfect blend of comfort and nature.
               </p>
               <div className="mt-5">
-                <a href="/">
+                <a href="#booking">
                   <button
                     className="relative py-3 px-4 md:py-4 md:px-6 md:text-lg font-semibold text-white bg-amber-500 rounded-md flex items-center space-x-2 hover:bg-transparent border-2 border-amber-500 hover:text-amber-500 transition duration-300"
                   >

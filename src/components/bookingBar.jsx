@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios"; 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -6,6 +7,21 @@ export default function BookingBar() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]); 
+
+  // Fetch categories from the backend
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/categories");
+        setCategories(response.data); 
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleBooking = () => {
     if (startDate && endDate && category) {
@@ -16,43 +32,45 @@ export default function BookingBar() {
   };
 
   return (
-    <div className="bg-gray-100 py-4">
-      <div className="flex flex-col md:flex-row items-center justify-center bg-white shadow-lg p-4 rounded-lg max-w-4xl mx-auto space-y-4 md:space-y-0 md:space-x-4">
+    <div className="bg-gray-100 my-3 py-4 w-[350px] md:w-[800px] lg:w-[850px] booking" id="booking">
+      <div className="flex flex-col md:flex-row items-center justify-center bg-white shadow-lg p-4 rounded-lg space-y-4 md:space-y-0 md:space-x-8 border-4 border-sky-500 md:rounded-l-full md:rounded-r-full">
         
         {/* Check-in Date */}
         <div className="flex flex-col">
-          <label className="text-gray-600 mb-1">Check-in</label>
+          <label className="text-black mb-1">Check-in</label>
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
-            className="border rounded-lg p-2 w-40"
+            className="border-2 border-gray-400 rounded-lg p-2 w-full md:w-40"
             placeholderText="Select date"
           />
         </div>
 
         {/* Check-out Date */}
         <div className="flex flex-col">
-          <label className="text-gray-600 mb-1">Check-out</label>
+          <label className="text-black mb-1">Check-out</label>
           <DatePicker
             selected={endDate}
             onChange={(date) => setEndDate(date)}
-            className="border rounded-lg p-2 w-40"
+            className="border-2 border-gray-400 rounded-lg p-2 w-full md:w-40"
             placeholderText="Select date"
           />
         </div>
 
         {/* Category */}
         <div className="flex flex-col">
-          <label className="text-gray-600 mb-1">Category</label>
+          <label className="text-black mb-1">Category</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="border rounded-lg p-2 w-40"
+            className="border-2 border-gray-400 rounded-lg p-2 w-52 md:w-40"
           >
             <option value="">Select</option>
-            <option value="Single">Single</option>
-            <option value="Double">Double</option>
-            <option value="Suite">Suite</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
           </select>
         </div>
 
