@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BsBoxArrowInRight } from "react-icons/bs";
 
 export default function HomeContent() {
   // Images array
@@ -16,10 +17,10 @@ export default function HomeContent() {
   // Auto-slide effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length); 
-    }, 7000); 
+      setCurrentSlide((prev) => (prev + 1) % images.length);
+    }, 7000);
 
-    return () => clearInterval(interval); 
+    return () => clearInterval(interval);
   }, [images.length]);
 
   return (
@@ -27,14 +28,40 @@ export default function HomeContent() {
       {/* Image Container */}
       <div className="overflow-hidden h-[600px] relative">
         {images.map((image, index) => (
-          <img
+          <div
             key={index}
-            src={image}
-            alt={`Slide ${index + 1}`}
-            className={`absolute w-full h-full object-cover transition-opacity duration-700 ${
+            className={`absolute w-full h-full transition-opacity duration-700 ${
               index === currentSlide ? "opacity-100" : "opacity-0"
             }`}
-          />
+          >
+            {/* Background Image */}
+            <img
+              src={image}
+              alt={`Slide ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/70"></div>
+            {/* Text Content */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                Welcome to EverPeak Lodge
+              </h1>
+              <p className="text-lg md:text-xl">
+                Discover the perfect blend of comfort and nature.
+              </p>
+              <div className="mt-5">
+                <a href="/">
+                  <button
+                    className="relative py-3 px-2 md:py-4 md:px-3 md:text-lg font-semibold text-white  bg-amber-500 rounded-md flex items-center space-x-2 hover:bg-amber-600 transition duration-300"
+                  >
+                    <span>Let's Booking</span>
+                    <BsBoxArrowInRight className="font-semibold" />
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
 
