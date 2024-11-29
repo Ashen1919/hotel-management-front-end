@@ -25,6 +25,8 @@ import UpdateGalleryItemForm from "../admin/galleryItem/updateGalleryItem/update
 import { useState, useEffect } from "react";
 import { FaGear } from "react-icons/fa6";
 import axios from "axios";
+import AddRoomForm from "../admin/rooms/addRoom/addRoom.jsx";
+import UpdateRoomForm from "../admin/rooms/updateRoom/updateRoom.jsx";
 
 
 export default function AdminPage() {
@@ -199,14 +201,13 @@ export default function AdminPage() {
             <Route path="/add-categories" element={<AddCategoryForm />} />
             <Route path="/update-category" element={<UpdateCategoryForm />} />
             <Route path="/rooms" element={<AdminRooms />} />
+            <Route path="/add-room" element={<AddRoomForm/>}/>
+            <Route path="/update-room" element={<UpdateRoomForm/>}/>
             <Route path="/users" element={<AdminUsers />} />
             <Route path="/feedback" element={<AdminFeedback />} />
             <Route path="/galleryitems" element={<AdminGalleryItem />} />
             <Route path="/add-gallery-item" element={<AddGalleryItemForm />} />
-            <Route
-              path="/update-gallery-item"
-              element={<UpdateGalleryItemForm />}
-            />
+            <Route path="/update-gallery-item"element={<UpdateGalleryItemForm />}/>
             <Route path="/bookings" element={<AdminBooking />} />
             <Route path="/ticketing" element={<AdminTicketing />} />
           </Routes>
