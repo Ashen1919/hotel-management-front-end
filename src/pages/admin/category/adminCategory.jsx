@@ -66,15 +66,15 @@ export default function CategoriesPage() {
       >
         <FaPlus color="white" />
       </button>
-      <table className="w-full bg-white border border-gray-800 text-left">
+      <table className="w-full bg-white border border-gray-400 text-left">
         <thead>
           <tr className="bg-gray-200">
-            <th className="p-2 border border-gray-700 text-black">Name</th>
-            <th className="p-2 border border-gray-700 text-black">Description</th>
-            <th className="p-2 border border-gray-700 text-black">Price($)</th>
-            <th className="p-2 border border-gray-700 text-black">Image</th>
-            <th className="p-2 border border-gray-700 text-black">Features</th>
-            <th className="p-2 border border-gray-700 text-black">Action</th>
+            <th className="p-2 border border-gray-300 text-black">Name</th>
+            <th className="p-2 border border-gray-300 text-black">Description</th>
+            <th className="p-2 border border-gray-300 text-black">Price($)</th>
+            <th className="p-2 border border-gray-300 text-black">Image</th>
+            <th className="p-2 border border-gray-300 text-black">Features</th>
+            <th className="p-2 border border-gray-300 text-black">Action</th>
           </tr>
         </thead>
         <tbody>
