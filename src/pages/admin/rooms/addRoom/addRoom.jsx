@@ -77,7 +77,7 @@ export default function AddRoomForm() {
           Authorization: "Bearer " + token,
         },
       });
-
+      console.log("User:", req.user);
       toast.success("Room added successfully!");
       navigate("/rooms");
     } catch (error) {
