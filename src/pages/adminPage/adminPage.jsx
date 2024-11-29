@@ -25,6 +25,8 @@ import AddGalleryItemForm from "../admin/galleryItem/addGalleryItem/addGalleryIt
 import UpdateGalleryItemForm from "../admin/galleryItem/updateGalleryItem/updateGalleryItemForm.jsx";
 import { useState, useEffect } from "react";
 import { FaGear } from "react-icons/fa6";
+import axios from "axios";
+
 
 export default function AdminPage() {
   const navigate = useNavigate();
