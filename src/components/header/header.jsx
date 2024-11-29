@@ -7,6 +7,8 @@ import {
   FaUser,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { fadeIn } from "../variants";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -91,91 +93,82 @@ function Header() {
 
       {/* Navigation Links */}
       <nav className="hidden lg:flex space-x-8">
-        <a
-          href="#home"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
-        >
-          Home
-        </a>
-        <a
-          href="#about"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
-        >
-          About
-        </a>
-        <a
-          href="#rooms"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
-        >
-          Rooms
-        </a>
-        <a
-          href="#gallery"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
-        >
-          Gallery
-        </a>
-        <a
-          href="#contact"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-red-500 before:absolute before:left-0 before:bottom-0 before:transition-all hover:text-red-500 hover:before:w-full hover:before:h-[3px]"
-        >
-          Contact
-        </a>
-      </nav>
+      <motion.a
+        href="/"
+        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+      >
+        Home
+      </motion.a>
+      <motion.a
+        href="#about"
+        variants={fadeIn} 
+      initial="hidden"  
+      animate="show"  
+      whileHover="hover" 
+      whileTap="click"
+        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+      >
+        About
+      </motion.a>
+      <motion.a
+        href="#rooms"
+        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+        whileHover="hover"
+        whileTap="click"
+        variants={fadeIn}
+      >
+        Rooms
+      </motion.a>
+      <motion.a
+        href="#gallery"
+        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+        whileHover="hover"
+        whileTap="click"
+        variants={fadeIn}
+      >
+        Gallery
+      </motion.a>
+      <motion.a
+        href="#contact"
+        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+        whileHover="hover"
+        whileTap="click"
+        variants={fadeIn}
+      >
+        Contact
+      </motion.a>
+    </nav>
 
       {/* User Dropdown or Buttons */}
-      <div className="hidden lg:flex items-center space-x-4">
-        {isLoading ? (
-          <span className="text-white">Loading...</span>
-        ) : isLoggedIn ? (
-          <div className="relative flex items-center">
-            <span
-              className="text-white ml-2 cursor-pointer flex items-center space-x-1"
-              onClick={toggleDropdown}
-            >
-              <span className="text-xl">{"Welcome " + name}</span>
-              <FaChevronDown className="text-white" />
-            </span>
-            {isDropdownOpen && (
-              <div className="absolute top-[50px] right-0 bg-gray-700 text-white rounded-lg shadow-lg p-4">
-                <Link
-                  to="/bookings"
-                  className="flex items-center py-2 hover:text-red-500"
-                >
-                  <FaRegCalendarAlt className="mr-2" />
-                  Bookings
-                </Link>
-                <Link
-                  to="/profile"
-                  className="flex items-center py-2 hover:text-red-500"
-                >
-                  <FaUser className="mr-2" />
-                  Profile
-                </Link>
+      <div className="hidden lg:flex items-center justify-center space-x-4">
+        <div className="w-full flex items-center justify-center">
+            {isLoggedIn ? (
+              <div className="flex flex-col items-center space-y-4">
+                <span className="text-white text-xl">Welcome {name}</span>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center w-full text-left py-2 hover:text-red-500"
+                  className="bg-red-500 text-white px-4 py-2 rounded-md"
                 >
-                  <FaSignOutAlt className="mr-2" />
                   Log Out
                 </button>
               </div>
+            ) : (
+              <>
+              <div className="flex flex-row space-x-3 items-center justify-center">
+              <Link to="/login">
+                  <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
+                    Login
+                  </button>
+                </Link>
+                <Link to="/signup">
+                <button className="bg-amber-600 text-white border-2 border-amber-500 px-4 py-1 rounded-md hover:bg-transparent hover:text-amber-500 hover:border-2 hover:border-amber-500 hover:transition hover:duration-300">
+                Sign Up
+                  </button>
+                </Link>
+              </div>
+              </>
             )}
           </div>
-        ) : (
-          <>
-            <Link to="/login">
-              <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
-                Login
-              </button>
-            </Link>
-            <Link to="/signup">
-              <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
-                Sign Up
-              </button>
-            </Link>
-          </>
-        )}
       </div>
 
       {/* Mobile Hamburger Menu */}
@@ -218,23 +211,23 @@ function Header() {
       {/* Mobile Navigation Links */}
       {isMenuOpen && (
         <nav
-          className={`fixed z-10 top-[50px] md:top-[90px] right-0 w-[200px] h-[330px] bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden transform ${
+          className={`fixed z-10 top-[58px] md:top-[90px] right-0 w-[200px] h-[330px] bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden transform ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           } transition-transform ease-in-out duration-300`}
         >
-          <a href="#home" className="text-white text-lg hover:text-red-500">
+          <a href="/" className="text-white text-lg hover:text-amber-500">
             Home
           </a>
-          <a href="#about" className="text-white text-lg hover:text-red-500">
+          <a href="#about" className="text-white text-lg hover:text-amber-500">
             About
           </a>
-          <a href="#rooms" className="text-white text-lg hover:text-red-500">
+          <a href="#rooms" className="text-white text-lg hover:text-amber-500">
             Rooms
           </a>
-          <a href="#gallery" className="text-white text-lg hover:text-red-500">
+          <a href="#gallery" className="text-white text-lg hover:text-amber-500">
             Gallery
           </a>
-          <a href="#contact" className="text-white text-lg hover:text-red-500">
+          <a href="#contact" className="text-white text-lg hover:text-amber-500">
             Contact
           </a>
           <div className="w-full mt-6">
@@ -257,8 +250,8 @@ function Header() {
                   </button>
                 </Link>
                 <Link to="/signup">
-                  <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700 transition">
-                    Sign Up
+                <button className="bg-amber-600 text-white border-2 border-amber-500 px-4 py-1 rounded-md hover:bg-transparent hover:text-amber-500 hover:border-2 hover:border-amber-500 hover:transition hover:duration-300">
+                Sign Up
                   </button>
                 </Link>
               </div>
