@@ -177,9 +177,9 @@ export default function AdminPage() {
                   alt="Admin Profile"
                   className="w-full h-full object-cover"
                 />
-                <span className="text-gray-300 text-sm">Admin</span>
               </div>
             )}
+            <span className="text-gray-300 text-sm">Admin</span>
 
             {/* Logout Button */}
             <button
