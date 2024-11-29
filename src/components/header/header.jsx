@@ -6,6 +6,7 @@ import {
   FaRegCalendarAlt,
   FaUser,
   FaSignOutAlt,
+  FaCog,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
@@ -28,7 +29,6 @@ function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -93,82 +93,100 @@ function Header() {
 
       {/* Navigation Links */}
       <nav className="hidden lg:flex space-x-8">
-      <motion.a
-        href="/"
-        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-      >
-        Home
-      </motion.a>
-      <motion.a
-        href="#about"
-        variants={fadeIn} 
-      initial="hidden"  
-      animate="show"  
-      whileHover="hover" 
-      whileTap="click"
-        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-      >
-        About
-      </motion.a>
-      <motion.a
-        href="#rooms"
-        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-        whileHover="hover"
-        whileTap="click"
-        variants={fadeIn}
-      >
-        Rooms
-      </motion.a>
-      <motion.a
-        href="#gallery"
-        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-        whileHover="hover"
-        whileTap="click"
-        variants={fadeIn}
-      >
-        Gallery
-      </motion.a>
-      <motion.a
-        href="#contact"
-        className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-        whileHover="hover"
-        whileTap="click"
-        variants={fadeIn}
-      >
-        Contact
-      </motion.a>
-    </nav>
+        <motion.a
+          href="/"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          Home
+        </motion.a>
+        <motion.a
+          href="#about"
+          variants={fadeIn}
+          initial="hidden"
+          animate="show"
+          whileHover="hover"
+          whileTap="click"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+        >
+          About
+        </motion.a>
+        <motion.a
+          href="#rooms"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          whileHover="hover"
+          whileTap="click"
+          variants={fadeIn}
+        >
+          Rooms
+        </motion.a>
+        <motion.a
+          href="#gallery"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          whileHover="hover"
+          whileTap="click"
+          variants={fadeIn}
+        >
+          Gallery
+        </motion.a>
+        <motion.a
+          href="#contact"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          whileHover="hover"
+          whileTap="click"
+          variants={fadeIn}
+        >
+          Contact
+        </motion.a>
+      </nav>
 
       {/* User Dropdown or Buttons */}
       <div className="hidden lg:flex items-center justify-center space-x-4">
         <div className="w-full flex items-center justify-center">
-            {isLoggedIn ? (
-              <div className="flex flex-row items-center space-x-3">
-                <span className="text-white text-xl">Welcome {name}</span>
-                <button
-                  onClick={handleLogout}
-                  className="bg-red-500 border-2 border-red-500 hover:bg-transparent hover:text-white hover:border-2 hover:border-red-500 text-white px-4 py-2 rounded-md"
-                >
-                  Log Out
-                </button>
-              </div>
-            ) : (
-              <>
+          {isLoggedIn ? (
+            <div className="flex flex-row items-center space-x-3 relative">
+              {/* Welcome text with hover effect */}
+              <motion.span
+                className="text-white text-xl cursor-pointer"
+                onHoverStart={() => setIsDropdownOpen(true)}
+                onHoverEnd={() => setIsDropdownOpen(false)}
+              >
+                Welcome {name}
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                  <div className="absolute top-8 left-0 bg-gray-800 text-white rounded-lg shadow-lg w-40 py-2 space-y-2 z-10">
+                    <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
+                      <FaUser className="mr-2" /> Profile
+                    </div>
+                    <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
+                      <FaCog className="mr-2" /> Settings
+                    </div>
+                  </div>
+                )}
+              </motion.span>
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 border-2 border-red-500 hover:bg-transparent hover:text-white hover:border-2 hover:border-red-500 text-white px-4 py-2 rounded-md"
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <>
               <div className="flex flex-row space-x-3 items-center justify-center">
-              <Link to="/login">
+                <Link to="/login">
                   <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
                     Login
                   </button>
                 </Link>
                 <Link to="/signup">
-                <button className="bg-amber-600 text-white border-2 border-amber-500 px-4 py-1 rounded-md hover:bg-transparent hover:text-amber-500 hover:border-2 hover:border-amber-500 hover:transition hover:duration-300">
-                Sign Up
+                  <button className="bg-amber-600 text-white border-2 border-amber-500 px-4 py-1 rounded-md hover:bg-transparent hover:text-amber-500 hover:border-2 hover:border-amber-500 hover:transition hover:duration-300">
+                    Sign Up
                   </button>
                 </Link>
               </div>
-              </>
-            )}
-          </div>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Mobile Hamburger Menu */}
@@ -234,6 +252,15 @@ function Header() {
             {isLoggedIn ? (
               <div className="flex flex-col items-center space-y-4">
                 <span className="text-white text-xl">Welcome {name}</span>
+                {/* Mobile Dropdown */}
+                <div className="flex flex-col space-y-2">
+                  <div className="flex items-center space-x-2 text-white hover:bg-gray-700 px-4 py-2 rounded-md cursor-pointer">
+                    <FaUser /> <span>Profile</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-white hover:bg-gray-700 px-4 py-2 rounded-md cursor-pointer">
+                    <FaCog /> <span>Settings</span>
+                  </div>
+                </div>
                 <button
                   onClick={handleLogout}
                   className="bg-red-500 text-white px-4 py-2 rounded-md"
@@ -243,18 +270,18 @@ function Header() {
               </div>
             ) : (
               <>
-              <div className="flex flex-col items-center justify-center space-y-3">
-              <Link to="/login">
-                  <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
-                    Login
-                  </button>
-                </Link>
-                <Link to="/signup">
-                <button className="bg-amber-600 text-white border-2 border-amber-500 px-4 py-1 rounded-md hover:bg-transparent hover:text-amber-500 hover:border-2 hover:border-amber-500 hover:transition hover:duration-300">
-                Sign Up
-                  </button>
-                </Link>
-              </div>
+                <div className="flex flex-col items-center justify-center space-y-3">
+                  <Link to="/login">
+                    <button className="bg-transparent border border-white text-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
+                      Login
+                    </button>
+                  </Link>
+                  <Link to="/signup">
+                    <button className="bg-amber-600 text-white border-2 border-amber-500 px-4 py-1 rounded-md hover:bg-transparent hover:text-amber-500 hover:border-2 hover:border-amber-500 hover:transition hover:duration-300">
+                      Sign Up
+                    </button>
+                  </Link>
+                </div>
               </>
             )}
           </div>
