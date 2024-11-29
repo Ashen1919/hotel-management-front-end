@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaUser, FaCog } from "react-icons/fa";
+import { FaCog, FaBookmark } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
 import { LuLogOut } from "react-icons/lu";
@@ -58,6 +58,7 @@ function Header() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setName("");
+    setImage(null);
     navigate("/");
   };
 
@@ -154,7 +155,7 @@ function Header() {
                 {isDropdownOpen && (
                   <div className="absolute top-8 left-0 bg-gray-800 text-white rounded-lg shadow-lg w-40 py-2 space-y-2 z-10">
                     <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
-                      <FaUser className="mr-2" /> Profile
+                      <FaBookmark className="mr-2" /> My Booking
                     </div>
                     <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
                       <FaCog className="mr-2" /> Settings
