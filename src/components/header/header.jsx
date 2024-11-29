@@ -111,6 +111,15 @@ function Header() {
           About
         </motion.a>
         <motion.a
+          href="#features"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          whileHover="hover"
+          whileTap="click"
+          variants={fadeIn}
+        >
+          Features
+        </motion.a>
+        <motion.a
           href="#rooms"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
           whileHover="hover"
@@ -238,7 +247,7 @@ function Header() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 200 }}
           transition={{ duration: 0.3 }}
-          className="fixed z-10 top-[58px] md:top-[90px] right-0 w-[200px] h-[330px] bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden"
+          className="fixed z-10 top-[58px] md:top-[90px] right-0 w-[200px] h-auto bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden"
         >
           <a
             href="/"
@@ -253,6 +262,13 @@ function Header() {
             onClick={closeMenu}
           >
             About
+          </a>
+          <a
+            href="#features"
+            className="text-white text-lg hover:text-amber-500"
+            onClick={closeMenu}
+          >
+            Features
           </a>
           <a
             href="#rooms"
