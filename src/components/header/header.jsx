@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
+import { LuLogOut } from "react-icons/lu";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -144,7 +145,7 @@ function Header() {
             <div className="flex flex-row items-center space-x-3 relative">
               {/* Welcome text with hover effect */}
               <motion.span
-                className="text-white text-xl cursor-pointer"
+                className="text-white text-lg cursor-pointer"
                 onHoverStart={() => setIsDropdownOpen(true)}
                 onHoverEnd={() => setIsDropdownOpen(false)}
               >
@@ -158,15 +159,15 @@ function Header() {
                     <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
                       <FaCog className="mr-2" /> Settings
                     </div>
+                    <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
+                      <LuLogOut className="mr-2" /> <button onClick={handleLogout}>Log Out</button>
+                    </div>
                   </div>
                 )}
               </motion.span>
-              <button
-                onClick={handleLogout}
-                className="bg-red-500 border-2 border-red-500 hover:bg-transparent hover:text-white hover:border-2 hover:border-red-500 text-white px-4 py-2 rounded-md"
-              >
-                Log Out
-              </button>
+              <div className="rounded-full ml-1">
+                <img src={res.data.user.profileImage} alt="User" />
+              </div>
             </div>
           ) : (
             <>
