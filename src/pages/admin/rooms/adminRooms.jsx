@@ -19,11 +19,7 @@ export default function RoomsPage() {
   useEffect(() => {
     if (!roomsIsLoaded) {
       axios
-        .get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
         .then((res) => {
           setRooms(res.data.rooms);
           setRoomsIsLoaded(true);
