@@ -168,9 +168,9 @@ export default function AdminPage() {
           </div>
 
           {/* Admin Tools */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-4">
             {/* Profile */}
-            {isLoggedIn ? (
+            {isLoggedIn && (
               <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-amber-500 shadow-md">
                 <img
                   src={image}
@@ -178,10 +178,8 @@ export default function AdminPage() {
                   className="w-full h-full object-cover"
                 />
               </div>
-            ): (
-              <span className="text-gray-300 text-sm">Admin</span>
             )}
-            
+            <span className="text-gray-300 text-lg">Admin</span>
 
             {/* Logout Button */}
             <button

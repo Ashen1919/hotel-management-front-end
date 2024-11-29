@@ -5,7 +5,7 @@ import PreLoader from "../../components/preLoader/preLoader.jsx";
 import HomeContent from "./homeContent.jsx";
 import BookingBar from "../../components/bookingBar.jsx";
 import AboutUs from "../../components/aboutUs.jsx";
-import AboutContent from "../../components/aboutContent.jsx";
+import HomeAbout from "./homeAbout.jsx";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +27,7 @@ export default function HomePage() {
             <HomeContent/>
             <BookingBar/>
             <AboutUs/>
-            <AboutContent/>
+            <HomeAbout/>
           </div>
         )}
       </div>
