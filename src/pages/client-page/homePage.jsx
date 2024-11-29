@@ -6,6 +6,8 @@ import HomeContent from "./homeContent.jsx";
 import BookingBar from "../../components/bookingBar.jsx";
 import AboutUs from "../../components/aboutUs.jsx";
 import HomeAbout from "./homeAbout.jsx";
+import FeaturesList from "./featuresList.jsx";
+import FeaturesHead from "../../components/features.jsx";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +30,8 @@ export default function HomePage() {
             <BookingBar/>
             <AboutUs/>
             <HomeAbout/>
+            <FeaturesHead/>
+            <FeaturesList/>
           </div>
         )}
       </div>
