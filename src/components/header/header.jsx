@@ -15,6 +15,7 @@ function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false); 
   const [name, setName] = useState("");
+  const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ function Header() {
         })
         .then((res) => {
           setName(res.data.user.firstName);
+          setImage(res.data.user.profileImage);
           setIsLoggedIn(true);
         })
         .catch((err) => {
@@ -166,7 +168,7 @@ function Header() {
                 )}
               </motion.span>
               <div className="rounded-full ml-1">
-                <img src={res.data.user.profileImage} alt="User" />
+                <img src={image} alt="User" />
               </div>
             </div>
           ) : (
