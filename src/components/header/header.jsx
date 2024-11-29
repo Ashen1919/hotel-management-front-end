@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  FaUser,
-  FaCog,
-} from "react-icons/fa";
+import { FaUser, FaCog } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
 import { LuLogOut } from "react-icons/lu";
@@ -13,7 +10,7 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false); 
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +19,7 @@ function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50); 
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -68,7 +65,8 @@ function Header() {
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const toggleMobileDropdown = () => setIsMobileDropdownOpen(!isMobileDropdownOpen);
+  const toggleMobileDropdown = () =>
+    setIsMobileDropdownOpen(!isMobileDropdownOpen);
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -162,13 +160,18 @@ function Header() {
                       <FaCog className="mr-2" /> Settings
                     </div>
                     <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
-                      <LuLogOut className="mr-2" /> <button onClick={handleLogout}>Log Out</button>
+                      <LuLogOut className="mr-2" />{" "}
+                      <button onClick={handleLogout}>Log Out</button>
                     </div>
                   </div>
                 )}
               </motion.span>
-              <div className="rounded-full ml-1">
-                <img src={image} alt="User" />
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-amber-500 shadow-md">
+                <img
+                  src={image}
+                  alt="User Profile"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           ) : (
@@ -236,25 +239,45 @@ function Header() {
           transition={{ duration: 0.3 }}
           className="fixed z-10 top-[58px] md:top-[90px] right-0 w-[200px] h-[330px] bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden"
         >
-          <a href="/" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
+          <a
+            href="/"
+            className="text-white text-lg hover:text-amber-500"
+            onClick={closeMenu}
+          >
             Home
           </a>
-          <a href="#about" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
+          <a
+            href="#about"
+            className="text-white text-lg hover:text-amber-500"
+            onClick={closeMenu}
+          >
             About
           </a>
-          <a href="#rooms" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
+          <a
+            href="#rooms"
+            className="text-white text-lg hover:text-amber-500"
+            onClick={closeMenu}
+          >
             Rooms
           </a>
-          <a href="#gallery" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
+          <a
+            href="#gallery"
+            className="text-white text-lg hover:text-amber-500"
+            onClick={closeMenu}
+          >
             Gallery
           </a>
-          <a href="#contact" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
+          <a
+            href="#contact"
+            className="text-white text-lg hover:text-amber-500"
+            onClick={closeMenu}
+          >
             Contact
           </a>
           <div className="w-full mt-6">
             {isLoggedIn ? (
               <div className="flex flex-col items-center space-y-4">
-                <Link to={'/'}>
+                <Link to={"/"}>
                   <span className="text-white text-xl">Welcome {name}</span>
                 </Link>
                 <button
