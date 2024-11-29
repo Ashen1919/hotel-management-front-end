@@ -22,7 +22,7 @@ export default function RoomsPage() {
         .get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
         .then((res) => {
             console.log("API Response:", res.data);
-          setRooms(res.data.rooms || []);
+          setRooms(res.data.result || []);
           setRoomsIsLoaded(true);
         })
         .catch((err) => {
