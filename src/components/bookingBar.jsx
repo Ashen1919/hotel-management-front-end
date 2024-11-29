@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios"; 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { motion } from "framer-motion";
+import { fadeIn } from "./variants";
 
 export default function BookingBar() {
   const [startDate, setStartDate] = useState(null);
@@ -32,7 +34,12 @@ export default function BookingBar() {
   };
 
   return (
-    <div className="my-3 py-4 w-[350px] md:w-[800px] lg:w-[850px] booking" id="booking">
+    <motion.div  
+    variants={fadeIn('up', 0.2)}
+    initial = 'hidden'
+    whileInView={'show'}
+    viewport={{once: false, amount: 0.7}}
+    className="my-3 py-4 w-[350px] md:w-[800px] lg:w-[850px]" id="booking">
       <div className="flex flex-col md:flex-row items-center justify-center bg-white shadow-lg p-4 rounded-lg space-y-4 md:space-y-0 md:space-x-8 border-4 border-sky-500 md:rounded-l-full md:rounded-r-full">
         
         {/* Check-in Date */}
@@ -78,12 +85,12 @@ export default function BookingBar() {
         <div>
           <button
             onClick={handleBooking}
-            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg flex hover:bg-blue-600 transition duration-300"
           >
             Book Now
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
