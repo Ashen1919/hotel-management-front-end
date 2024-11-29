@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
-  FaChevronDown,
-  FaRegCalendarAlt,
   FaUser,
-  FaSignOutAlt,
   FaCog,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -14,8 +11,8 @@ import { fadeIn } from "../variants";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Desktop Dropdown
-  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false); // Mobile Dropdown
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false); 
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,7 +20,7 @@ function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50); // Set scroll threshold
+      setIsScrolled(window.scrollY > 50); 
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -41,7 +38,6 @@ function Header() {
           },
         })
         .then((res) => {
-          console.log(res);
           setName(res.data.user.firstName);
           setIsLoggedIn(true);
         })
@@ -70,6 +66,8 @@ function Header() {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const toggleMobileDropdown = () => setIsMobileDropdownOpen(!isMobileDropdownOpen);
+
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header
@@ -228,39 +226,34 @@ function Header() {
 
       {/* Mobile Navigation Links */}
       {isMenuOpen && (
-        <nav
-          className={`fixed z-10 top-[58px] md:top-[90px] right-0 w-[200px] h-[330px] bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden transform ${
-            isMenuOpen ? "translate-x-0" : "translate-x-full"
-          } transition-transform ease-in-out duration-300`}
+        <motion.nav
+          initial={{ opacity: 0, x: 200 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 200 }}
+          transition={{ duration: 0.3 }}
+          className="fixed z-10 top-[58px] md:top-[90px] right-0 w-[200px] h-[330px] bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden"
         >
-          <a href="/" className="text-white text-lg hover:text-amber-500">
+          <a href="/" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
             Home
           </a>
-          <a href="#about" className="text-white text-lg hover:text-amber-500">
+          <a href="#about" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
             About
           </a>
-          <a href="#rooms" className="text-white text-lg hover:text-amber-500">
+          <a href="#rooms" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
             Rooms
           </a>
-          <a href="#gallery" className="text-white text-lg hover:text-amber-500">
+          <a href="#gallery" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
             Gallery
           </a>
-          <a href="#contact" className="text-white text-lg hover:text-amber-500">
+          <a href="#contact" className="text-white text-lg hover:text-amber-500" onClick={closeMenu}>
             Contact
           </a>
           <div className="w-full mt-6">
             {isLoggedIn ? (
               <div className="flex flex-col items-center space-y-4">
-                <span className="text-white text-xl">Welcome {name}</span>
-                {/* Mobile Dropdown */}
-                <div className="flex flex-col space-y-2">
-                  <div className="flex items-center space-x-2 text-white hover:bg-gray-700 px-4 py-2 rounded-md cursor-pointer">
-                    <FaUser /> <span>Profile</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-white hover:bg-gray-700 px-4 py-2 rounded-md cursor-pointer">
-                    <FaCog /> <span>Settings</span>
-                  </div>
-                </div>
+                <Link to={'/'}>
+                  <span className="text-white text-xl">Welcome {name}</span>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="bg-red-500 text-white px-4 py-2 rounded-md"
@@ -285,7 +278,7 @@ function Header() {
               </>
             )}
           </div>
-        </nav>
+        </motion.nav>
       )}
     </header>
   );
