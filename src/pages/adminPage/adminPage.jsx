@@ -8,7 +8,6 @@ import {
   FaCalendarCheck,
   FaTicketAlt,
   FaSearch,
-  FaUserCircle,
   FaSignOutAlt,
   FaHome,
 } from "react-icons/fa";
