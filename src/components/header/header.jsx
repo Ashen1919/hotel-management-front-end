@@ -143,11 +143,11 @@ function Header() {
       <div className="hidden lg:flex items-center justify-center space-x-4">
         <div className="w-full flex items-center justify-center">
             {isLoggedIn ? (
-              <div className="flex flex-row items-center space-x-3 space-y-4">
+              <div className="flex flex-row items-center space-x-3">
                 <span className="text-white text-xl">Welcome {name}</span>
                 <button
                   onClick={handleLogout}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md"
+                  className="bg-red-500 border-2 border-red-500 hover:bg-transparent hover:text-white hover:border-2 hover:border-red-500 text-white px-4 py-2 rounded-md"
                 >
                   Log Out
                 </button>
