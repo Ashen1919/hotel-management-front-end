@@ -14,6 +14,7 @@ export default function AddRoomForm() {
   const navigate = useNavigate();
   const [roomId, setRoomId] = useState("");
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]); 
   const [maxGuests, setMaxGuests] = useState(3);
   const [available, setAvailable] = useState(true);
   const [photos, setPhotos] = useState([]);
@@ -22,6 +23,19 @@ export default function AddRoomForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/category");
+        setCategories(response.data.categories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const getFileUrl = (fileId) => {
     return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
@@ -93,14 +107,19 @@ export default function AddRoomForm() {
         />
 
         <label className="block mb-2">Category:</label>
-        <input
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
-          placeholder="Room Category"
-          required
-        />
+        <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+            placeholder= "Category"
+          >
+            <option value="">Select</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
 
         <label className="block mb-2">Max Guests:</label>
         <input
