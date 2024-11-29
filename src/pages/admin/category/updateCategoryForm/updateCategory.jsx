@@ -89,35 +89,35 @@ export default function UpdateCategoryForm() {
         className="w-1/3 bg-white p-6 rounded shadow-lg"
         onSubmit={handleForm}
       >
-        <h2 className="text-2xl font-semibold mb-4">Update Category</h2>
+        <h2 className="text-2xl text-black font-semibold mb-4">Update Category</h2>
 
-        <label className="block mb-2">Name:</label>
+        <label className="block mb-2 text-black">Name:</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full p-2 mb-4 border text-black border-gray-300 rounded"
           placeholder="Category name"
           required
           disabled
         />
 
-        <label className="block mb-2">Price ($):</label>
+        <label className="block mb-2 text-black">Price ($):</label>
         <input
           type="number"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full text-black p-2 mb-4 border border-gray-300 rounded"
           placeholder="Category price"
           required
         />
 
-        <label className="block mb-2">Features:</label>
+        <label className="block mb-2 text-black">Features:</label>
         <input
           type="text"
           value={features}
           onChange={(e) => setFeatures(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full text-black p-2 mb-4 border border-gray-300 rounded"
           placeholder="Category features"
           required
         />
@@ -126,12 +126,12 @@ export default function UpdateCategoryForm() {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full p-2 mb-4 border border-gray-300 rounded text-black"
           placeholder="Category description"
           required
         ></textarea>
 
-        <label className="block mb-2">Image:</label>
+        <label className="block mb-2 text-black">Image:</label>
         <input
           type="file"
           onChange={handleImageChange}

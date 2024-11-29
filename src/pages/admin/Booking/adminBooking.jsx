@@ -34,7 +34,7 @@ export default function AdminBooking() {
 
   return (
     <div className="w-full p-4">
-      <table className="w-full text-left bg-white border border-gray-300">
+      <table className="w-full text-black text-left bg-white border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
             <th className="p-2 border border-gray-300">Booking ID</th>

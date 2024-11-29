@@ -57,7 +57,7 @@ export default function CategoriesPage() {
   }
 
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 w-full text-black">
       <button
         className="w-[60px] h-[60px] bg-red-600 rounded-full justify-center items-center flex text-2xl bottom-5 right-5 fixed"
         onClick={() => {
@@ -66,33 +66,33 @@ export default function CategoriesPage() {
       >
         <FaPlus color="white" />
       </button>
-      <table className="w-full bg-white border border-gray-400 text-left">
+      <table className="w-full bg-white border border-gray-800 text-left">
         <thead>
           <tr className="bg-gray-200">
-            <th className="p-2 border border-gray-300">Name</th>
-            <th className="p-2 border border-gray-300">Description</th>
-            <th className="p-2 border border-gray-300">Price($)</th>
-            <th className="p-2 border border-gray-300">Image</th>
-            <th className="p-2 border border-gray-300">Features</th>
-            <th className="p-2 border border-gray-300">Action</th>
+            <th className="p-2 border border-gray-700 text-black">Name</th>
+            <th className="p-2 border border-gray-700 text-black">Description</th>
+            <th className="p-2 border border-gray-700 text-black">Price($)</th>
+            <th className="p-2 border border-gray-700 text-black">Image</th>
+            <th className="p-2 border border-gray-700 text-black">Features</th>
+            <th className="p-2 border border-gray-700 text-black">Action</th>
           </tr>
         </thead>
         <tbody>
           {categories.map((category) => (
             <tr key={category.name} className="hover:bg-gray-100">
-              <td className="p-2 border border-gray-300">{category.name}</td>
-              <td className="p-2 border border-gray-300">
+              <td className="p-2 border border-gray-300 text-black">{category.name}</td>
+              <td className="p-2 border border-gray-300 text-black">
                 {category.description}
               </td>
-              <td className="p-2 border border-gray-300">{category.price}</td>
-              <td className="p-2 border border-gray-300">
+              <td className="p-2 border border-gray-300 text-black">{category.price}</td>
+              <td className="p-2 border border-gray-300 text-black">
                 <img
                   src={category.image}
                   alt={category.name}
                   className="w-16 h-16 object-cover"
                 />
               </td>
-              <td className="p-2 border border-gray-300">
+              <td className="p-2 border border-gray-300 text-black">
                 {category.features.join(", ")}
               </td>
               <td className="p-2 border border-gray-300">

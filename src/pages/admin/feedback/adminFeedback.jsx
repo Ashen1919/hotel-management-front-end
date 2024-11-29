@@ -31,7 +31,7 @@ export default function AdminFeedback(){
     ];
     return(
         <div className="p-4 w-full">
-            <table className="w-full bg-white border border-gray-400 text-left">
+            <table className="w-full bg-white border text-black border-gray-400 text-left">
                 <thead>
                     <tr className="bg-gray-200">
                         <th className="p-2 border border-gray-300">Email</th>
