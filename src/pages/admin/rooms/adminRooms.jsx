@@ -21,7 +21,8 @@ export default function RoomsPage() {
       axios
         .get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
         .then((res) => {
-          setRooms(res.data.rooms);
+            console.log("API Response:", res.data);
+          setRooms(res.data.rooms || []);
           setRoomsIsLoaded(true);
         })
         .catch((err) => {
