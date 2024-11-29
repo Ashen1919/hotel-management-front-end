@@ -53,7 +53,7 @@ export default function AdminGalleryItem() {
   }
 
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 w-full text-black">
       <button
         className="w-[60px] h-[60px] bg-red-600 rounded-full justify-center items-center flex text-2xl bottom-5 right-5 fixed"
         onClick={handlePlusClick}
