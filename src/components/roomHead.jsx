@@ -29,8 +29,7 @@ export default function RoomHead() {
         viewport={{ once: false, amount: 0.7 }}
         className="mt-4 text-gray-600 text-sm md:text-xl p-3 text-center max-w-2xl md:max-w-full"
       >
-        The gallery at Ever Peak Hotel showcases exquisite artwork, blending
-        modern elegance with mountain charm.{" "}
+        Elegant rooms with scenic views, modern amenities, cozy furnishings, premium linens, and personalized service.{" "}
       </motion.p>
     </div>
   );

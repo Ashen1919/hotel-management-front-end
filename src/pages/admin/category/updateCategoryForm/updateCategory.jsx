@@ -122,7 +122,7 @@ export default function UpdateCategoryForm() {
           required
         />
 
-        <label className="block mb-2">Description:</label>
+        <label className="text-black block mb-2">Description:</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
