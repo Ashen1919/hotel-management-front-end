@@ -4,7 +4,7 @@ import { fadeIn } from "./variants";
 
 export default function RoomHead() {
   return (
-    <div className="flex flex-col items-center justify-center mt-12" id="about">
+    <div className="flex flex-col items-center justify-center mt-12" id="rooms">
       {/* Creative Heading */}
       <motion.h1
         variants={fadeIn("up", 0.2)}
