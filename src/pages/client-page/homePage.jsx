@@ -11,6 +11,7 @@ import FeaturesHead from "../../components/features.jsx";
 import RoomHead from "../../components/roomHead.jsx";
 import Rooms from "./rooms.jsx";
 import GalleryHead from "../../components/galleryHead.jsx";
+import GalleryItem from "./galleryItem.jsx";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +39,7 @@ export default function HomePage() {
             <RoomHead/>
             <Rooms/>
             <GalleryHead/>
+            <GalleryItem/>
           </div>
         )}
       </div>

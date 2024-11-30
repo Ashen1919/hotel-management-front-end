@@ -247,7 +247,7 @@ function Header() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 200 }}
           transition={{ duration: 0.3 }}
-          className="fixed z-10 top-[58px] md:top-[90px] right-2 w-[200px] h-auto bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden"
+          className="fixed z-10 top-[60px] md:top-[90px] right-0 w-[200px] h-auto bg-gray-800 opacity-80 flex flex-col items-center space-y-4 p-4 lg:hidden"
         >
           <a
             href="/"
