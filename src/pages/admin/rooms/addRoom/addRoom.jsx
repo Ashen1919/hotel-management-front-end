@@ -78,7 +78,7 @@ export default function AddRoomForm() {
         },
       });
       toast.success("Room added successfully!");
-      navigate("/rooms");
+      navigate("/admin/rooms");
     } catch (error) {
       console.error("Failed to add room:", error);
       toast.error("Failed to add room.");

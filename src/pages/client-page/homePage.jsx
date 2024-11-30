@@ -8,6 +8,9 @@ import AboutUs from "../../components/aboutUs.jsx";
 import HomeAbout from "./homeAbout.jsx";
 import FeaturesList from "./featuresList.jsx";
 import FeaturesHead from "../../components/features.jsx";
+import RoomHead from "../../components/roomHead.jsx";
+import Rooms from "./rooms.jsx";
+import GalleryHead from "../../components/galleryHead.jsx";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +35,9 @@ export default function HomePage() {
             <HomeAbout/>
             <FeaturesHead/>
             <FeaturesList/>
+            <RoomHead/>
+            <Rooms/>
+            <GalleryHead/>
           </div>
         )}
       </div>
