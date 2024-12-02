@@ -93,23 +93,19 @@ function Header() {
 
       {/* Navigation Links */}
       <nav className="hidden lg:flex space-x-8">
-        <motion.a
+        <a
           href="/"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
         >
           Home
-        </motion.a>
-        <motion.a
-          href="#about"
-          variants={fadeIn}
-          initial="hidden"
-          animate="show"
-          whileHover="hover"
-          whileTap="click"
+        </a>
+        <Link
+          spy = {true} smooth={true} offset={-100} duration={500} onClick={closeMenu}
+          to ="about"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
         >
           About
-        </motion.a>
+        </Link>
         <motion.a
           href="#features"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
