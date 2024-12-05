@@ -12,6 +12,7 @@ import RoomHead from "../../components/roomHead.jsx";
 import Rooms from "./rooms.jsx";
 import GalleryHead from "../../components/galleryHead.jsx";
 import GalleryItem from "./galleryItem.jsx";
+import FeedBackHead from "../../components/feedbackHead.jsx";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,6 +41,7 @@ export default function HomePage() {
             <Rooms/>
             <GalleryHead/>
             <GalleryItem/>
+            <FeedBackHead/>
           </div>
         )}
       </div>

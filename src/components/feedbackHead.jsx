@@ -2,9 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "./variants";
 
-export default function GalleryHead() {
+export default function FeedBackHead() {
   return (
-    <div className="flex flex-col items-center justify-center mt-12" id="gallery">
+    <div className="flex flex-col items-center justify-center mt-64" id="gallery">
       {/* Creative Heading */}
       <motion.h1
         variants={fadeIn("up", 0.2)}
@@ -14,10 +14,10 @@ export default function GalleryHead() {
         className="text-4xl md:text-6xl font-bold text-gray-800 tracking-wide relative w-full flex justify-center"
       >
         <span className="block relative z-10">
-          Our <span className="text-amber-500">Gallery</span>
+          User <span className="text-amber-500">Feedbacks</span>
         </span>
         <span className="absolute top-1 left-1 -z-10 w-full h-full text-gray-300 transform scale-105 blur-sm flex justify-center">
-          OUR GALLERY
+          USER FEEDBACKS
         </span>
       </motion.h1>
 
@@ -29,8 +29,7 @@ export default function GalleryHead() {
         viewport={{ once: false, amount: 0.7 }}
         className="mt-4 text-gray-600 text-sm md:text-xl p-3 text-center max-w-2xl md:max-w-full"
       >
-        The gallery at Ever Peak Hotel showcases exquisite artwork, blending
-        modern elegance with mountain charm.{" "}
+        Valuable guest insights highlighting exceptional service, cozy accommodations, delightful amenities, and memorable experiences at Ever Lodge.{" "}
       </motion.p>
     </div>
   );
