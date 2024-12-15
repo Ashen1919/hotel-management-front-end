@@ -27,59 +27,25 @@ export default function AdminFeedback() {
     }
   }, [feedbackIsLoading]);
 
-  const accept = () => {
-    toastRef.current.show({
-      severity: "info",
-      summary: "Confirmed",
-      detail: "You have accepted",
-      life: 3000,
-    });
-  };
-
-  const reject = () => {
-    toastRef.current.show({
-      severity: "warn",
-      summary: "Rejected",
-      detail: "You have rejected",
-      life: 3000,
-    });
-  };
-
   const deleteItem = (feedbackId) => {
-    confirmDialog({
-      message: "Are you sure you want to reject this feedback?",
-      header: "Confirmation",
-      icon: "pi pi-exclamation-triangle",
-      accept: () => {
-        // Logic to handle rejection (e.g., API call to delete the feedback)
+    if(
+        window.confirm("Do you want to reject this feedback?")
+    ){
         axios
-          .delete(
-            `${import.meta.env.VITE_BACKEND_URL}/api/feedback/${feedbackId}`
-          )
-          .then(() => {
-            setFeedbacks((prev) =>
-              prev.filter((feedback) => feedback.feedbackId !== feedbackId)
-            );
-            toastRef.current.show({
-              severity: "info",
-              summary: "Rejected",
-              detail: "The feedback has been rejected",
-              life: 3000,
-            });
-          })
-          .catch((err) => {
-            console.error("Failed to reject feedback:", err);
-          });
-      },
-      reject: () => {
-        toastRef.current.show({
-          severity: "warn",
-          summary: "Action Cancelled",
-          detail: "Feedback rejection cancelled",
-          life: 3000,
+        .delete(import.meta.env.VITE_BACKEND_URL + "/api/feedback" + feedbackId, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then((res) => {
+          toast.success("Feedback rejected successfully");
+          setFeedbackIsLoading(false);
+        })
+        .catch((err) => {
+          toast.error("Failed to reject feedback");
+          console.log(err.message)
         });
-      },
-    });
+    }
   };
 
   return (
