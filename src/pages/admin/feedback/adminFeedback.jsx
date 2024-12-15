@@ -32,7 +32,7 @@ export default function AdminFeedback() {
         window.confirm("Do you want to reject this feedback?")
     ){
         axios
-        .delete(import.meta.env.VITE_BACKEND_URL + "/api/feedback" + feedbackId, {
+        .delete(import.meta.env.VITE_BACKEND_URL + "/api/feedback/" + feedbackId, {
           headers: {
             Authorization: "Bearer " + token,
           },
