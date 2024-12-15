@@ -87,9 +87,9 @@ export default function Contact() {
               Your Idea:
             </label>
             <textarea
-              name="idea"
-              id="idea"
-              value={formData.idea}
+              name="comment"
+              id="comment"
+              value={formData.comment}
               onChange={handleInputChange}
               placeholder="Share your feedback or ideas"
               className="w-full p-2 border border-gray-400 rounded-md h-20"
