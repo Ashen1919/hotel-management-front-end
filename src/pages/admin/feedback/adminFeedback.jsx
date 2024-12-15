@@ -1,7 +1,7 @@
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"; // Import the ConfirmDialog and confirmDialog
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { ConfirmDialog } from 'primereact/confirmdialog';
 
 export default function AdminFeedback() {
   const token = localStorage.getItem("token");
@@ -11,7 +11,7 @@ export default function AdminFeedback() {
   }
   const [feedbacks, setFeedbacks] = useState([]);
   const [feedbackIsLoading, setFeedbackIsLoading] = useState(false);
-  const toast = useRef(null);
+  const toastRef = useRef(null);
 
   useEffect(() => {
     if (!feedbackIsLoading) {
@@ -22,18 +22,36 @@ export default function AdminFeedback() {
           setFeedbackIsLoading(true);
         })
         .catch((err) => {
-          console.error("Failed to load feedbacks:", err.message);
+          console.error("Failed to load feedbacks:", err);
         });
     }
   }, [feedbackIsLoading]);
 
-  function deleteItem(feedbackId) {
-    const confirmDialogOptions = {
+  const accept = () => {
+    toastRef.current.show({
+      severity: "info",
+      summary: "Confirmed",
+      detail: "You have accepted",
+      life: 3000,
+    });
+  };
+
+  const reject = () => {
+    toastRef.current.show({
+      severity: "warn",
+      summary: "Rejected",
+      detail: "You have rejected",
+      life: 3000,
+    });
+  };
+
+  const deleteItem = (feedbackId) => {
+    confirmDialog({
       message: "Are you sure you want to reject this feedback?",
       header: "Confirmation",
       icon: "pi pi-exclamation-triangle",
-      defaultFocus: "reject",
       accept: () => {
+        // Logic to handle rejection (e.g., API call to delete the feedback)
         axios
           .delete(
             `${import.meta.env.VITE_BACKEND_URL}/api/feedback/${feedbackId}`
@@ -42,7 +60,7 @@ export default function AdminFeedback() {
             setFeedbacks((prev) =>
               prev.filter((feedback) => feedback.feedbackId !== feedbackId)
             );
-            toast.current.show({
+            toastRef.current.show({
               severity: "info",
               summary: "Rejected",
               detail: "The feedback has been rejected",
@@ -54,21 +72,18 @@ export default function AdminFeedback() {
           });
       },
       reject: () => {
-        toast.current.show({
+        toastRef.current.show({
           severity: "warn",
           summary: "Action Cancelled",
           detail: "Feedback rejection cancelled",
           life: 3000,
         });
       },
-    };
-
-    ConfirmDialog(confirmDialogOptions);
-  }
+    });
+  };
 
   return (
     <div className="p-4 w-full">
-      <ConfirmDialog />
       <table className="w-full bg-white border text-black border-gray-400 text-left">
         <thead>
           <tr className="bg-gray-200">
@@ -81,42 +96,35 @@ export default function AdminFeedback() {
           </tr>
         </thead>
         <tbody>
-          {feedbacks.map((feedback) => {
-            return (
-              <tr key={feedback.feedbackId} className="hover:bg-gray-100">
-                <td className="p-2 border border-gray-300">{feedback.name}</td>
-                <td className="p-2 border border-gray-300">
-                  {feedback.rating}
-                </td>
-                <td className="p-2 border border-gray-300">
-                  {feedback.occupation}
-                </td>
-                <td className="p-2 border border-gray-300">
-                  {feedback.comment}
-                </td>
-                <td className="p-2 border border-gray-300">
-                  {feedback.timeStamp}
-                </td>
-                <td className="p-2 border border-gray-300 ">
-                  {
-                    <div className="flex space-x-4">
-                      <button className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 w-20 ">
-                        Approve
-                      </button>
-                      <button
-                        className="bg-red-500 p-1 text-white rounded-sm hover:bg-red-600 w-20 "
-                        onClick={() => deleteItem(feedback.feedbackId)}
-                      >
-                        Reject
-                      </button>
-                    </div>
-                  }
-                </td>
-              </tr>
-            );
-          })}
+          {feedbacks.map((feedback) => (
+            <tr key={feedback.feedbackId} className="hover:bg-gray-100">
+              <td className="p-2 border border-gray-300">{feedback.name}</td>
+              <td className="p-2 border border-gray-300">{feedback.rating}</td>
+              <td className="p-2 border border-gray-300">
+                {feedback.occupation}
+              </td>
+              <td className="p-2 border border-gray-300">{feedback.comment}</td>
+              <td className="p-2 border border-gray-300">
+                {feedback.timeStamp}
+              </td>
+              <td className="p-2 border border-gray-300">
+                <div className="flex space-x-4">
+                  <button className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 w-20 ">
+                    Approve
+                  </button>
+                  <button
+                    className="bg-red-500 p-1 text-white rounded-sm hover:bg-red-600 w-20"
+                    onClick={() => deleteItem(feedback.feedbackId)}
+                  >
+                    Reject
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
+      <ConfirmDialog />
     </div>
   );
 }
