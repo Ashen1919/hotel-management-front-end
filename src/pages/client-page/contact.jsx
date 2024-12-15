@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Contact() {
@@ -8,7 +8,7 @@ export default function Contact() {
     name: "",
     occupation: "",
     comment: "",
-    rating: 1,
+    rating: 0,
   });
 
   const handleInputChange = (e) => {
@@ -34,7 +34,7 @@ export default function Contact() {
       if (response.ok) {
         const result = await response.json();
         toast.success("Your comment is successfully submitted")
-        setFormData({ feedbackId: uuidv4() ,name: "", occupation: "", idea: "", rating: 1 });
+        setFormData({ feedbackId: uuidv4() ,name: "", occupation: "", comment: "", rating: 0 });
       } else {
         toast.error("Failed to submit form. Please try again.");
       }
