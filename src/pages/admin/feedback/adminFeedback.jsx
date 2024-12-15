@@ -21,7 +21,7 @@ export default function AdminFeedback() {
           setFeedbackIsLoading(true);
         })
         .catch((err) => {
-          console.error("Failed to load feedbacks:", err);
+          console.error("Failed to load feedbacks:", err.message);
         });
     }
   }, [feedbackIsLoading]);
