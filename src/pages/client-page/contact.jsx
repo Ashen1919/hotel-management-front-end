@@ -1,23 +1,48 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Contact() {
   const [rating, setRating] = useState(0);
+  const [post, setPost] = useState({
+    name: "",
+    occupation: "",
+    comment: "",
+    rating:0
+  })
 
   const handleRating = (value) => {
     setRating(value);
   };
 
+  const handleInput = (event) =>{
+    setPost({...post, [event.target.name]: event.target.value})
+  }
+  const handleSubmit = (event) =>{
+    event.preventDefault()
+    console.log(post)
+    axios.post(import.meta.env.VITE_BACKEND_URL+"/api/feedback/", {post})
+    .then((res)=>{
+        console.log(res)
+        toast.success("Your Comment Successfully Submitted")
+    }).catch((err)=>{
+        console.log(err)
+        toast.error("Fail to submit comment")
+    })
+  }
+
   return (
     <div className="mt-8 bg-gray-100 w-full h-auto p-6">
       <div className="md:flex md:justify-between sm:justify-start">
         {/* Form Section */}
-        <form action="" method="post" className="space-y-4 md:w-[47%]">
+        <form action="" method="post" onSubmit={handleSubmit} className="space-y-4 md:w-[47%]">
           <div>
             <label htmlFor="name" className="block text-gray-700 font-medium">
               Your Name:
             </label>
             <input
               type="text"
+              onChange={handleInput}
               name="name"
               id="name"
               placeholder="Enter Name"
@@ -33,6 +58,7 @@ export default function Contact() {
             </label>
             <input
               type="text"
+              onChange={handleInput}
               name="occupation"
               id="occupation"
               placeholder="Occupation"
@@ -45,6 +71,7 @@ export default function Contact() {
             </label>
             <textarea
               name="idea"
+              onChange={handleInput}
               id="idea"
               placeholder="Share your feedback or ideas"
               className="w-full p-2 border border-gray-400 rounded-md h-20"
@@ -56,6 +83,9 @@ export default function Contact() {
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   type="button"
+                  name="rating"
+                  onChange={handleInput}
+                  id="rating"
                   key={star}
                   className={`text-2xl ${
                     rating >= star ? "text-yellow-500" : "text-gray-400"
