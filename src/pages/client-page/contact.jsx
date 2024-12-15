@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
+    feedbackId: uuidv4(),
     name: "",
     occupation: "",
-    idea: "",
+    comment: "",
     rating: 1,
   });
 
@@ -32,7 +34,7 @@ export default function Contact() {
       if (response.ok) {
         const result = await response.json();
         toast.success("Your comment is successfully submitted")
-        setFormData({ name: "", occupation: "", idea: "", rating: 0 });
+        setFormData({ feedbackId: uuidv4() ,name: "", occupation: "", idea: "", rating: 1 });
       } else {
         toast.error("Failed to submit form. Please try again.");
       }
