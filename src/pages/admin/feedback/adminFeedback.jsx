@@ -34,7 +34,7 @@ export default function AdminFeedback(){
             <table className="w-full bg-white border text-black border-gray-400 text-left">
                 <thead>
                     <tr className="bg-gray-200">
-                        <th className="p-2 border border-gray-300">Email</th>
+                        <th className="p-2 border border-gray-300">Name</th>
                         <th className="p-2 border border-gray-300">Rating</th>
                         <th className="p-2 border border-gray-300">Comment</th>
                         <th className="p-2 border border-gray-300">Date</th>
