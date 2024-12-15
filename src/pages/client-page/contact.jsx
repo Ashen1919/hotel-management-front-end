@@ -99,6 +99,7 @@ export default function Contact() {
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   type="button"
+                  onChange={handleInputChange}
                   key={star}
                   className={`text-2xl ${
                     formData.rating >= star ? "text-yellow-500" : "text-gray-400"
