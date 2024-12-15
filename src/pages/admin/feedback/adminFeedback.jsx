@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { ConfirmDialog } from 'primereact/confirmdialog';
 
 export default function AdminFeedback() {
   const token = localStorage.getItem("token");
@@ -62,11 +63,12 @@ export default function AdminFeedback() {
       },
     };
 
-    confirmDialog(confirmDialogOptions);
+    ConfirmDialog(confirmDialogOptions);
   }
 
   return (
     <div className="p-4 w-full">
+      <ConfirmDialog />
       <table className="w-full bg-white border text-black border-gray-400 text-left">
         <thead>
           <tr className="bg-gray-200">
