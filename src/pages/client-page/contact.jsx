@@ -8,7 +8,7 @@ export default function Contact() {
     name: "",
     occupation: "",
     comment: "",
-    rating:0
+    rating: 1
   })
 
   const handleRating = (value) => {
