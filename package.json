@@ -15,6 +15,7 @@
     "flowbite": "^2.5.2",
     "framer-motion": "^11.12.0",
     "react": "^18.3.1",
+    "react-awesome-reveal": "^4.2.14",
     "react-datepicker": "^7.5.0",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
@@ -23,8 +24,10 @@
     "react-router-dom": "^6.27.0",
     "react-scroll": "^1.9.0",
     "react-scroll-motion": "^0.3.3",
+    "react-slick": "^0.30.2",
     "react-spinners": "^0.14.1",
-    "react-toastify": "^10.0.6"
+    "react-toastify": "^10.0.6",
+    "swiper": "^11.1.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
@@ -37,8 +40,8 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.14",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
     "vite": "^5.4.8"
   }
 }

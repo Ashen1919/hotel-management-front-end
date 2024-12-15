@@ -4,7 +4,7 @@ import { fadeIn } from "./variants";
 
 export default function FeedBackHead() {
   return (
-    <div className="flex flex-col items-center justify-center mt-64" id="gallery">
+    <div className="flex flex-col items-center justify-center md:mt-64 mt-80" id="gallery">
       {/* Creative Heading */}
       <motion.h1
         variants={fadeIn("up", 0.2)}
