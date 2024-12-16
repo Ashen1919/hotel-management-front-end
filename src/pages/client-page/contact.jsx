@@ -116,7 +116,7 @@ export default function Contact() {
           <div>
             <button
               type="submit"
-              className="mt-4 bg-amber-500 border-2 border-amber-500 hover:bg-transparent hover:border-2 hover:text-black transition duration-500 text-white font-medium py-2 px-6 rounded-md"
+              className="mt-4 font-semibold bg-amber-500 border-2 border-amber-500 hover:bg-transparent hover:border-2 hover:text-black transition duration-500 text-white py-2 px-6 rounded-md"
             >
               Submit
             </button>

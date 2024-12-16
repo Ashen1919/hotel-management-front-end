@@ -48,6 +48,26 @@ export default function AdminFeedback() {
     }
   };
 
+  const getApprove = (feedbackId) => {
+    if(
+      window.confirm("Do you want to accept this feedback?")
+    ){
+      axios.put(import.meta.env.VITE_BACKEND_URL + "/api/feedback/" + feedbackId, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res)=>{
+        toast.success("Feedback accepted successfully");
+        setFeedbackIsLoading(false);
+      })
+      .catch((err) => {
+        toast.error("Failed to accept feedback");
+        console.log(err.message)
+      });
+    }
+  };
+
   return (
     <div className="p-4 w-full">
       <table className="w-full bg-white border text-black border-gray-400 text-left">
@@ -75,7 +95,10 @@ export default function AdminFeedback() {
               </td>
               <td className="p-2 border border-gray-300">
                 <div className="flex space-x-4">
-                  <button className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 w-20 ">
+                  <button 
+                    className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 w-20 "
+                    onClick={()=> getApprove(feedback.feedbackId)}
+                    >
                     Approve
                   </button>
                   <button
