@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 export default function FeedBack() {
@@ -23,17 +22,14 @@ export default function FeedBack() {
     }
   }, [feedbackIsLoading]);
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === feedbacks.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? feedbacks.length - 1 : prevIndex - 1
-    );
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex + 3 >= feedbacks.length ? 0 : prevIndex + 1
+      );
+    }, 5000); 
+    return () => clearInterval(interval); 
+  }, [feedbacks]);
 
   const renderStars = (rating) => {
     const stars = [];
@@ -49,42 +45,30 @@ export default function FeedBack() {
     return stars;
   };
 
+  const visibleFeedbacks = feedbacks.slice(currentIndex, currentIndex + 3);
+
   return (
     <div className="flex flex-col items-center mt-8">
       {feedbacks.length > 0 ? (
-        <>
-          <div className="w-full max-w-md">
-            <div className="bg-white shadow-lg rounded-lg p-6 text-center">
+        <div className="flex justify-center gap-4">
+          {visibleFeedbacks.map((feedback, index) => (
+            <div
+              key={feedback.feedbackId}
+              className="bg-white shadow-lg rounded-lg p-6 w-80 text-center"
+            >
               <h2 className="text-2xl font-semibold text-gray-800">
-                {feedbacks[currentIndex].name}
+                {feedback.name}
               </h2>
               <h4 className="text-gray-500 text-sm mb-3">
-                {feedbacks[currentIndex].occupation}
+                {feedback.occupation}
               </h4>
               <div className="flex justify-center mb-4">
-                {renderStars(feedbacks[currentIndex].rating)}
+                {renderStars(feedback.rating)}
               </div>
-              <p className="text-gray-600 italic">
-                "{feedbacks[currentIndex].comment}"
-              </p>
+              <p className="text-gray-600 italic">"{feedback.comment}"</p>
             </div>
-          </div>
-
-          <div className="flex space-x-3 mt-5">
-            <button
-              onClick={handlePrev}
-              className="p-3 rounded-full border-2 border-gray-500 hover:border-amber-500 hover:shadow-md transition duration-300"
-            >
-              <FaArrowLeft />
-            </button>
-            <button
-              onClick={handleNext}
-              className="p-3 rounded-full border-2 border-gray-500 hover:border-amber-500 hover:shadow-md transition duration-300"
-            >
-              <FaArrowRight />
-            </button>
-          </div>
-        </>
+          ))}
+        </div>
       ) : (
         <p className="text-gray-500 italic">No approved feedbacks available.</p>
       )}
