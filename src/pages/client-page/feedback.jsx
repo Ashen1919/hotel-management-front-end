@@ -51,7 +51,7 @@ export default function FeedBack() {
   return (
     <div className="flex flex-col items-center mt-8 w-full h-auto bg-gray-100">
       {feedbacks.length > 0 ? (
-        <div className="flex sm:hidden md:block justify-center gap-4">
+        <div className="flex sm:hidden mt-3 mb-3 justify-center gap-4">
           {visibleFeedbacks.map((feedback, index) => (
             <div
               key={feedback.feedbackId}
