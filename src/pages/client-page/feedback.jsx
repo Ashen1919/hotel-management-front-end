@@ -51,11 +51,11 @@ export default function FeedBack() {
   return (
     <div className="flex flex-col items-center mt-8 w-full h-auto bg-gray-100">
       {feedbacks.length > 0 ? (
-        <div className="md:flex sm:hidden mt-3 mb-3 justify-center gap-4">
+        <div className="md:flex sm:hidden mt-3 mb-3 justify-center gap-6">
           {visibleFeedbacks.map((feedback, index) => (
             <div
               key={feedback.feedbackId}
-              className="bg-white shadow-lg rounded-lg p-6 w-80 text-center"
+              className="bg-white shadow-lg rounded-lg p-6 w-80 text-center cursor-pointer border-2 border-white hover:border-2 hover:border-amber-500 transition duration-500 hover:shadow-2xl group-hover:scale-105"
             >
               <h2 className="text-2xl font-semibold text-gray-800">
                 {feedback.name}
