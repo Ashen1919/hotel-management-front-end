@@ -1,4 +1,3 @@
-import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"; // Import the ConfirmDialog and confirmDialog
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -113,7 +112,6 @@ export default function AdminFeedback() {
           ))}
         </tbody>
       </table>
-      <ConfirmDialog />
     </div>
   );
 }
