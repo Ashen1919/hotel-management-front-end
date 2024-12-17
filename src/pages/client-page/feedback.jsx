@@ -27,8 +27,8 @@ export default function FeedBack() {
       setCurrentIndex((prevIndex) =>
         prevIndex + 3 >= feedbacks.length ? 0 : prevIndex + 1
       );
-    }, 7000); 
-    return () => clearInterval(interval); 
+    }, 7000);
+    return () => clearInterval(interval);
   }, [feedbacks]);
 
   const renderStars = (rating) => {
@@ -51,13 +51,13 @@ export default function FeedBack() {
   return (
     <div className="flex flex-col items-center mt-8 w-full h-auto bg-gray-100">
       {feedbacks.length > 0 ? (
-        <div className="md:flex sm:hidden mt-3 mb-3 justify-center gap-6">
+        <div className="flex flex-wrap mt-3 mb-3 justify-center gap-6">
           {visibleFeedbacks.map((feedback, index) => (
             <div
               key={feedback.feedbackId}
-              className="bg-white shadow-lg rounded-lg p-6 w-80 text-center cursor-pointer border-2 border-white hover:border-2 hover:border-amber-500 transition duration-500 hover:shadow-2xl group-hover:scale-105"
+              className="bg-white shadow-lg rounded-lg p-6 w-full sm:w-72 md:w-80 lg:w-96 text-center cursor-pointer border-2 border-white hover:border-2 hover:border-amber-500 transition duration-500 hover:shadow-2xl transform hover:scale-105"
             >
-              <h2 className="text-2xl font-semibold text-gray-800">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800">
                 {feedback.name}
               </h2>
               <h4 className="text-gray-500 text-sm mb-3">
@@ -66,28 +66,11 @@ export default function FeedBack() {
               <div className="flex justify-center mb-4">
                 {renderStars(feedback.rating)}
               </div>
-              <p className="text-gray-600 italic">"{feedback.comment}"</p>
+              <p className="text-gray-600 italic text-sm md:text-base">
+                "{feedback.comment}"
+              </p>
             </div>
           ))}
-          <div className="flex md:hidden justify-center gap-4">
-          {visibleFeedbacksOnMobile.map((feedback, index) => (
-            <div
-              key={feedback.feedbackId}
-              className="bg-white shadow-lg rounded-lg p-6 w-80 text-center"
-            >
-              <h2 className="text-2xl font-semibold text-gray-800">
-                {feedback.name}
-              </h2>
-              <h4 className="text-gray-500 text-sm mb-3">
-                {feedback.occupation}
-              </h4>
-              <div className="flex justify-center mb-4">
-                {renderStars(feedback.rating)}
-              </div>
-              <p className="text-gray-600 italic">"{feedback.comment}"</p>
-            </div>
-          ))}
-        </div>
         </div>
       ) : (
         <p className="text-gray-500 italic">No approved feedbacks available.</p>
