@@ -51,7 +51,7 @@ export default function FeedBack() {
   return (
     <div className="flex flex-col items-center mt-8 w-full h-auto bg-gray-100">
       {feedbacks.length > 0 ? (
-        <div className="flex sm:hidden mt-3 mb-3 justify-center gap-4">
+        <div className="md:flex sm:hidden mt-3 mb-3 justify-center gap-4">
           {visibleFeedbacks.map((feedback, index) => (
             <div
               key={feedback.feedbackId}
@@ -69,7 +69,7 @@ export default function FeedBack() {
               <p className="text-gray-600 italic">"{feedback.comment}"</p>
             </div>
           ))}
-          <div className="flex sm:block md:hidden justify-center gap-4">
+          <div className="flex md:hidden justify-center gap-4">
           {visibleFeedbacksOnMobile.map((feedback, index) => (
             <div
               key={feedback.feedbackId}
