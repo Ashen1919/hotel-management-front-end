@@ -13,7 +13,10 @@ export default function FeedBack() {
       axios
         .get(import.meta.env.VITE_BACKEND_URL + "/api/feedback/")
         .then((res) => {
-          setFeedbacks(res.data.feedbacks);
+          const approvedFeedbacks = res.data.feedbacks.filter(
+            (feedback) => feedback.approved === true
+          );
+          setFeedbacks(approvedFeedbacks);
           setFeedbackIsLoading(true);
         })
         .catch((err) => console.error("Failed to fetch feedback:", err));
@@ -48,39 +51,43 @@ export default function FeedBack() {
 
   return (
     <div className="flex flex-col items-center mt-8">
-      <div className="w-full max-w-md">
-        {feedbacks.length > 0 && (
-          <div className="bg-white shadow-lg rounded-lg p-6 text-center">
-            <h2 className="text-2xl font-semibold text-gray-800">
-              {feedbacks[currentIndex].name}
-            </h2>
-            <h4 className="text-gray-500 text-sm mb-3">
-              {feedbacks[currentIndex].occupation}
-            </h4>
-            <div className="flex justify-center mb-4">
-              {renderStars(feedbacks[currentIndex].rating)}
+      {feedbacks.length > 0 ? (
+        <>
+          <div className="w-full max-w-md">
+            <div className="bg-white shadow-lg rounded-lg p-6 text-center">
+              <h2 className="text-2xl font-semibold text-gray-800">
+                {feedbacks[currentIndex].name}
+              </h2>
+              <h4 className="text-gray-500 text-sm mb-3">
+                {feedbacks[currentIndex].occupation}
+              </h4>
+              <div className="flex justify-center mb-4">
+                {renderStars(feedbacks[currentIndex].rating)}
+              </div>
+              <p className="text-gray-600 italic">
+                "{feedbacks[currentIndex].comment}"
+              </p>
             </div>
-            <p className="text-gray-600 italic">
-              "{feedbacks[currentIndex].comment}"
-            </p>
           </div>
-        )}
-      </div>
 
-      <div className="flex space-x-3 mt-5">
-        <button
-          onClick={handlePrev}
-          className="p-3 rounded-full border-2 border-gray-500 hover:border-amber-500 hover:shadow-md transition duration-300"
-        >
-          <FaArrowLeft />
-        </button>
-        <button
-          onClick={handleNext}
-          className="p-3 rounded-full border-2 border-gray-500 hover:border-amber-500 hover:shadow-md transition duration-300"
-        >
-          <FaArrowRight />
-        </button>
-      </div>
+          <div className="flex space-x-3 mt-5">
+            <button
+              onClick={handlePrev}
+              className="p-3 rounded-full border-2 border-gray-500 hover:border-amber-500 hover:shadow-md transition duration-300"
+            >
+              <FaArrowLeft />
+            </button>
+            <button
+              onClick={handleNext}
+              className="p-3 rounded-full border-2 border-gray-500 hover:border-amber-500 hover:shadow-md transition duration-300"
+            >
+              <FaArrowRight />
+            </button>
+          </div>
+        </>
+      ) : (
+        <p className="text-gray-500 italic">No approved feedbacks available.</p>
+      )}
     </div>
   );
 }
