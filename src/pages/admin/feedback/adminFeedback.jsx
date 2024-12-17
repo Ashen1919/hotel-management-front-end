@@ -52,7 +52,7 @@ export default function AdminFeedback() {
     if(
       window.confirm("Do you want to accept this feedback?")
     ){
-      axios.put(import.meta.env.VITE_BACKEND_URL + "/api/feedback/" + feedbackId, {
+      axios.put(import.meta.env.VITE_BACKEND_URL + "/api/feedback/" + feedbackId, {}, {
         headers: {
           Authorization: "Bearer " + token,
         },
