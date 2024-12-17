@@ -95,20 +95,20 @@ function Header() {
       <nav className="hidden lg:flex space-x-8">
         <a
           href="/"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
         >
           Home
         </a>
         <Link
           spy = {true} smooth={true} offset={-100} duration={500} onClick={closeMenu}
           to ="about"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
         >
           About
         </Link>
         <motion.a
           href="#features"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
           whileHover="hover"
           whileTap="click"
           variants={fadeIn}
@@ -117,7 +117,7 @@ function Header() {
         </motion.a>
         <motion.a
           href="#rooms"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
           whileHover="hover"
           whileTap="click"
           variants={fadeIn}
@@ -126,7 +126,7 @@ function Header() {
         </motion.a>
         <motion.a
           href="#gallery"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
           whileHover="hover"
           whileTap="click"
           variants={fadeIn}
@@ -135,7 +135,7 @@ function Header() {
         </motion.a>
         <motion.a
           href="#contact"
-          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
           whileHover="hover"
           whileTap="click"
           variants={fadeIn}

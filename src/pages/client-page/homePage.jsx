@@ -16,6 +16,7 @@ import FeedBackHead from "../../components/feedbackHead.jsx";
 import FeedBack from "./feedback.jsx";
 import ContactHead from "../../components/contactHead.jsx";
 import Contact from "./contact.jsx";
+import Footer from "./footer.jsx";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -48,6 +49,7 @@ export default function HomePage() {
             <FeedBack/>
             <ContactHead/>
             <Contact/>
+            <Footer/>
           </div>
         )}
       </div>
