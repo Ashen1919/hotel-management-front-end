@@ -17,14 +17,15 @@ import FeedBack from "./feedback.jsx";
 import ContactHead from "../../components/contactHead.jsx";
 import Contact from "./contact.jsx";
 import Footer from "./footer.jsx";
+import ScrollToTopButton from "../../components/backToTop.jsx";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(()=>{
-    setTimeout(()=>{
-      setIsLoading(false)
-    }, 2000); 
-  })
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  });
 
   return (
     <>
@@ -35,21 +36,22 @@ export default function HomePage() {
           <div className="w-full h-screen flex flex-col items-center">
             <TopBar />
             <Header />
-            <HomeContent/>
-            <BookingBar/>
-            <AboutUs/>
-            <HomeAbout/>
-            <FeaturesHead/>
-            <FeaturesList/>
-            <RoomHead/>
-            <Rooms/>
-            <GalleryHead/>
-            <GalleryItem/>
-            <FeedBackHead/>
-            <FeedBack/>
-            <ContactHead/>
-            <Contact/>
-            <Footer/>
+            <HomeContent />
+            <BookingBar />
+            <AboutUs />
+            <HomeAbout />
+            <FeaturesHead />
+            <FeaturesList />
+            <RoomHead />
+            <Rooms />
+            <GalleryHead />
+            <GalleryItem />
+            <FeedBackHead />
+            <FeedBack />
+            <ContactHead />
+            <Contact />
+            <Footer />
+            <ScrollToTopButton/>
           </div>
         )}
       </div>
