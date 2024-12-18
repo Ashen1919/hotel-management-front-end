@@ -29,7 +29,7 @@ const ScrollToTopButton = () => {
 
   return (
     <div
-      className={`fixed right-0 mr-4 bottom-0 mb-8 transition-opacity duration-500 ${
+      className={`fixed right-0 mr-8 bottom-0 mb-28 transition-opacity duration-500 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >
