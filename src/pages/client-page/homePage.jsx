@@ -33,7 +33,7 @@ export default function HomePage() {
         {isLoading ? (
           <PreLoader />
         ) : (
-          <div className="w-full h-screen flex flex-col items-center">
+          <div className="max-w-full h-screen flex flex-col items-center">
             <TopBar />
             <Header />
             <HomeContent />
