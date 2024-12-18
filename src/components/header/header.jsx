@@ -5,6 +5,7 @@ import { FaCog, FaBookmark } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
 import { LuLogOut } from "react-icons/lu";
+import './header.css'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -99,49 +100,39 @@ function Header() {
         >
           Home
         </a>
-        <Link
-          spy = {true} smooth={true} offset={-100} duration={500} onClick={closeMenu}
-          to ="about"
+        <a
+          href ="#about"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
         >
           About
-        </Link>
-        <motion.a
+        </a>
+        <a
           href="#features"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-          whileHover="hover"
-          whileTap="click"
-          variants={fadeIn}
         >
           Features
-        </motion.a>
-        <motion.a
+        </a>
+        <a
           href="#rooms"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-          whileHover="hover"
-          whileTap="click"
-          variants={fadeIn}
+         
         >
           Rooms
-        </motion.a>
-        <motion.a
+        </a>
+        <a
           href="#gallery"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-          whileHover="hover"
-          whileTap="click"
-          variants={fadeIn}
+          
         >
           Gallery
-        </motion.a>
-        <motion.a
+        </a>
+        <a
           href="#contact"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-          whileHover="hover"
-          whileTap="click"
-          variants={fadeIn}
+          
         >
           Contact
-        </motion.a>
+        </a>
       </nav>
 
       {/* User Dropdown or Buttons */}
