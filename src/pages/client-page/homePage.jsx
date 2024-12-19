@@ -18,6 +18,7 @@ import ContactHead from "../../components/contactHead.jsx";
 import Contact from "./contact.jsx";
 import Footer from "./footer.jsx";
 import ScrollToTopButton from "../../components/backToTop.jsx";
+import TawkToWidget from "../../components/tawkToWidget.js";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -52,6 +53,7 @@ export default function HomePage() {
             <Contact />
             <Footer />
             <ScrollToTopButton/>
+            <TawkToWidget/>
           </div>
         )}
       </div>
