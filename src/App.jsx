@@ -5,6 +5,7 @@ import LoginPage from "./pages/login/login.jsx";
 import SignUpPage from "./pages/signUp/signUp.jsx";
 import CategoriesPage from "./pages/client-page/categories.jsx";
 import { Toaster } from "react-hot-toast";
+import TawkToWidget from "./components/tawkToWidget.js";
 
 
 
@@ -12,6 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <Toaster position="top-center" reverseOrder={false} />
+      <TawkToWidget/>
       <Routes path="/*">
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/admin/*" element={<AdminPage />} />
