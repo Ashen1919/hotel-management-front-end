@@ -45,6 +45,7 @@ export default function AdminBooking() {
             <th className="p-2 border border-gray-300">End</th>
             <th className="p-2 border border-gray-300">Notes</th>
             <th className="p-2 border border-gray-300">Timestamp</th>
+            <th className="p-2 border border-gray-300">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -59,6 +60,22 @@ export default function AdminBooking() {
                 <td className="p-2 border border-gray-300">{new Date(booking.end).toDateString()}</td>
                 <td className="p-2 border border-gray-300">{booking.notes || "N/A"}</td>
                 <td className="p-2 border border-gray-300">{booking.timeStamp}</td>
+                <td className="p-2 border border-gray-300">
+                <div className="flex space-x-4">
+                  <button 
+                    className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 w-20 "
+                    
+                    >
+                    Confirm
+                  </button>
+                  <button
+                    className="bg-red-500 p-1 text-white rounded-sm hover:bg-red-600 w-20"
+                    
+                  >
+                    Reject
+                  </button>
+                </div>
+              </td>
               </tr>
               
             );
