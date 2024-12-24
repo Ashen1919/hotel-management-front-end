@@ -6,7 +6,7 @@ const RoomCard = ({
   image,
   price,
   availability,
-  specialDescription,
+  specialNotes,
   maxGuests,
   description,
 }) => {
@@ -71,6 +71,14 @@ export default function AllRooms() {
         });
     }
   }, [roomIsLoading]);
+
+  if (!roomIsLoading) {
+    return <div>Loading rooms...</div>;
+  }
+  
+  if (rooms.length === 0) {
+    return <div>No rooms available</div>;
+  }  
 
   return (
     <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
