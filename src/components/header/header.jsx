@@ -7,7 +7,7 @@ import { fadeIn } from "../variants";
 import { LuLogOut } from "react-icons/lu";
 import './header.css'
 
-function Header() {
+function Header(email) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -31,7 +31,7 @@ function Header() {
     const token = localStorage.getItem("token");
     if (token !== null) {
       axios
-        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/", {
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" + email, {
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",
