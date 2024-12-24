@@ -30,16 +30,6 @@ export default function BookingBar() {
     fetchMaxGuests();
   }, []);
 
-  // Auto-select category based on maxGuest
-  useEffect(() => {
-    if (maxGuest) {
-      // Example logic: Map maxGuest to category
-      const selectedCategory = categories.find(
-        (cat) => cat.maxGuests === parseInt(maxGuest)
-      );
-      setCategory(selectedCategory ? selectedCategory.name : "");
-    }
-  }, [maxGuest, categories]);
 
   return (
     <motion.div
@@ -47,7 +37,7 @@ export default function BookingBar() {
       initial="hidden"
       whileInView={"show"}
       viewport={{ once: false, amount: 0.7 }}
-      className="my-3 py-4 w-[350px] md:w-[850px] lg:w-[850px]"
+      className="my-3 py-4 w-[350px] md:w-[800px] lg:w-[800px]"
       id="booking"
     >
       <div className="flex flex-col md:flex-row md:items-center md:justify-center bg-white shadow-lg p-4 rounded-lg space-y-4 md:space-y-0 md:space-x-4 border-4 border-sky-500 md:rounded-l-full md:rounded-r-full">
@@ -91,30 +81,13 @@ export default function BookingBar() {
                 ))}
               </select>
             </div>
-
-            {/* Category */}
-            <div className="flex flex-col">
-              <label className="text-black mb-1">Category</label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="border-2 border-gray-400 rounded-lg p-2 w-full md:w-40"
-              >
-                <option value="">Select</option>
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.name}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
-            </div>
           </div>
         </div>
 
         {/* Book Now Button */}
         <div className="flex justify-center md:flex-col">
           <Link to={"/"}>
-            <button className="bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+            <button className="bg-blue-500 text-white px-5 mt-5 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
               Search
             </button>
           </Link>

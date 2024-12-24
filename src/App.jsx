@@ -5,6 +5,7 @@ import LoginPage from "./pages/login/login.jsx";
 import SignUpPage from "./pages/signUp/signUp.jsx";
 import CategoriesPage from "./pages/client-page/categories.jsx";
 import { Toaster } from "react-hot-toast";
+import AllRooms from "./pages/client-page/roomPage.jsx";
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage/>} />
         <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/AllRooms" element={<AllRooms/>}/>
       </Routes>
     </BrowserRouter>
   );

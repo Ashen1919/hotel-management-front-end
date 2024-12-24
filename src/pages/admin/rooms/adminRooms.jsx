@@ -69,6 +69,7 @@ export default function RoomsPage() {
             <th className="p-2 border border-gray-300 text-black">Category</th>
             <th className="p-2 border border-gray-300 text-black">Max Guests</th>
             <th className="p-2 border border-gray-300 text-black">Available</th>
+            <th className="p-2 border border-gray-300 text-black">Price($)</th>
             <th className="p-2 border border-gray-300 text-black">Photos</th>
             <th className="p-2 border border-gray-300 text-black">Actions</th>
           </tr>
@@ -82,6 +83,7 @@ export default function RoomsPage() {
               <td className="p-2 border border-gray-300 text-black">
                 {room.available ? "Yes" : "No"}
               </td>
+              <td className="p-2 border border-gray-300 text-black">{room.price}</td>
               <td className="p-2 border border-gray-300 text-black">
                 {room.photos.length > 0 ? (
                   <img
