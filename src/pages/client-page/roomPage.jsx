@@ -32,12 +32,12 @@ const RoomCard = ({
           </div>
         </div>
         <p className="text-gray-700 text-base">{description}</p>
-        <div className="ml-3 flex">
-          <p className="text-lg font-semibold">
+        <div className="mt-4 flex">
+          <p className="text-lg font-semibold text-blue-600">
             Availability: {availability ? "Available" : "Not Available"}
           </p>
         </div>
-        <div className="ml-3">
+        <div className="mt-2">
           <p className="text-red-500">{specialNotes}</p>
         </div>
       </div>
@@ -73,11 +73,11 @@ export default function AllRooms() {
   }, [roomIsLoading]);
 
   if (!roomIsLoading) {
-    return <div>Loading rooms...</div>;
+    return <div className="justify-center mt-40 text-3xl font-semibold">Loading rooms...</div>;
   }
   
   if (rooms.length === 0) {
-    return <div>No rooms available</div>;
+    return <div className="justify-center mt-40 text-3xl font-semibold">No rooms available</div>;
   }  
 
   return (
