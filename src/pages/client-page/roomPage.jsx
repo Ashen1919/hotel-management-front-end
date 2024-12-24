@@ -79,7 +79,8 @@ export default function AllRooms() {
         }
       );
 
-      setRooms(response.data);
+      setRooms(response.data.result);
+      setRoomIsLoading(true);
     };
 
     fetchFilteredRooms();
