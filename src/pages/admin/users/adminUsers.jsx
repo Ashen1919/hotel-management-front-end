@@ -22,7 +22,7 @@ export default function AdminUsers() {
         .get(import.meta.env.VITE_BACKEND_URL + "/api/users/")
         .then((res) => {
             console.log("API Response:", res.data);
-            setUser(res.data.user);
+            setUser(res.data.users);
             setUserIsLoaded(true);
         })
         .catch((err) => {
