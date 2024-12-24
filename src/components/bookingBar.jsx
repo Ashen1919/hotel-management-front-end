@@ -80,6 +80,22 @@ export default function BookingBar() {
                 placeholderText="Select date"
               />
             </div>
+            {/* Max Guests */}
+            <div className="flex flex-col">
+              <label className="text-black mb-1">Max Guests</label>
+              <select
+                value={maxGuest}
+                onChange={(e) => setMaxGuest(e.target.value)}
+                className="border-2 border-gray-400 rounded-lg p-2 w-full md:w-40"
+              >
+                <option value="">Select</option>
+                {maxGuests.map((maxG) => (
+                  <option key={maxG.id} value={maxG.maxGuests}>
+                    {maxG.maxGuests}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             {/* Category */}
             <div className="flex flex-col">
@@ -98,22 +114,6 @@ export default function BookingBar() {
               </select>
             </div>
 
-            {/* Max Guests */}
-            <div className="flex flex-col">
-              <label className="text-black mb-1">Max Guests</label>
-              <select
-                value={maxGuest}
-                onChange={(e) => setMaxGuest(e.target.value)}
-                className="border-2 border-gray-400 rounded-lg p-2 w-full md:w-40"
-              >
-                <option value="">Select</option>
-                {maxGuests.map((maxG) => (
-                  <option key={maxG.id} value={maxG.maxGuests}>
-                    {maxG.maxGuests}
-                  </option>
-                ))}
-              </select>
-            </div>
           </div>
         </div>
 
