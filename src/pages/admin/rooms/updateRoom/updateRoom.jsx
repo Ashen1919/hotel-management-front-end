@@ -96,7 +96,7 @@ export default function UpdateRoomForm() {
   }
 
   return (
-    <div className="w-full h-[100vh] flex justify-center items-center">
+    <div className="w-full h-[130vh] flex justify-center items-center">
       <form
         className="w-1/3 bg-white p-6 rounded shadow-lg"
         onSubmit={handleForm}
@@ -139,9 +139,9 @@ export default function UpdateRoomForm() {
         <label className="block mb-2 text-black">Price($):</label>
         <input
           type="number"
-          checked={price}
+          value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className="mb-4"
+          className="w-full text-black p-2 mb-4 border border-gray-300 rounded"
         />
 
         <label className="block mb-2 text-black">Photos:</label>
