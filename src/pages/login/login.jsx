@@ -19,7 +19,7 @@ export default function LoginPage() {
       .then((result) => {
         console.log("User type:", result.data.user.type);
         localStorage.setItem("token", result.data.token);
-        localStorage.setItem("email", result.data.email);
+        localStorage.setItem("email", result.data.user.email);
         if (result.data.user.type == "Customer") {
           window.location.href = "/";
         } else if (result.data.user.type == "admin") {
