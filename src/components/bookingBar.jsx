@@ -96,7 +96,6 @@ export default function BookingBar() {
             <div className="flex flex-col">
               <label className="text-black mb-1">Category</label>
               <select
-                disabled
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="border-2 border-gray-400 rounded-lg p-2 w-full md:w-40"
