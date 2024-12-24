@@ -27,11 +27,13 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect((email) => {
+  useEffect(() => {
     const token = localStorage.getItem("token");
+    const email = localStorage.getItem("email");
+    console.log(email);
     if (token !== null) {
       axios
-        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" + email, {
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" +email, {
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",
