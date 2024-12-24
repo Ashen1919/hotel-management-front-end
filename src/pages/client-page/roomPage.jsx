@@ -32,11 +32,13 @@ const RoomCard = ({
           </div>
         </div>
         <p className="text-gray-700 text-base">{description}</p>
-        <div className="ml-6 flex">
-          <p className="text-lg font-semibold">Availability: {availability}</p>
+        <div className="ml-3 flex">
+          <p className="text-lg font-semibold">
+            Availability: {availability ? "Available" : "Not Available"}
+          </p>
         </div>
-        <div className="ml-6">
-          <p className="text-red-500">{specialDescription}</p>
+        <div className="ml-3">
+          <p className="text-red-500">{specialNotes}</p>
         </div>
       </div>
 
@@ -79,9 +81,9 @@ export default function AllRooms() {
           price={room.price}
           rating={room.rating}
           maxGuests={room.maxGuests}
-          description={room.description}
+          description={room.specialDescription}
           availability={room.available}
-          specialDescription={room.specialDescription}
+          specialNotes={room.notes}
         />
       ))}
     </div>
