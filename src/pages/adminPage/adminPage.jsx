@@ -37,9 +37,10 @@ export default function AdminPage() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const email = localStorage.getItem("email");
     if (token !== null) {
       axios
-        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/", {
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" +email, {
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",
