@@ -32,18 +32,18 @@ const RoomCard = ({
           </div>
         </div>
         <p className="text-gray-700 text-base">{description}</p>
-        <div className="ml-3 flex">
-          <p className="text-lg font-semibold">
+        <div className="mt-4 flex">
+          <p className="text-lg font-semibold text-blue-600">
             Availability: {availability ? "Available" : "Not Available"}
           </p>
         </div>
-        <div className="ml-3">
+        <div className="mt-2">
           <p className="text-red-500">{specialNotes}</p>
         </div>
       </div>
 
       {/* Book Now Button with hover effects */}
-      <div className="px-6 pt-4 pb-4">
+      <div className="px-6 pt-2 pb-4">
         <a href="#booking">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110">
             Book Now
@@ -73,11 +73,11 @@ export default function AllRooms() {
   }, [roomIsLoading]);
 
   if (!roomIsLoading) {
-    return <div>Loading rooms...</div>;
+    return <div className="justify-center mt-40 text-3xl font-semibold">Loading rooms...</div>;
   }
   
   if (rooms.length === 0) {
-    return <div>No rooms available</div>;
+    return <div className="justify-center mt-40 text-3xl font-semibold">No rooms available</div>;
   }  
 
   return (
