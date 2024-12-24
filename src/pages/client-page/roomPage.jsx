@@ -73,11 +73,11 @@ export default function AllRooms() {
   }, [roomIsLoading]);
 
   if (!roomIsLoading) {
-    return <div className="justify-center mt-40 text-3xl font-semibold">Loading rooms...</div>;
+    return <div className="justify-center mt-40 ml-40 text-3xl font-semibold">Loading rooms...</div>;
   }
   
   if (rooms.length === 0) {
-    return <div className="justify-center mt-40 text-3xl font-semibold">No rooms available</div>;
+    return <div className="justify-center mt-40 ml-40 text-3xl font-semibold">No rooms available</div>;
   }  
 
   return (
