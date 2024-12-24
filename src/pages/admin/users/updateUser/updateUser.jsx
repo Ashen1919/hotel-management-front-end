@@ -27,39 +27,15 @@ export default function UpdateUser() {
   const [whatsapp, setWhatsapp] = useState(userData.whatsapp);
   const [disabled, setDisabled] = useState(userData.disabled);
   const [emailVerified, setEmailVerified] = useState(userData.emailVerified);
-  const [profileImage, setProfileImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const token = localStorage.getItem("token");
-
-  const getFileUrl = (fileId) => {
-    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${
-      import.meta.env.VITE_BUCKET_ID
-    }/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
-  };
-
-  const handleImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setProfileImage(e.target.files[0]);
-    }
-  };
 
   async function handleForm(e) {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      let profileImageUrl = userData.profileImage;
-
-      if (profileImage) {
-        const response = await storage.createFile(
-          import.meta.env.VITE_BUCKET_ID,
-          ID.unique(),
-          profileImage
-        );
-        profileImageUrl = getFileUrl(response.$id);
-      }
-
       const userInfo = {
         email,
         firstName,
@@ -67,7 +43,6 @@ export default function UpdateUser() {
         whatsapp,
         disabled,
         emailVerified,
-        profileImage: profileImageUrl,
       };
 
       await axios.put(
@@ -148,13 +123,6 @@ export default function UpdateUser() {
           checked={emailVerified}
           onChange={(e) => setEmailVerified(e.target.checked)}
           className="mb-4"
-        />
-
-        <label className="block mb-2 text-black">Profile Image:</label>
-        <input
-          type="file"
-          onChange={handleImageChange}
-          className="w-full p-2 mb-4"
         />
 
         <button
