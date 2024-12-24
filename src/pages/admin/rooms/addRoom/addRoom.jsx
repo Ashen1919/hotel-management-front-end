@@ -14,9 +14,10 @@ export default function AddRoomForm() {
   const navigate = useNavigate();
   const [roomId, setRoomId] = useState("");
   const [category, setCategory] = useState("");
-  const [categories, setCategories] = useState([]); 
+  const [categories, setCategories] = useState([]);
   const [maxGuests, setMaxGuests] = useState(3);
   const [available, setAvailable] = useState(true);
+  const [price, setPrice] = useState("");
   const [photos, setPhotos] = useState([]);
   const [specialDescription, setSpecialDescription] = useState("");
   const [notes, setNotes] = useState("");
@@ -27,7 +28,9 @@ export default function AddRoomForm() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/category");
+        const response = await axios.get(
+          import.meta.env.VITE_BACKEND_URL + "/api/category"
+        );
         setCategories(response.data.categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -38,7 +41,9 @@ export default function AddRoomForm() {
   }, []);
 
   const getFileUrl = (fileId) => {
-    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
+    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${
+      import.meta.env.VITE_BUCKET_ID
+    }/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
   };
 
   const handlePhotoChange = (e) => {
@@ -67,16 +72,21 @@ export default function AddRoomForm() {
         category,
         maxGuests,
         available,
+        price,
         photos: photoUrls,
         specialDescription,
         notes,
       };
 
-      await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/rooms", roomInfo, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      await axios.post(
+        import.meta.env.VITE_BACKEND_URL + "/api/rooms",
+        roomInfo,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       toast.success("Room added successfully!");
       navigate("/admin/rooms");
     } catch (error) {
@@ -107,18 +117,18 @@ export default function AddRoomForm() {
 
         <label className="block mb-2">Category:</label>
         <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-            placeholder= "Category"
-          >
-            <option value="">Select</option>
-            {categories.map((cat) => (
-              <option key={cat.id} value={cat.name}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          placeholder="Category"
+        >
+          <option value="">Select</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.name}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
 
         <label className="block mb-2">Max Guests:</label>
         <input
@@ -135,6 +145,15 @@ export default function AddRoomForm() {
           checked={available}
           onChange={(e) => setAvailable(e.target.checked)}
           className="mb-4"
+        />
+
+        <label className="block mb-2">Price($):</label>
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          placeholder="Price"
         />
 
         <label className="block mb-2">Photos:</label>
