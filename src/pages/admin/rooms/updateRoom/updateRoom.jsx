@@ -24,6 +24,7 @@ export default function UpdateRoomForm() {
   const [category, setCategory] = useState(roomData.category);
   const [maxGuests, setMaxGuests] = useState(roomData.maxGuests);
   const [available, setAvailable] = useState(roomData.available);
+  const [price, setPrice] = useState(roomData.price);
   const [photos, setPhotos] = useState([]);
   const [specialDescription, setSpecialDescription] = useState(
     roomData.specialDescription
@@ -34,7 +35,9 @@ export default function UpdateRoomForm() {
   const token = localStorage.getItem("token");
 
   const getFileUrl = (fileId) => {
-    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_BUCKET_ID}/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
+    return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${
+      import.meta.env.VITE_BUCKET_ID
+    }/files/${fileId}/view?project=${import.meta.env.VITE_PROJECT_ID}`;
   };
 
   const handlePhotoChange = (e) => {
@@ -66,6 +69,7 @@ export default function UpdateRoomForm() {
         category,
         maxGuests,
         available,
+        price,
         photos: photoUrls,
         specialDescription,
         notes,
@@ -129,6 +133,14 @@ export default function UpdateRoomForm() {
           type="checkbox"
           checked={available}
           onChange={(e) => setAvailable(e.target.checked)}
+          className="mb-4"
+        />
+
+        <label className="block mb-2 text-black">Price($):</label>
+        <input
+          type="number"
+          checked={price}
+          onChange={(e) => setPrice(e.target.value)}
           className="mb-4"
         />
 
