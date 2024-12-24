@@ -27,7 +27,7 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
+  useEffect((email) => {
     const token = localStorage.getItem("token");
     if (token !== null) {
       axios
