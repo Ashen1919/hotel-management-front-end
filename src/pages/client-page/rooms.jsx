@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { IoIosArrowForward } from "react-icons/io";
 
-const RoomCard = ({ image, price, rating, description }) => {
+const RoomCard = ({ image, price, rating, description, category }) => {
   return (
     <div className="max-w-sm rounded shadow-lg m-4 border-2 border-transparent cursor-pointer hover:scale-105 hover:border-amber-500 hover:shadow-2xl transition-transform duration-300 relative group">
       {/* Image with subtle rotation on hover */}
@@ -15,6 +14,7 @@ const RoomCard = ({ image, price, rating, description }) => {
 
       {/* Content */}
       <div className="px-6 py-4">
+      <div className="font-bold text-2xl mb-2 text-blue-600">{category}</div>
         <div className="font-bold text-xl mb-2">${price} / night</div>
         <div className="flex items-center mb-2">
           <span className="text-yellow-500">
@@ -24,16 +24,6 @@ const RoomCard = ({ image, price, rating, description }) => {
           <span className="ml-2 text-gray-600">{rating} Stars</span>
         </div>
         <p className="text-gray-700 text-base">{description}</p>
-      </div>
-
-      {/* Explore More Link */}
-      <div className="text-blue-600 ml-6 flex">
-        <a
-          href="/AllRooms"
-          className="flex items-center hover:underline hover:transition-transform hover:scale-105 duration-300"
-        >
-          Explore More <IoIosArrowForward />
-        </a>
       </div>
 
       {/* Book Now Button with hover effects */}
@@ -56,6 +46,7 @@ export default function Rooms() {
       price: 100,
       rating: 4,
       maxGuests: 3,
+      category: "Standard Room",
       description:
         "The Standard Rooms at Ever Peak Hotel offer a cozy and comfortable stay, featuring modern amenities, a relaxing ambiance, and beautiful views, perfect for both business and leisure travelers seeking convenience and comfort.",
     },
@@ -65,6 +56,7 @@ export default function Rooms() {
       price: 125,
       rating: 5,
       maxGuests: 3,
+      category: "Deluxe Room",
       description:
         "Experience luxury in our Deluxe Rooms at Ever Peak Hotel, featuring elegant, plush bedding, stunning views, modern amenities, and personalized service for unmatched comfort.",
     },
@@ -74,6 +66,7 @@ export default function Rooms() {
       price: 175,
       rating: 4.5,
       maxGuests: 3,
+      category: "Luxury Room",
       description:
         "Experience unparalleled luxury in Ever Peak Hotel's rooms, featuring elegant décor, premium amenities, breathtaking views, personalized service, and ultimate comfort for a memorable stay.",
     },
@@ -88,6 +81,7 @@ export default function Rooms() {
           price={room.price}
           rating={room.rating}
           maxGuests={room.maxGuests}
+          category={room.category}
           description={room.description}
         />
       ))}
