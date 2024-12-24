@@ -75,7 +75,13 @@ export default function AdminUsers() {
               <td className="p-2 border border-gray-300 text-black">
                 {user.emailVerified ? "Yes" : "No"}
               </td>
-              <td className="p-2 border border-gray-300 text-black">{user.profileImage}</td>
+              <td className="p-2 border border-gray-300 text-black">
+                <img
+                  src={user.profileImage}
+                  alt={user.name}
+                  className="w-16 h-16 object-cover"
+                />
+              </td>
               <td className="p-2 border border-gray-300">
                 <Link
                   to={`/admin/update-users`}
