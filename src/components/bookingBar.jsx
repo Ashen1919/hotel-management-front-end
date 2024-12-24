@@ -14,23 +14,7 @@ export default function BookingBar() {
   const [maxGuests, setMaxGuests] = useState([]);
   const [maxGuest, setMaxGuest] = useState("");
 
-  // Fetch categories from the backend
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(
-          import.meta.env.VITE_BACKEND_URL + "/api/category"
-        );
-        setCategories(response.data.categories);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  //fetch max guests from back-end
+  // Fetch max guests from back-end
   useEffect(() => {
     const fetchMaxGuests = async () => {
       try {
@@ -45,6 +29,17 @@ export default function BookingBar() {
 
     fetchMaxGuests();
   }, []);
+
+  // Auto-select category based on maxGuest
+  useEffect(() => {
+    if (maxGuest) {
+      // Example logic: Map maxGuest to category
+      const selectedCategory = categories.find(
+        (cat) => cat.maxGuests === parseInt(maxGuest)
+      );
+      setCategory(selectedCategory ? selectedCategory.name : "");
+    }
+  }, [maxGuest, categories]);
 
   return (
     <motion.div
@@ -101,6 +96,7 @@ export default function BookingBar() {
             <div className="flex flex-col">
               <label className="text-black mb-1">Category</label>
               <select
+                disabled
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="border-2 border-gray-400 rounded-lg p-2 w-full md:w-40"
@@ -113,7 +109,6 @@ export default function BookingBar() {
                 ))}
               </select>
             </div>
-
           </div>
         </div>
 
