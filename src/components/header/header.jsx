@@ -5,9 +5,9 @@ import { FaCog, FaBookmark } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
 import { LuLogOut } from "react-icons/lu";
-import "./header.css";
+import './header.css'
 
-function Header({ email }) {
+function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -31,9 +31,9 @@ function Header({ email }) {
     const token = localStorage.getItem("token");
     if (token !== null) {
       axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${email}`, {
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" + email, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: "Bearer " + token,
             "Content-Type": "application/json",
           },
         })
@@ -101,7 +101,7 @@ function Header({ email }) {
           Home
         </a>
         <a
-          href="#about"
+          href ="#about"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
         >
           About
@@ -115,18 +115,21 @@ function Header({ email }) {
         <a
           href="#rooms"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+         
         >
           Rooms
         </a>
         <a
           href="#gallery"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          
         >
           Gallery
         </a>
         <a
           href="#contact"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
+          
         >
           Contact
         </a>
