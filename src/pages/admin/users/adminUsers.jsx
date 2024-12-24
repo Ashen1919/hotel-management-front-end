@@ -61,7 +61,6 @@ export default function AdminUsers() {
             <th className="p-2 border border-gray-300 text-black">Type</th>
             <th className="p-2 border border-gray-300 text-black">Whatsapp</th>
             <th className="p-2 border border-gray-300 text-black">Email Verified</th>
-            <th className="p-2 border border-gray-300 text-black">Profile</th>
           </tr>
         </thead>
         <tbody>
@@ -74,13 +73,6 @@ export default function AdminUsers() {
               <td className="p-2 border border-gray-300 text-black">{user.whatsapp}</td>
               <td className="p-2 border border-gray-300 text-black">
                 {user.emailVerified ? "Yes" : "No"}
-              </td>
-              <td className="p-2 border border-gray-300 text-black">
-                <img
-                  src={user.profileImage}
-                  alt={user.name}
-                  className="w-16 h-16 object-cover"
-                />
               </td>
               <td className="p-2 border border-gray-300">
                 <Link
