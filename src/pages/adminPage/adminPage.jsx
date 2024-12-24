@@ -46,7 +46,7 @@ export default function AdminPage() {
           },
         })
         .then((res) => {
-          setImage(res.data.Oneuser.profileImage);
+          setImage(res.data.users.profileImage);
           setIsLoggedIn(true);
         })
         .catch((err) => {
