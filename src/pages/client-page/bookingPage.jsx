@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaSearch } from "react-icons/fa";
+import { FiMenu } from "react-icons/fi";
 
 export default function BookingPage() {
   const [checkInDate, setCheckInDate] = useState(null);
@@ -91,11 +92,18 @@ export default function BookingPage() {
             {/* Search Button */}
             <div className="flex justify-center md:w-[120px] md:mr-3 md:ml-3 md:flex-col md:border-l-[7px] md:border-sky-500">
               <button className="bg-blue-500 text-white px-5 mt-3 md:mt-0 py-3 md:ml-5 justify-center items-center gap-3 flex rounded-lg w-full hover:bg-blue-600 transition duration-300">
-                <FaSearch className="md:hidden"/> Search
+                <FaSearch className="md:hidden" /> Search
               </button>
             </div>
           </div>
         </div>
+      </div>
+      <div className="p-3 md:p-0">
+          <button><FiMenu className="text-2xl md:hidden"/></button>
+      </div>
+      <div className="flex flex-row mt-2 w-full h-auto md:pl-5">
+        <div className="md:flex md:flex-col hidden w-[20%] h-[100vh] bg-gray-100 border-r-2 border-gray-400 p-5 "></div>
+        <div className="flex flex-col w-full md:w-[80%] h-[100vh] bg-gray-100 ml-5 mr-5"></div>
       </div>
     </div>
   );
