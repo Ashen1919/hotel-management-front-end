@@ -1,107 +1,102 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FaSearch } from "react-icons/fa";
 
-const RoomCard = ({
-  image,
-  price,
-  availability,
-  specialNotes,
-  maxGuests,
-  description,
-}) => {
+export default function BookingPage() {
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+
   return (
-    <div className="w-[500px] h-auto bg-gray-300 border-2 border-amber-400 p-7 flex">
-      <div className="overflow-hidden w-[30%] h-auto border-r-2 border-gray-600">
-        <img
-          className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
-          src={image || "default-image.jpg"}
-          alt="Room"
-          loading="lazy"
-        />
-      </div>
-      <div className="w-[30%] h-auto block p-3 border-r-2 border-gray-600">
-        <p className="text-xl font-semibold">Description</p>
-        <p className="text-gray-700 text-base pb-3 border-b-2 border-gray-500">
-          {description}
-        </p>
-        <div className="mt-2">
-          <p className="text-red-500">{specialNotes}</p>
-        </div>
-      </div>
-      <div className="block">
-        <div className="font-bold text-xl mb-2">${price} / night</div>
-        <div className="font-bold text-xl mb-2 flex items-center">
-          <IoPersonSharp className="mr-4" />
-          <p className="text-blue-700">{maxGuests}</p>
-        </div>
-        <div className="mt-4 flex">
-          <p className="text-lg font-semibold text-blue-600">
-            Availability: {availability ? "Available" : "Not Available"}
-          </p>
-        </div>
-        <div className="px-6 pt-2 pb-4">
-          <a href="#booking">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110">
-              Book Now
-            </button>
+    <div className="block">
+      <div className="w-full h-[250px] bg-gray-800 relative">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{
+            backgroundImage:
+              'url("https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6758fe3b003409d50e55/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin")',
+          }}
+        ></div>
+        <div className="relative z-10 flex p-5">
+          <a href="/">
+            <p className="text-2xl pl-0 md:pl-10 font-semibold text-amber-400">
+              EverPeak Lodge
+            </p>
+            <p className="text-4xl font-bold md:pl-10 pl-0 text-white mt-5">
+              Escape to Comfort: Your Journey Begins Here
+            </p>
+            <p className="text-lg text-white font-medium mt-5 md:pl-10 pl-0 md:block hidden">
+              Discover the perfect blend of luxury and relaxation. Book your
+              stay effortlessly and unlock unforgettable experiences at our
+              exquisite hotel.
+            </p>
           </a>
         </div>
       </div>
-    </div>
-  );
-};
+      <div className="block w-full h-auto bg-gray-200">
+        <div className="w-full pl-5 pr-5" id="booking">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-start bg-white shadow-lg p-4 space-y-4 md:space-y-0 border-[7px] border-sky-500">
+            <div className="flex flex-col md:flex-row md:flex-wrap md:justify-between space-y-3 w-full">
+              <div className="md:flex md:flex-row w-full">
+                {/* Check-in Date */}
+                <div className="flex flex-col md:flex-row gap-3 mt-3 md:mt-0 md:gap-7 md:border-r-[7px] md:border-sky-500 md:items-center w-full md:w-1/3">
+                  <label className="text-black text-lg font-semibold w-24">
+                    Check-in
+                  </label>
+                  <DatePicker
+                    selected={checkInDate}
+                    onChange={(date) => setCheckInDate(date)}
+                    selectsStart
+                    startDate={checkInDate}
+                    endDate={checkOutDate}
+                    className="border-2 border-gray-400 rounded-lg p-2 w-full"
+                    placeholderText="Select date"
+                  />
+                </div>
 
-export default function AllRooms() {
-  const [rooms, setRooms] = useState([]);
-  const [roomIsLoading, setRoomIsLoading] = useState(false);
+                {/* Check-out Date */}
+                <div className="flex flex-col md:flex-row mt-3 md:mt-0 gap-3 md:gap-7 md:items-center md:border-r-[7px] md:border-sky-500 w-full md:w-1/3 ml-0 md:ml-8">
+                  <label className="text-black text-lg font-semibold w-24">
+                    Check-out
+                  </label>
+                  <DatePicker
+                    selected={checkOutDate}
+                    onChange={(date) => setCheckOutDate(date)}
+                    selectsEnd
+                    startDate={checkInDate}
+                    endDate={checkOutDate}
+                    minDate={checkInDate}
+                    className="border-2 border-gray-400 rounded-lg p-2 w-full"
+                    placeholderText="Select date"
+                  />
+                </div>
 
-  useEffect(() => {
-    if (!roomIsLoading) {
-      axios
-        .get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
-        .then((res) => {
-          setRooms(res.data.result);
-          setRoomIsLoading(true);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }
-  }, [roomIsLoading]);
+                {/* Max Guests */}
+                <div className="flex flex-col md:flex-row gap-3 mt-3 md:mt-0 md:gap-7 md:items-center w-full md:w-1/3 ml-0 md:ml-8">
+                  <label className="text-black text-lg font-semibold w-40">
+                    Max Guests
+                  </label>
+                  <select className="border-2 border-gray-400 rounded-lg p-2 w-full">
+                    <option value="">Select</option>
+                    {[1, 2, 3, 4].map((maxG) => (
+                      <option key={maxG} value={maxG}>
+                        {maxG}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
 
-  if (roomIsLoading) {
-    return (
-      <div className="justify-center mt-40 justify-self-center text-3xl text-blue-600 font-semibold">
-        Loading rooms...
+            {/* Search Button */}
+            <div className="flex justify-center md:w-[120px] md:mr-3 md:ml-3 md:flex-col md:border-l-[7px] md:border-sky-500">
+              <button className="bg-blue-500 text-white px-5 mt-3 md:mt-0 py-3 md:ml-5 justify-center items-center gap-3 flex rounded-lg w-full hover:bg-blue-600 transition duration-300">
+                <FaSearch className="md:hidden"/> Search
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    );
-  }
-
-  if (rooms.length === 0) {
-    return (
-      <div className="justify-center mt-40 justify-self-center text-3xl text-red-600 font-semibold">
-        No rooms available
-      </div>
-    );
-  }
-
-  return (
-    <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
-      {rooms.map((room) => (
-        <RoomCard
-          key={room.roomId}
-          image={
-            Array.isArray(room.photos) && room.photos.length > 0
-              ? room.photos[0]
-              : null
-          }
-          price={room.price || 0}
-          maxGuests={room.maxGuests || 3}
-          description={room.specialDescription || room.category || ""}
-          availability={room.available}
-          specialNotes={room.notes || ""}
-        />
-      ))}
     </div>
   );
 }
