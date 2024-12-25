@@ -3,7 +3,6 @@ import Header from "../../components/header/header.jsx";
 import TopBar from "../../components/topBar/topBar.jsx";
 import PreLoader from "../../components/preLoader/preLoader.jsx";
 import HomeContent from "./homeContent.jsx";
-import BookingBar from "../../components/bookingBar.jsx";
 import AboutUs from "../../components/aboutUs.jsx";
 import HomeAbout from "./homeAbout.jsx";
 import FeaturesList from "./featuresList.jsx";
@@ -38,7 +37,6 @@ export default function HomePage() {
             <TopBar />
             <Header />
             <HomeContent />
-            <BookingBar />
             <AboutUs />
             <HomeAbout />
             <FeaturesHead />
