@@ -157,7 +157,7 @@ export default function BookingPage() {
         room.maxGuests === parseInt(filterMaxGuests);
 
       const matchesAvailability =
-        filterAvailable === filterAvailable === "Available" && room.available === true
+        filterAvailable === "Available" && room.available === true
 
       // Ensure the room's availability and maxGuests match the selected filters
       return (
