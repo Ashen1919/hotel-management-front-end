@@ -137,17 +137,22 @@ export default function BookingPage() {
   const filteredRooms = rooms.filter((room) => {
     const matchesCategory =
       filterCategory === "All" || room.category === filterCategory;
+
     const matchesMaxGuests =
       filterMaxGuests === "All" || room.maxGuests === parseInt(filterMaxGuests);
+
     const matchesPrice =
       filterPrice === "All" || room.price === parseInt(filterPrice);
+
     const matchesAvailability =
       filterAvailable === "All" ||
-      room.available === (filterAvailable === "true");
+      (filterAvailable === "Available" && room.available === true) ||
+      (filterAvailable === "Not Available" && room.available === false);
+
     const matchesSearchQuery = searchQuery
-      ? room.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        room.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        room.description.toLowerCase().includes(searchQuery.toLowerCase())
+      ? room.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        room.category?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        room.description?.toLowerCase().includes(searchQuery.toLowerCase())
       : true;
 
     return (
