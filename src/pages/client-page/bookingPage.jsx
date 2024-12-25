@@ -35,7 +35,7 @@ const DesktopRoomCard = ({
 
       {/* Right-bar */}
       <div className="px-6 py-2 space-y-10">
-        <div className="font-bold text-xl mb-2">{price} / night</div>
+        <div className="font-bold text-xl mb-2">$ {price} / night</div>
         <div className="font-bold text-xl mb-2 text-blue-600">
           Available: {availability}
         </div>
@@ -63,7 +63,7 @@ const MobileRoomCard = ({
   category,
 }) => {
   return (
-    <div className="max-w-sm md:hidden rounded shadow-lg m-4 border-2 border-transparent cursor-pointer hover:scale-105 hover:border-amber-500 hover:shadow-2xl transition-transform duration-300 relative group">
+    <div className="max-w-md md:hidden rounded shadow-lg m-4 border-2 border-transparent cursor-pointer hover:scale-105 hover:border-amber-500 hover:shadow-2xl transition-transform duration-300 relative group">
       {/* Image with subtle rotation on hover */}
       <div className="overflow-hidden">
         <img
@@ -77,7 +77,7 @@ const MobileRoomCard = ({
       <div className="px-6 py-4">
         <div className="font-bold text-2xl mb-2 text-blue-600">{category}</div>
         <div className="flex flex-row justify-between">
-          <div className="font-bold text-xl mb-2">{price} / night</div>
+          <div className="font-bold text-xl mb-2">$ {price} / night</div>
           <div className="flex flex-row gap-3 items-center">
             <BsPeopleFill />
             <p className="text-lg font-semibold text-blue-600">{maxGuests}</p>
@@ -219,7 +219,66 @@ export default function BookingPage() {
       </div>
       <div className="flex flex-row mt-2 w-full h-auto md:pl-5">
         {/* Left sidebar */}
-        <div className="md:flex md:flex-col hidden w-[20%] h-auto bg-gray-100 border-r-2 border-gray-400 p-5 "></div>
+        <div className="md:flex md:flex-col hidden w-[20%] h-auto bg-gray-100 border-r-2 border-gray-400 p-5 ">
+          {/* Sort by category */}
+          <div className="flex flex-col">
+            {/* Search Bar */}
+            <div className="p-1 w-full">
+              <input type="search" name="search" id="search" placeholder="Search here" className="p-4 w-60 rounded-[30px] border-2 border-gray-400 outline-none mb-5 focus:border-2 focus:border-blue-600"/>
+            </div>
+
+            {/* Sort by category */}
+            <p className="text-lg font-bold">Categories</p>
+            <div className="flex flex-col space-y-4 mt-3 ml-5">
+              {["Standard", "Deluxe", "Luxury"].map((category, index) => (
+                <label key={index} className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="category"
+                    id={category}
+                    value={category}
+                    className="cursor-pointer"
+                  />
+                  <span>{category}</span>
+                </label>
+              ))}
+            </div>
+
+            {/* Sort by max guests */}
+            <p className="text-lg font-bold mt-7">Max Guests</p>
+            <div className="flex flex-col space-y-4 mt-3 ml-5">
+              {["1 Person", "2 People", "3 People", "4 People"].map((category, index) => (
+                <label key={index} className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="category"
+                    id={category}
+                    value={category}
+                    className="cursor-pointer"
+                  />
+                  <span>{category}</span>
+                </label>
+              ))}
+            </div>
+
+            {/* Sort by Price */}
+            <p className="text-lg font-bold mt-7">Max Guests</p>
+            <div className="flex flex-col space-y-4 mt-3 ml-5">
+              {["$ 100", "$ 125", "$ 175"].map((category, index) => (
+                <label key={index} className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="category"
+                    id={category}
+                    value={category}
+                    className="cursor-pointer"
+                  />
+                  <span>{category}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Right sidebar */}
         <div className="flex flex-col w-full md:w-[80%] h-auto p-5 bg-gray-100 ml-5 mr-5">
@@ -243,7 +302,7 @@ export default function BookingPage() {
             ))}
           </div>
           {/* Right sidebar Mobile navigation */}
-          <div className="mt-10 grid grid-cols-1 md:hidden gap-4 px-4">
+          <div className="mt-4 grid grid-cols-1 md:hidden gap-4 px-1">
             {rooms.map((room) => (
               <MobileRoomCard
                 key={room.roomId}
