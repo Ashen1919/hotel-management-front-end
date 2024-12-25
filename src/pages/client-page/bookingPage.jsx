@@ -113,8 +113,8 @@ const MobileRoomCard = ({
 };
 
 export default function BookingPage() {
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [checkInDate, setCheckInDate] = useState("");
+  const [checkOutDate, setCheckOutDate] = useState("");
   const [rooms, setRooms] = useState([]);
   const [roomIsLoading, setRoomIsLoading] = useState(false);
   const [filterCategory, setFilterCategory] = useState("All");
@@ -147,26 +147,26 @@ export default function BookingPage() {
   const handleSearchBtn = () => {
     if (!checkInDate || !checkOutDate || filterMaxGuests) {
       toast.error("Please fill all filters");
-      return;
+      
     }
 
-    const updatedFilteredRooms = rooms.filter((room) => {
+      const updatedFilteredRooms = rooms.filter((room) => {
 
-      const matchesMaxGuests =
-        filterMaxGuests === "All" ||
-        room.maxGuests === parseInt(filterMaxGuests);
-
-      const matchesAvailability =
-        filterAvailable === "Available" && room.available === true
-
-      // Ensure the room's availability and maxGuests match the selected filters
-      return (
-        matchesMaxGuests &&
-        matchesAvailability
-      );
-    });
-
-    setRooms(updatedFilteredRooms);
+        const matchesMaxGuests =
+          filterMaxGuests === "All" ||
+          room.maxGuests === parseInt(filterMaxGuests);
+  
+        const matchesAvailability =
+          filterAvailable === "Available" && room.available === true
+  
+        // Ensure the room's availability and maxGuests match the selected filters
+        return (
+          matchesMaxGuests &&
+          matchesAvailability
+        );
+      });
+  
+      setRooms(updatedFilteredRooms);
   };
 
   // Filtering logic

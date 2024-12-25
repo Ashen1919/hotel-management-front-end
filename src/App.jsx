@@ -6,6 +6,7 @@ import SignUpPage from "./pages/signUp/signUp.jsx";
 import CategoriesPage from "./pages/client-page/categories.jsx";
 import { Toaster } from "react-hot-toast";
 import BookingPage from "./pages/client-page/bookingPage.jsx";
+import RoomDetailPage from "./pages/client-page/roomDetailPage.jsx";
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage/>} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/booking" element={<BookingPage/>}/>
+        <Route path="/roomdetails" element={<RoomDetailPage/>}/>
       </Routes>
     </BrowserRouter>
   );
