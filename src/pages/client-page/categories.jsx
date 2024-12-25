@@ -141,6 +141,11 @@ export default function CategoriesPage() {
           </div>
         </div>
       </div>
+      <h1>{roomDetails.category}</h1>
+        <p>{roomDetails.specialDescription}</p>
+        <p>Price: ${roomDetails.price}</p>
+        <p>Max Guests: {roomDetails.maxGuests}</p>
+        <p>{roomDetails.available ? "Available" : "Not Available"}</p>
     </div>
   );
 }

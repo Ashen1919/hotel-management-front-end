@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { BsPeopleFill } from "react-icons/bs";
+import {
+  FaBed,
+  FaRegBookmark,
+  FaRegCreditCard,
+  FaTv,
+  FaWifi,
+} from "react-icons/fa6";
+import { MdOutlinePayments } from "react-icons/md";
+import { IoShieldCheckmarkSharp } from "react-icons/io5";
+import { RiCustomerService2Fill } from "react-icons/ri";
 
 export default function RoomDetailPage() {
   const { roomId } = useParams();
@@ -17,11 +28,8 @@ export default function RoomDetailPage() {
       });
   }, [roomId]);
 
-  if (!roomDetails) {
-    return <div>Loading...</div>;
-  }
   return (
-    <div className="block">
+    <div className="flex flex-col w-full h-auto">
       <div className="w-full h-[250px] bg-gray-800 relative">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
@@ -46,12 +54,124 @@ export default function RoomDetailPage() {
           </a>
         </div>
       </div>
-      <div className="room-details-container">
-        <h1>{roomDetails.name}</h1>
-        <p>{roomDetails.description}</p>
-        <p>Price: ${roomDetails.price}</p>
-        <p>Max Guests: {roomDetails.maxGuests}</p>
-        <p>{roomDetails.available ? "Available" : "Not Available"}</p>
+      {/* room details */}
+      <div className="p-10 w-full h-auto bg-gray-100 flex flex-col md:flex-row">
+        {/* Image */}
+        <div className="md:w-[70%] w-full h-auto md:pr-10 md:border-r-4 md:border-gray-400">
+          <img
+            src={roomDetails.photos}
+            alt="Room Photo"
+            className="rounded-xl cursor-pointer hover:scale-105 transition duration-500"
+          />
+        </div>
+        {/* Right-side */}
+        <div className="flex flex-col w-full md:w-[30%] h-auto md:ml-8">
+          <p className="text-3xl font-semibold md:mt-0 mt-5 text-blue-600">
+            {roomDetails.category}
+          </p>
+          <div className="mt-5 flex flex-col ">
+            <div className="flex flex-row space-x-9 md:space-x-10">
+              <div className="gap-3 items-center flex flex-row">
+                <BsPeopleFill className="text-xl " />
+                <p className="text-xl font-semibold text-green-600">3</p>
+              </div>
+              <div className="gap-3 items-center flex flex-row">
+                <FaBed className="text-xl " />
+                <p className="text-xl font-semibold text-amber-500">Couchs</p>
+              </div>
+              <div className="gap-3 items-center flex flex-row">
+                <FaWifi className="text-xl " />
+                <p className="text-xl font-semibold text-red-500">Wi-fi</p>
+              </div>
+              <div className="gap-3 items-center flex flex-row">
+                <FaTv className="text-xl " />
+                <p className="text-xl font-semibold text-gray-500">Tv</p>
+              </div>
+            </div>
+            <div className="mt-5">
+              <p className="text-[17px] ">
+                {roomDetails.specialDescription}
+              </p>
+            </div>
+            <div className="mt-5">
+              <p className="text-[14px] text-red-600">{roomDetails.notes}</p>
+            </div>
+            <div className="mt-5 flex flex-row">
+              <p className="text-lg flex">
+                Availability:{" "}
+                <p className="text-blue-600 ml-3 font-semibold text-lg">{roomDetails.available ? "Available" : "Not Available"}</p>
+              </p>
+            </div>
+            <div className="mt-5 flex flex-row items-center">
+              <p className="text-lg flex">
+                Price: <p className="text-2xl font-semibold ml-4">$ {roomDetails.price}</p>{" "}
+              </p>
+            </div>
+            <div className="mt-5 ml-5 space-y-1 flex flex-col">
+              <div className="flex flex-row items-center gap-3">
+                <MdOutlinePayments className="text-green-600 text-[18px]" />
+                <p className="text-[18px] font-semibold">Secure Payment</p>
+              </div>
+              <div className="flex flex-row items-center gap-3">
+                <FaRegCreditCard className="text-green-600 text-[18px]" />
+                <p className="text-[18px] font-semibold">
+                  No Credit Card Required
+                </p>
+              </div>
+              <div className="flex flex-row items-center gap-3">
+                <IoShieldCheckmarkSharp className="text-green-600 text-[18px]" />
+                <p className="text-[18px] font-semibold">100% Guarantee</p>
+              </div>
+              <div className="flex flex-row items-center gap-3">
+                <RiCustomerService2Fill className="text-green-600 text-[18px]" />
+                <p className="text-[18px] font-semibold">
+                  24x7 Customer Service
+                </p>
+              </div>
+            </div>
+            <div className="mt-5">
+              <button className="p-5 bg-blue-600 text-white rounded-[15px] flex flex-row font-semibold items-center gap-4 hover:bg-blue-800 transition duration-500">
+                <FaRegBookmark className="font-semibold" /> Reserve Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Featured Rooms */}
+      <p className="text-3xl font-bold mt-5 ml-8">Featured Rooms</p>
+      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+        <div className="max-w-sm h-auto mb-8 rounded-lg shadow-lg ml-8 mt-5 border-2 border-transparent cursor-pointer hover:scale-105 hover:border-amber-500 hover:shadow-2xl transition-transform duration-300 relative group">
+          {/* Image with subtle rotation on hover */}
+          <div className="overflow-hidden">
+            <img
+              className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
+              src="https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6758fe3b003409d50e55/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin"
+              alt="Room"
+            />
+          </div>
+          {/* Content */}
+          <div className="px-2 py-4">
+            <div className="font-bold text-2xl mb-2 text-blue-600">
+              Standard Room
+            </div>
+            <div className="font-bold text-xl mb-2">$100 / night</div>
+            <p className="text-gray-700 text-base">
+              It looks like the condition in the handleSearchBtn function is not
+              being met correctly, leading to the error message being displayed.
+              Specifically, the condition if (!checkInDate || !checkOutDate ||
+              filterMaxGuests === "All") may still be true even when the inputs
+              are filled correctly.
+            </p>
+          </div>
+          {/* Book Now Button with hover effects */}
+          <div className="px-3 pt-4 pb-4">
+            <a href="/booking">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110">
+                Book Now
+              </button>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
