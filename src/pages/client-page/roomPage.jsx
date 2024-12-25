@@ -57,34 +57,20 @@ const RoomCard = ({
 export default function AllRoom() {
   const [rooms, setRooms] = useState([]);
   const [roomIsLoading, setRoomIsLoading] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
-    const fetchFilteredRooms = async () => {
-      setRoomIsLoading(true);
-      try {
-        const params = new URLSearchParams(location.search);
-        const startDate = params.get("startDate");
-        const endDate = params.get("endDate");
-        const maxGuest = params.get("maxGuest");
-
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/rooms/`,
-          {
-            params: { startDate, endDate, maxGuest },
-          }
-        );
-
-        setRooms(response.data.result || []);
-      } catch (error) {
-        console.error("Error fetching rooms:", error);
-      } finally {
-        setRoomIsLoading(false);
-      }
-    };
-
-    fetchFilteredRooms();
-  }, [location.search]);
+    if (!roomIsLoading) {
+      axios
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
+        .then((res) => {
+          setRooms(res.data.result);
+          setRoomIsLoading(true);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
+  }, [roomIsLoading]);
 
   if (roomIsLoading) {
     return (
