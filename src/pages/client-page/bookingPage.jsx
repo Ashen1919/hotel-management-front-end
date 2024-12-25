@@ -107,9 +107,11 @@ export default function BookingPage() {
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [roomIsLoading, setRoomIsLoading] = useState(false);
-  const [filterCategory, setFilterCategory] = useState("");
-  const [filterMaxGuests, setFilterMaxGuests] = useState("");
-  const [filterPrice, setFilterPrice] = useState("");
+  const [filterCategory, setFilterCategory] = useState("All");
+  const [filterMaxGuests, setFilterMaxGuests] = useState("All");
+  const [filterPrice, setFilterPrice] = useState("All");
+  const [filterAvailable, setFilterAvailable] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (!roomIsLoading) {
@@ -125,20 +127,37 @@ export default function BookingPage() {
     }
   }, [roomIsLoading]);
 
+  const clearFilters = () => {
+    setFilterCategory("All");
+    setFilterMaxGuests("All");
+    setFilterPrice("All");
+  };
+
+  // Filtering logic
   const filteredRooms = rooms.filter((room) => {
-    const matchesCategory = filterCategory
-      ? room.category === filterCategory
+    const matchesCategory =
+      filterCategory === "All" || room.category === filterCategory;
+    const matchesMaxGuests =
+      filterMaxGuests === "All" || room.maxGuests === parseInt(filterMaxGuests);
+    const matchesPrice =
+      filterPrice === "All" || room.price === parseInt(filterPrice);
+    const matchesAvailability =
+      filterAvailable === "All" ||
+      room.available === (filterAvailable === "true");
+    const matchesSearchQuery = searchQuery
+      ? room.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        room.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        room.description.toLowerCase().includes(searchQuery.toLowerCase())
       : true;
-    const matchesMaxGuests = filterMaxGuests
-      ? room.maxGuests === parseInt(filterMaxGuests)
-      : true;
-    const matchesPrice = filterPrice
-      ? room.price <= parseInt(filterPrice)
-      : true;
-  
-    return matchesCategory && matchesMaxGuests && matchesPrice;
+
+    return (
+      matchesCategory &&
+      matchesMaxGuests &&
+      matchesPrice &&
+      matchesSearchQuery &&
+      matchesAvailability
+    );
   });
-  
 
   return (
     <div className="block">
@@ -241,29 +260,50 @@ export default function BookingPage() {
           {/* Sort by category */}
           <div className="flex flex-col">
             {/* Search Bar */}
-            <div className="p-1 w-full">
+            <div className="mt-5 mb-3">
               <input
-                type="search"
-                name="search"
-                id="search"
-                placeholder="Search here"
-                className="p-4 w-60 rounded-[30px] border-2 border-gray-400 outline-none mb-5 focus:border-2 focus:border-blue-600"
+                type="text"
+                placeholder="Search rooms..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
 
             {/* Sort by Category */}
             <p className="text-lg font-bold">Categories</p>
             <div className="flex flex-col space-y-4 mt-3 ml-5">
-              {["Standard", "Deluxe", "Luxury"].map((category, index) => (
+              {["All", "Standard Room", "Deluxe Room", "Luxury"].map(
+                (category, index) => (
+                  <label key={index} className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="category"
+                      value={category}
+                      className="cursor-pointer"
+                      onChange={(e) => setFilterCategory(e.target.value)}
+                      checked={filterCategory === category}
+                    />
+                    <span>{category}</span>
+                  </label>
+                )
+              )}
+            </div>
+
+            {/* Sort by Availability */}
+            <p className="text-lg font-bold mt-7">Price</p>
+            <div className="flex flex-col space-y-4 mt-3 ml-5">
+              {["All", "Available", "Not Available"].map((available, index) => (
                 <label key={index} className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="category"
-                    value={category}
+                    name="available"
+                    value={available}
                     className="cursor-pointer"
-                    onChange={(e) => setFilterCategory(e.target.value)}
+                    onChange={(e) => setFilterPrice(e.target.value)}
+                    checked={filterAvailable === available}
                   />
-                  <span>{category}</span>
+                  <span>{available}</span>
                 </label>
               ))}
             </div>
@@ -271,7 +311,7 @@ export default function BookingPage() {
             {/* Sort by Max Guests */}
             <p className="text-lg font-bold mt-7">Max Guests</p>
             <div className="flex flex-col space-y-4 mt-3 ml-5">
-              {["1", "2", "3", "4"].map((maxGuest, index) => (
+              {["All", "1", "2", "3", "4"].map((maxGuest, index) => (
                 <label key={index} className="flex items-center space-x-2">
                   <input
                     type="radio"
@@ -279,6 +319,7 @@ export default function BookingPage() {
                     value={maxGuest}
                     className="cursor-pointer"
                     onChange={(e) => setFilterMaxGuests(e.target.value)}
+                    checked={filterMaxGuests === maxGuest}
                   />
                   <span>
                     {maxGuest} Person{maxGuest > 1 && "s"}
@@ -290,7 +331,7 @@ export default function BookingPage() {
             {/* Sort by Price */}
             <p className="text-lg font-bold mt-7">Price</p>
             <div className="flex flex-col space-y-4 mt-3 ml-5">
-              {["100", "125", "175"].map((price, index) => (
+              {["All", "100", "125", "175"].map((price, index) => (
                 <label key={index} className="flex items-center space-x-2">
                   <input
                     type="radio"
@@ -298,10 +339,21 @@ export default function BookingPage() {
                     value={price}
                     className="cursor-pointer"
                     onChange={(e) => setFilterPrice(e.target.value)}
+                    checked={filterPrice === price}
                   />
                   <span>${price}</span>
                 </label>
               ))}
+            </div>
+
+            {/* Clear radio buttons */}
+            <div className="mt-5">
+              <button
+                onClick={clearFilters}
+                className="mt-5 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Clear Filters
+              </button>
             </div>
           </div>
         </div>
