@@ -145,7 +145,7 @@ export default function BookingPage() {
   };
 
   const handleSearchBtn = () => {
-    if (!checkInDate || !checkOutDate || filterMaxGuests === "All") {
+    if (!checkInDate || !checkOutDate || filterMaxGuests) {
       toast.error("Please fill all filters");
       return;
     }
