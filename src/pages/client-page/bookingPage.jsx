@@ -113,8 +113,8 @@ const MobileRoomCard = ({
 };
 
 export default function BookingPage() {
-  const [checkInDate, setCheckInDate] = useState("");
-  const [checkOutDate, setCheckOutDate] = useState("");
+  const [checkInDate, setCheckInDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(new Date());
   const [rooms, setRooms] = useState([]);
   const [roomIsLoading, setRoomIsLoading] = useState(false);
   const [filterCategory, setFilterCategory] = useState("All");
@@ -130,6 +130,7 @@ export default function BookingPage() {
         .then((res) => {
           setRooms(res.data.result);
           setRoomIsLoading(true);
+          console.log(res.data.result);
         })
         .catch((error) => {
           console.log(error.message);
