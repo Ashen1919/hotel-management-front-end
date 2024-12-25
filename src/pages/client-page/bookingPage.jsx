@@ -224,7 +224,7 @@ export default function BookingPage() {
         {/* Right sidebar */}
         <div className="flex flex-col w-full md:w-[80%] h-[100vh] p-5 bg-gray-100 ml-5 mr-5">
           {/* Right sidebar Desktop navigation */}
-          <div className="mt-10 hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-3 px-4">
+          <div className="mt-4 hidden md:grid md:grid-cols-1 gap-3 px-4">
             {rooms.map((room) => (
               <DesktopRoomCard
                 key={room.roomId}
