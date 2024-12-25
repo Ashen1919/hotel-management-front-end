@@ -33,7 +33,7 @@ export default function BookingPage() {
 
   const handleBookNow = (roomId) => {
     console.log("Button clicked");
-    console.log("Room Id: ", roomId);
+    console.log("Room Id: ", rooms.roomId);
   };
 
   const DesktopRoomCard = ({
@@ -80,7 +80,7 @@ export default function BookingPage() {
           <div className="flex justify-center md:w-[120px] md:mr-3 md:ml-3 md:flex-col">
             <button
               className="bg-blue-500 text-white px-5 mt-3 md:mt-0 py-3 md:ml-5 justify-center items-center gap-3 flex rounded-lg w-full hover:bg-blue-600 transition duration-300"
-              onClick={() => handleBookNow(roomId)}
+              onClick={() => handleBookNow(rooms.roomId)}
             >
               Book Now
             </button>
