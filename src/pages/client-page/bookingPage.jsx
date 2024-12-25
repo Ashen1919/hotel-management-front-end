@@ -107,6 +107,9 @@ export default function BookingPage() {
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [roomIsLoading, setRoomIsLoading] = useState(false);
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterMaxGuests, setFilterMaxGuests] = useState("");
+  const [filterPrice, setFilterPrice] = useState("");
 
   useEffect(() => {
     if (!roomIsLoading) {
@@ -121,6 +124,21 @@ export default function BookingPage() {
         });
     }
   }, [roomIsLoading]);
+
+  const filteredRooms = rooms.filter((room) => {
+    const matchesCategory = filterCategory
+      ? room.category === filterCategory
+      : true;
+    const matchesMaxGuests = filterMaxGuests
+      ? room.maxGuests === parseInt(filterMaxGuests)
+      : true;
+    const matchesPrice = filterPrice
+      ? room.price <= parseInt(filterPrice)
+      : true;
+  
+    return matchesCategory && matchesMaxGuests && matchesPrice;
+  });
+  
 
   return (
     <div className="block">
@@ -224,10 +242,16 @@ export default function BookingPage() {
           <div className="flex flex-col">
             {/* Search Bar */}
             <div className="p-1 w-full">
-              <input type="search" name="search" id="search" placeholder="Search here" className="p-4 w-60 rounded-[30px] border-2 border-gray-400 outline-none mb-5 focus:border-2 focus:border-blue-600"/>
+              <input
+                type="search"
+                name="search"
+                id="search"
+                placeholder="Search here"
+                className="p-4 w-60 rounded-[30px] border-2 border-gray-400 outline-none mb-5 focus:border-2 focus:border-blue-600"
+              />
             </div>
 
-            {/* Sort by category */}
+            {/* Sort by Category */}
             <p className="text-lg font-bold">Categories</p>
             <div className="flex flex-col space-y-4 mt-3 ml-5">
               {["Standard", "Deluxe", "Luxury"].map((category, index) => (
@@ -235,45 +259,47 @@ export default function BookingPage() {
                   <input
                     type="radio"
                     name="category"
-                    id={category}
                     value={category}
                     className="cursor-pointer"
+                    onChange={(e) => setFilterCategory(e.target.value)}
                   />
                   <span>{category}</span>
                 </label>
               ))}
             </div>
 
-            {/* Sort by max guests */}
+            {/* Sort by Max Guests */}
             <p className="text-lg font-bold mt-7">Max Guests</p>
             <div className="flex flex-col space-y-4 mt-3 ml-5">
-              {["1 Person", "2 People", "3 People", "4 People"].map((category, index) => (
+              {["1", "2", "3", "4"].map((maxGuest, index) => (
                 <label key={index} className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="category"
-                    id={category}
-                    value={category}
+                    name="maxGuests"
+                    value={maxGuest}
                     className="cursor-pointer"
+                    onChange={(e) => setFilterMaxGuests(e.target.value)}
                   />
-                  <span>{category}</span>
+                  <span>
+                    {maxGuest} Person{maxGuest > 1 && "s"}
+                  </span>
                 </label>
               ))}
             </div>
 
             {/* Sort by Price */}
-            <p className="text-lg font-bold mt-7">Max Guests</p>
+            <p className="text-lg font-bold mt-7">Price</p>
             <div className="flex flex-col space-y-4 mt-3 ml-5">
-              {["$ 100", "$ 125", "$ 175"].map((category, index) => (
+              {["100", "125", "175"].map((price, index) => (
                 <label key={index} className="flex items-center space-x-2">
                   <input
                     type="radio"
-                    name="category"
-                    id={category}
-                    value={category}
+                    name="price"
+                    value={price}
                     className="cursor-pointer"
+                    onChange={(e) => setFilterPrice(e.target.value)}
                   />
-                  <span>{category}</span>
+                  <span>${price}</span>
                 </label>
               ))}
             </div>
@@ -284,7 +310,7 @@ export default function BookingPage() {
         <div className="flex flex-col w-full md:w-[80%] h-auto p-5 bg-gray-100 ml-5 mr-5">
           {/* Right sidebar Desktop navigation */}
           <div className="mt-4 hidden md:grid md:grid-cols-1 gap-3 px-4">
-            {rooms.map((room) => (
+            {filteredRooms.map((room) => (
               <DesktopRoomCard
                 key={room.roomId}
                 category={room.category}
@@ -303,7 +329,7 @@ export default function BookingPage() {
           </div>
           {/* Right sidebar Mobile navigation */}
           <div className="mt-4 grid grid-cols-1 md:hidden gap-4 px-1">
-            {rooms.map((room) => (
+            {filteredRooms.map((room) => (
               <MobileRoomCard
                 key={room.roomId}
                 category={room.category}
