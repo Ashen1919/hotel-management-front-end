@@ -16,6 +16,8 @@ import { RiCustomerService2Fill } from "react-icons/ri";
 export default function RoomDetailPage() {
   const { roomId } = useParams();
   const [roomDetails, setRoomDetails] = useState([]);
+  const [allRooms, setAllRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -26,7 +28,26 @@ export default function RoomDetailPage() {
       .catch((err) => {
         console.error("Error fetching room details:", err);
       });
+
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/rooms`)
+      .then((res) => {
+        setAllRooms(res.data.result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching all rooms:", err);
+        setLoading(false);
+      });
   }, [roomId]);
+
+  if (loading) return <div>Loading...</div>;
+
+  const featuredRooms = allRooms
+    .filter(
+      (room) => room.category === roomDetails.category && room.id !== roomId
+    )
+    .slice(0, 3);
 
   return (
     <div className="flex flex-col w-full h-auto">
@@ -147,46 +168,42 @@ export default function RoomDetailPage() {
       {/* Featured Rooms */}
       <p className="text-3xl font-bold mt-5 ml-8">Featured Rooms</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
-        {Array.isArray(roomDetails)
-          ? roomDetails
-              .filter(
-                (room) =>
-                  room.category === roomDetails.category && room.id !== roomId
-              ) 
-              .slice(0, 3) 
-              .map((room, index) => (
-                <div
-                  key={index}
-                  className="max-w-sm h-auto mb-8 rounded-lg shadow-lg ml-8 mt-5 border-2 border-transparent cursor-pointer hover:scale-105 hover:border-amber-500 hover:shadow-2xl transition-transform duration-300 relative group"
-                >
-                  <div className="overflow-hidden">
-                    <img
-                      className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
-                      src={room.photos[0]}
-                      alt={`${room.category} Image`}
-                    />
-                  </div>
-                  <div className="px-2 py-4">
-                    <div className="font-bold text-2xl mb-2 text-blue-600">
-                      {room.category}
-                    </div>
-                    <div className="font-bold text-xl mb-2">
-                      ${room.price} / night
-                    </div>
-                    <p className="text-gray-700 text-base">
-                      {room.specialDescription}
-                    </p>
-                  </div>
-                  <div className="px-3 pt-4 pb-4">
-                    <a href={`/rooms/${room.id}`}>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110">
-                        Book Now
-                      </button>
-                    </a>
-                  </div>
+        {featuredRooms.length > 0 ? (
+          featuredRooms.map((room, index) => (
+            <div
+              key={index}
+              className="max-w-sm h-auto mb-8 rounded-lg shadow-lg ml-8 mt-5 border-2 border-transparent cursor-pointer hover:scale-105 hover:border-amber-500 hover:shadow-2xl transition-transform duration-300 relative group"
+            >
+              <div className="overflow-hidden">
+                <img
+                  className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
+                  src={room.photos[0]}
+                  alt={`${room.category} Image`}
+                />
+              </div>
+              <div className="px-2 py-4">
+                <div className="font-bold text-2xl mb-2 text-blue-600">
+                  {room.category}
                 </div>
-              ))
-          : null}
+                <div className="font-bold text-xl mb-2">
+                  ${room.price} / night
+                </div>
+                <p className="text-gray-700 text-base">
+                  {room.specialDescription}
+                </p>
+              </div>
+              <div className="px-3 pt-4 pb-4">
+                <a href={`/rooms/${room.id}`}>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110">
+                    Book Now
+                  </button>
+                </a>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No featured rooms available.</p>
+        )}
       </div>
     </div>
   );
