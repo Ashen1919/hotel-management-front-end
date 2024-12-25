@@ -146,10 +146,7 @@ export default function BookingPage() {
   };
 
   const handleSearchBtn = () => {
-    if (!checkInDate || !checkOutDate || filterMaxGuests) {
-      toast.error("Please fill all filters");
-      return;
-    }
+    
 
       const updatedFilteredRooms = rooms.filter((room) => {
 
