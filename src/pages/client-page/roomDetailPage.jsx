@@ -59,7 +59,11 @@ export default function RoomDetailPage() {
         {/* Image */}
         <div className="md:w-[70%] w-full h-auto md:pr-10 md:border-r-4 md:border-gray-400">
           <img
-            src={Array.isArray(roomDetails.photos) && roomDetails.photos.length > 0 ? roomDetails.photos[0] : null}
+            src={
+              Array.isArray(roomDetails.photos) && roomDetails.photos.length > 0
+                ? roomDetails.photos[0]
+                : null
+            }
             alt="Room Photo"
             className="rounded-xl cursor-pointer hover:scale-105 transition duration-500"
           />
@@ -89,9 +93,7 @@ export default function RoomDetailPage() {
               </div>
             </div>
             <div className="mt-5">
-              <p className="text-[17px] ">
-                {roomDetails.specialDescription}
-              </p>
+              <p className="text-[17px] ">{roomDetails.specialDescription}</p>
             </div>
             <div className="mt-5">
               <p className="text-[14px] text-red-600">{roomDetails.notes}</p>
@@ -99,12 +101,17 @@ export default function RoomDetailPage() {
             <div className="mt-5 flex flex-row">
               <p className="text-lg flex">
                 Availability:{" "}
-                <p className="text-blue-600 ml-3 font-semibold text-lg">{roomDetails.available ? "Available" : "Not Available"}</p>
+                <p className="text-blue-600 ml-3 font-semibold text-lg">
+                  {roomDetails.available ? "Available" : "Not Available"}
+                </p>
               </p>
             </div>
             <div className="mt-5 flex flex-row items-center">
               <p className="text-lg flex">
-                Price: <p className="text-2xl font-semibold ml-4">$ {roomDetails.price}</p>{" "}
+                Price:{" "}
+                <p className="text-2xl font-semibold ml-4">
+                  $ {roomDetails.price}
+                </p>{" "}
               </p>
             </div>
             <div className="mt-5 ml-5 space-y-1 flex flex-col">
@@ -139,39 +146,47 @@ export default function RoomDetailPage() {
       </div>
       {/* Featured Rooms */}
       <p className="text-3xl font-bold mt-5 ml-8">Featured Rooms</p>
-      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
-        <div className="max-w-sm h-auto mb-8 rounded-lg shadow-lg ml-8 mt-5 border-2 border-transparent cursor-pointer hover:scale-105 hover:border-amber-500 hover:shadow-2xl transition-transform duration-300 relative group">
-          {/* Image with subtle rotation on hover */}
-          <div className="overflow-hidden">
-            <img
-              className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
-              src="https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6758fe3b003409d50e55/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin"
-              alt="Room"
-            />
-          </div>
-          {/* Content */}
-          <div className="px-2 py-4">
-            <div className="font-bold text-2xl mb-2 text-blue-600">
-              Standard Room
-            </div>
-            <div className="font-bold text-xl mb-2">$100 / night</div>
-            <p className="text-gray-700 text-base">
-              It looks like the condition in the handleSearchBtn function is not
-              being met correctly, leading to the error message being displayed.
-              Specifically, the condition if (!checkInDate || !checkOutDate ||
-              filterMaxGuests === "All") may still be true even when the inputs
-              are filled correctly.
-            </p>
-          </div>
-          {/* Book Now Button with hover effects */}
-          <div className="px-3 pt-4 pb-4">
-            <a href="/booking">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110">
-                Book Now
-              </button>
-            </a>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+        {Array.isArray(roomDetails)
+          ? roomDetails
+              .filter(
+                (room) =>
+                  room.category === roomDetails.category && room.roomId !== roomId
+              ) 
+              .slice(0, 3) 
+              .map((room) => (
+                <div
+                  key={room.roomId}
+                  className="max-w-sm h-auto mb-8 rounded-lg shadow-lg ml-8 mt-5 border-2 border-transparent cursor-pointer hover:scale-105 hover:border-amber-500 hover:shadow-2xl transition-transform duration-300 relative group"
+                >
+                  <div className="overflow-hidden">
+                    <img
+                      className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
+                      src={room.photos[0]}
+                      alt={`${room.category} Image`}
+                    />
+                  </div>
+                  <div className="px-2 py-4">
+                    <div className="font-bold text-2xl mb-2 text-blue-600">
+                      {room.category}
+                    </div>
+                    <div className="font-bold text-xl mb-2">
+                      ${room.price} / night
+                    </div>
+                    <p className="text-gray-700 text-base">
+                      {room.specialDescription}
+                    </p>
+                  </div>
+                  <div className="px-3 pt-4 pb-4">
+                    <a href={`/rooms/${room.id}`}>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110">
+                        Book Now
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              ))
+          : null}
       </div>
     </div>
   );
