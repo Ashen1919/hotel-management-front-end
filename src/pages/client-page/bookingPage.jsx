@@ -16,7 +16,7 @@ const DesktopRoomCard = ({
   category,
 }) => {
   return (
-    <div className="w-full h-[300px] bg-white md:flex md:flex-row hidden rounded-[10px] p-3 cursor-pointer hover:scale-100 hover:shadow-2xl transition duration-500 border-2 border-white hover:border-2 hover:border-amber-400">
+    <div className="w-full h-[300px] bg-white md:flex md:flex-row hidden rounded-[10px] p-3 cursor-pointer hover:scale-100 hover:shadow-2xl transition duration-500 border-2 border-gray-300 hover:border-2 hover:border-amber-400">
       {/* Image */}
       <div className="overflow-hidden w-1/3 p-3 border-r-2 border-gray-400">
         <img
@@ -219,15 +219,16 @@ export default function BookingPage() {
       </div>
       <div className="flex flex-row mt-2 w-full h-auto md:pl-5">
         {/* Left sidebar */}
-        <div className="md:flex md:flex-col hidden w-[20%] h-[100vh] bg-gray-100 border-r-2 border-gray-400 p-5 "></div>
+        <div className="md:flex md:flex-col hidden w-[20%] h-auto bg-gray-100 border-r-2 border-gray-400 p-5 "></div>
 
         {/* Right sidebar */}
-        <div className="flex flex-col w-full md:w-[80%] h-[100vh] p-5 bg-gray-100 ml-5 mr-5">
+        <div className="flex flex-col w-full md:w-[80%] h-auto p-5 bg-gray-100 ml-5 mr-5">
           {/* Right sidebar Desktop navigation */}
           <div className="mt-4 hidden md:grid md:grid-cols-1 gap-3 px-4">
             {rooms.map((room) => (
               <DesktopRoomCard
                 key={room.roomId}
+                category={room.category}
                 image={
                   Array.isArray(room.photos) && room.photos.length > 0
                     ? room.photos[0]
@@ -235,8 +236,8 @@ export default function BookingPage() {
                 }
                 price={room.price || 0}
                 maxGuests={room.maxGuests || 3}
-                description={room.specialDescription || room.category || ""}
-                availability={room.available}
+                description={room.specialDescription || ""}
+                availability={room.available ? "Yes" : "No"}
                 specialNotes={room.notes || ""}
               />
             ))}
@@ -246,6 +247,7 @@ export default function BookingPage() {
             {rooms.map((room) => (
               <MobileRoomCard
                 key={room.roomId}
+                category={room.category}
                 image={
                   Array.isArray(room.photos) && room.photos.length > 0
                     ? room.photos[0]
@@ -253,8 +255,8 @@ export default function BookingPage() {
                 }
                 price={room.price || 0}
                 maxGuests={room.maxGuests || 3}
-                description={room.specialDescription || room.category || ""}
-                availability={room.available}
+                description={room.specialDescription || ""}
+                availability={room.available ? "Yes" : "No"}
                 specialNotes={room.notes || ""}
               />
             ))}
