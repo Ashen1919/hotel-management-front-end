@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaSearch } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { BsPeopleFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 export default function BookingPage() {
   const [checkInDate, setCheckInDate] = useState(new Date());
@@ -15,6 +16,7 @@ export default function BookingPage() {
   const [filterPrice, setFilterPrice] = useState("All");
   const [filterAvailable, setFilterAvailable] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!roomIsLoading) {
@@ -32,8 +34,7 @@ export default function BookingPage() {
   }, [roomIsLoading]);
 
   const handleBookNow = (roomId) => {
-    console.log("Button clicked");
-    console.log("Room Id: ", roomId);
+    navigate(`/roomdetails/${roomId}`);
   };
 
   const DesktopRoomCard = ({
@@ -96,6 +97,7 @@ export default function BookingPage() {
     maxGuests,
     availability,
     description,
+    roomId,
     category,
   }) => {
     return (
@@ -131,7 +133,9 @@ export default function BookingPage() {
         {/* Book Now Button with hover effects */}
         <div className="px-6 pt-4 pb-4">
           <a href="/booking">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110"
+            onClick={() => handleBookNow(roomId)}
+            >
               Book Now
             </button>
           </a>
@@ -340,6 +344,7 @@ export default function BookingPage() {
             {filteredRooms.map((room) => (
               <MobileRoomCard
                 key={room.roomId}
+                roomId={room.roomId}
                 category={room.category}
                 image={
                   Array.isArray(room.photos) && room.photos.length > 0

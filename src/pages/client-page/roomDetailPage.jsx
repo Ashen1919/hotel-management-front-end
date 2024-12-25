@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function RoomDetailPage() {
+  const { roomId } = useParams();
+  const [roomDetails, setRoomDetails] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/rooms/${roomId}`)
+      .then((res) => {
+        setRoomDetails(res.data.result);
+      })
+      .catch((err) => {
+        console.error("Error fetching room details:", err);
+      });
+  }, [roomId]);
+
+  if (!roomDetails) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="block">
       <div className="w-full h-[250px] bg-gray-800 relative">
@@ -27,8 +46,12 @@ export default function RoomDetailPage() {
           </a>
         </div>
       </div>
-      <div className="">
-
+      <div className="room-details-container">
+        <h1>{roomDetails.name}</h1>
+        <p>{roomDetails.description}</p>
+        <p>Price: ${roomDetails.price}</p>
+        <p>Max Guests: {roomDetails.maxGuests}</p>
+        <p>{roomDetails.available ? "Available" : "Not Available"}</p>
       </div>
     </div>
   );
