@@ -59,7 +59,7 @@ export default function AllRooms() {
     if (!roomIsLoading) {
       axios
         .get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
-        .then(() => {
+        .then((res) => {
           setRooms(res.data.result);
           setRoomIsLoading(true);
         })
