@@ -300,7 +300,7 @@ export default function BookingPage() {
                     name="available"
                     value={available}
                     className="cursor-pointer"
-                    onChange={(e) => setFilterPrice(e.target.value)}
+                    onChange={(e) => setFilterAvailable(e.target.value)}
                     checked={filterAvailable === available}
                   />
                   <span>{available}</span>
