@@ -54,7 +54,7 @@ const RoomCard = ({
   );
 };
 
-export default function AllRooms() {
+export default function AllRoom() {
   const [rooms, setRooms] = useState([]);
   const [roomIsLoading, setRoomIsLoading] = useState(false);
   const location = useLocation();

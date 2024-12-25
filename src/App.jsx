@@ -5,7 +5,7 @@ import LoginPage from "./pages/login/login.jsx";
 import SignUpPage from "./pages/signUp/signUp.jsx";
 import CategoriesPage from "./pages/client-page/categories.jsx";
 import { Toaster } from "react-hot-toast";
-import AllRooms from "./pages/client-page/roomPage.jsx";
+import AllRooms from "./pages/client-page/bookingPage.jsx";
 
 
 
