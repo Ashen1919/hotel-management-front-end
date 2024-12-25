@@ -21,7 +21,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage/>} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/booking" element={<BookingPage/>}/>
-        <Route path="/roomdetails" element={<RoomDetailPage/>}/>
+        <Route path="/roomdetails/:roomId" element={<RoomDetailPage/>}/>
       </Routes>
     </BrowserRouter>
   );
