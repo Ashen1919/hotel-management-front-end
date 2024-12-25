@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaSearch } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { BsPeopleFill } from "react-icons/bs";
-import toast from "react-hot-toast";
 
 export default function BookingPage() {
   const [checkInDate, setCheckInDate] = useState(new Date());
@@ -33,9 +31,9 @@ export default function BookingPage() {
     }
   }, [roomIsLoading]);
 
-  const handleBookNow = () => {
+  const handleBookNow = (roomId) => {
     console.log("Button clicked");
-    console.log(res.data.result.roomId);
+    console.log("Room Id: ", roomId);
   };
 
   const DesktopRoomCard = ({
@@ -45,6 +43,7 @@ export default function BookingPage() {
     maxGuests,
     availability,
     description,
+    roomId,
     category,
   }) => {
     return (
@@ -81,7 +80,7 @@ export default function BookingPage() {
           <div className="flex justify-center md:w-[120px] md:mr-3 md:ml-3 md:flex-col">
             <button
               className="bg-blue-500 text-white px-5 mt-3 md:mt-0 py-3 md:ml-5 justify-center items-center gap-3 flex rounded-lg w-full hover:bg-blue-600 transition duration-300"
-              onClick={handleBookNow}
+              onClick={handleBookNow(roomId)}
             >
               Book Now
             </button>
@@ -148,22 +147,6 @@ export default function BookingPage() {
     setFilterAvailable("All");
   };
 
-  const handleSearchBtn = () => {
-    const updatedFilteredRooms = rooms.filter((room) => {
-      const matchesMaxGuests =
-        filterMaxGuests === "All" ||
-        room.maxGuests === parseInt(filterMaxGuests);
-
-      const matchesAvailability =
-        filterAvailable === "Available" && room.available === true;
-
-      // Ensure the room's availability and maxGuests match the selected filters
-      return matchesMaxGuests && matchesAvailability;
-    });
-
-    setRooms(updatedFilteredRooms);
-  };
-
   // Filtering logic
   const filteredRooms = rooms.filter((room) => {
     const matchesCategory =
@@ -219,73 +202,6 @@ export default function BookingPage() {
               exquisite hotel.
             </p>
           </a>
-        </div>
-      </div>
-      <div className="block w-full h-auto bg-gray-200">
-        <div className="w-full pl-5 pr-5" id="booking">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-start bg-white shadow-lg p-4 space-y-4 md:space-y-0 border-[7px] border-sky-500">
-            <div className="flex flex-col md:flex-row md:flex-wrap md:justify-between space-y-3 w-full">
-              <div className="md:flex md:flex-row w-full">
-                {/* Check-in Date */}
-                <div className="flex flex-col md:flex-row gap-3 mt-3 md:mt-0 md:gap-7 md:border-r-[7px] md:border-sky-500 md:items-center w-full md:w-1/3">
-                  <label className="text-black text-lg font-semibold w-24">
-                    Check-in
-                  </label>
-                  <DatePicker
-                    selected={checkInDate}
-                    onChange={(date) => setCheckInDate(date)}
-                    selectsStart
-                    startDate={checkInDate}
-                    endDate={checkOutDate}
-                    className="border-2 border-gray-400 rounded-lg p-2 w-full"
-                    placeholderText="Select date"
-                  />
-                </div>
-
-                {/* Check-out Date */}
-                <div className="flex flex-col md:flex-row mt-3 md:mt-0 gap-3 md:gap-7 md:items-center md:border-r-[7px] md:border-sky-500 w-full md:w-1/3 ml-0 md:ml-8">
-                  <label className="text-black text-lg font-semibold w-24">
-                    Check-out
-                  </label>
-                  <DatePicker
-                    selected={checkOutDate}
-                    onChange={(date) => setCheckOutDate(date)}
-                    selectsEnd
-                    startDate={checkInDate}
-                    endDate={checkOutDate}
-                    minDate={checkInDate}
-                    className="border-2 border-gray-400 rounded-lg p-2 w-full"
-                    placeholderText="Select date"
-                  />
-                </div>
-
-                {/* Max Guests */}
-                <div className="flex flex-col md:flex-row gap-3 mt-3 md:mt-0 md:gap-7 md:items-center w-full md:w-1/3 ml-0 md:ml-8">
-                  <label className="text-black text-lg font-semibold w-40">
-                    Max Guests
-                  </label>
-                  <select className="border-2 border-gray-400 rounded-lg p-2 w-full">
-                    <option value="">Select</option>
-                    {[1, 2, 3, 4].map((maxG) => (
-                      <option key={maxG} value={maxG}>
-                        {maxG}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* Search Button */}
-            <div className="flex justify-center md:w-[120px] md:mr-3 md:ml-3 md:flex-col md:border-l-[7px] md:border-sky-500">
-              <button
-                className="bg-blue-500 text-white px-5 mt-3 md:mt-0 py-3 md:ml-5 justify-center items-center gap-3 flex rounded-lg w-full hover:bg-blue-600 transition duration-300"
-                onClick={handleSearchBtn}
-              >
-                <FaSearch className="md:hidden" /> Search
-              </button>
-            </div>
-          </div>
         </div>
       </div>
       <div className="p-3 md:p-0">
