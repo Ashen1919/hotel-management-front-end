@@ -151,12 +151,12 @@ export default function RoomDetailPage() {
           ? roomDetails
               .filter(
                 (room) =>
-                  room.category === roomDetails.category && room.roomId !== roomId
+                  room.category === roomDetails.category && room.id !== roomId
               ) 
               .slice(0, 3) 
-              .map((room) => (
+              .map((room, index) => (
                 <div
-                  key={room.roomId}
+                  key={index}
                   className="max-w-sm h-auto mb-8 rounded-lg shadow-lg ml-8 mt-5 border-2 border-transparent cursor-pointer hover:scale-105 hover:border-amber-500 hover:shadow-2xl transition-transform duration-300 relative group"
                 >
                   <div className="overflow-hidden">
