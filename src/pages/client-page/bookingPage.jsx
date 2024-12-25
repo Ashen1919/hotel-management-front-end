@@ -5,6 +5,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaSearch } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { BsPeopleFill } from "react-icons/bs";
+import toast from "react-hot-toast";
+
+const handleBookNow = () => {
+  if (!checkInDate && !checkOutDate && !filterMaxGuests) {
+    toast.error("Please fill all filters");
+  }
+};
 
 const DesktopRoomCard = ({
   image,
@@ -45,7 +52,10 @@ const DesktopRoomCard = ({
         </div>
         {/* Search Button */}
         <div className="flex justify-center md:w-[120px] md:mr-3 md:ml-3 md:flex-col">
-          <button className="bg-blue-500 text-white px-5 mt-3 md:mt-0 py-3 md:ml-5 justify-center items-center gap-3 flex rounded-lg w-full hover:bg-blue-600 transition duration-300">
+          <button
+            className="bg-blue-500 text-white px-5 mt-3 md:mt-0 py-3 md:ml-5 justify-center items-center gap-3 flex rounded-lg w-full hover:bg-blue-600 transition duration-300"
+            onClick={handleBookNow}
+          >
             Book Now
           </button>
         </div>
@@ -131,6 +141,32 @@ export default function BookingPage() {
     setFilterCategory("All");
     setFilterMaxGuests("All");
     setFilterPrice("All");
+    setFilterAvailable("All");
+  };
+
+  const handleSearchBtn = () => {
+    if (!checkInDate || !checkOutDate || filterMaxGuests === "All") {
+      toast.error("Please fill all filters");
+      return;
+    }
+
+    const updatedFilteredRooms = rooms.filter((room) => {
+
+      const matchesMaxGuests =
+        filterMaxGuests === "All" ||
+        room.maxGuests === parseInt(filterMaxGuests);
+
+      const matchesAvailability =
+        filterAvailable === filterAvailable === "Available" && room.available === true
+
+      // Ensure the room's availability and maxGuests match the selected filters
+      return (
+        matchesMaxGuests &&
+        matchesAvailability
+      );
+    });
+
+    setRooms(updatedFilteredRooms);
   };
 
   // Filtering logic
@@ -247,7 +283,10 @@ export default function BookingPage() {
 
             {/* Search Button */}
             <div className="flex justify-center md:w-[120px] md:mr-3 md:ml-3 md:flex-col md:border-l-[7px] md:border-sky-500">
-              <button className="bg-blue-500 text-white px-5 mt-3 md:mt-0 py-3 md:ml-5 justify-center items-center gap-3 flex rounded-lg w-full hover:bg-blue-600 transition duration-300">
+              <button
+                className="bg-blue-500 text-white px-5 mt-3 md:mt-0 py-3 md:ml-5 justify-center items-center gap-3 flex rounded-lg w-full hover:bg-blue-600 transition duration-300"
+                onClick={handleSearchBtn}
+              >
                 <FaSearch className="md:hidden" /> Search
               </button>
             </div>
