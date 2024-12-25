@@ -59,7 +59,7 @@ export default function RoomDetailPage() {
         {/* Image */}
         <div className="md:w-[70%] w-full h-auto md:pr-10 md:border-r-4 md:border-gray-400">
           <img
-            src={roomDetails.photos}
+            src={Array.isArray(roomDetails.photos) && roomDetails.photos.length > 0 ? roomDetails.photos[0] : null}
             alt="Room Photo"
             className="rounded-xl cursor-pointer hover:scale-105 transition duration-500"
           />
