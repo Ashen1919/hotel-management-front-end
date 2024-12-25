@@ -15,7 +15,7 @@ import { RiCustomerService2Fill } from "react-icons/ri";
 
 export default function RoomDetailPage() {
   const { roomId } = useParams();
-  const [roomDetails, setRoomDetails] = useState(null);
+  const [roomDetails, setRoomDetails] = useState([]);
 
   useEffect(() => {
     axios
