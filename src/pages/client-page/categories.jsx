@@ -146,6 +146,13 @@ export default function CategoriesPage() {
         <p>Price: ${roomDetails.price}</p>
         <p>Max Guests: {roomDetails.maxGuests}</p>
         <p>{roomDetails.available ? "Available" : "Not Available"}</p>
+
+        console.log("RoomId: ",roomId);
+    console.log("Category: ",roomDetails.category);
+    console.log("Max Guests: ",roomDetails.maxGuests);
+    console.log("Email: ",email);
+    console.log("Check in date: ", checkInDate);
+    console.log("Check out date: ", checkOutDate);
     </div>
   );
 }
