@@ -18,6 +18,7 @@ export default function RoomDetailPage() {
   const [roomDetails, setRoomDetails] = useState([]);
   const [allRooms, setAllRooms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [roomIds, setRoomIds] = useState([]);
 
   useEffect(() => {
     axios
@@ -34,6 +35,7 @@ export default function RoomDetailPage() {
       .then((res) => {
         setAllRooms(res.data.result);
         setLoading(false);
+        setRoomIds(res.data.result.roomId);
       })
       .catch((err) => {
         console.error("Error fetching all rooms:", err);
@@ -48,8 +50,9 @@ export default function RoomDetailPage() {
       (room) => room.category === roomDetails.category && room.id !== roomId
     )
     .slice(0, 3);
-  const handleBookNow = (roomId) => {
-    navigate(`/roomdetails/${roomId}`);
+
+  const handleBookNow = (roomIds) => {
+    navigate(`/roomdetails/${roomIds}`);
   };
 
   return (
@@ -196,14 +199,12 @@ export default function RoomDetailPage() {
                 </p>
               </div>
               <div className="px-3 pt-4 pb-4">
-                <a href={`/rooms/${room.id}`}>
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110"
-                    onClick={() => handleBookNow(roomId)}
+                    onClick={() => handleBookNow(roomIds)}
                   >
                     Book Now
                   </button>
-                </a>
               </div>
             </div>
           ))
