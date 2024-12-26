@@ -132,11 +132,12 @@ export default function BookingPage() {
 
         {/* Book Now Button with hover effects */}
         <div className="px-6 pt-4 pb-4">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110"
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110"
             onClick={() => handleBookNow(roomId)}
-            >
-              Book Now
-            </button>
+          >
+            Book Now
+          </button>
         </div>
       </div>
     );
@@ -144,7 +145,7 @@ export default function BookingPage() {
 
   if (!roomIsLoading) {
     return (
-      <div className="justify-center mt-96 ml-60 text-3xl font-semibold">
+      <div className="justify-center items-center text-3xl font-semibold animate-fadeIn">
         Loading rooms...
       </div>
     );
