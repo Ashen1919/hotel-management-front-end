@@ -69,7 +69,7 @@ export default function RoomDetailPage() {
       window.location.href = "/login";
       return;
     }
-    if(!checkInDate && !checkOutDate){
+    if(!checkInDate.toISOString() && !checkOutDate.toISOString()){
       toast.error("Please fill check in & check out dates");
       return;
     }
