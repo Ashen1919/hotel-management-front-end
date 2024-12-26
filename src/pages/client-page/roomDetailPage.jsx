@@ -61,12 +61,19 @@ export default function RoomDetailPage() {
     .slice(0, 3);
 
   const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
 
   const handleReserveBtn = (roomId) => {
     if (token == null) {
       window.location.href = "/login";
       return;
     }
+    console.log("RoomId: ",roomId);
+    console.log("Category: ",roomDetails.category);
+    console.log("Max Guests: ",roomDetails.maxGuests);
+    console.log("Email: ",email);
+    console.log("Check in date: ", checkInDate);
+    console.log("Check out date: ", checkOutDate);
   };
 
   return (
