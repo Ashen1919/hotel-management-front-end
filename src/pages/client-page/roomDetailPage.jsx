@@ -34,6 +34,7 @@ export default function RoomDetailPage() {
       .get(`${import.meta.env.VITE_BACKEND_URL}/api/rooms`)
       .then((res) => {
         setAllRooms(res.data.result);
+        console.log(res.data.result);
         setLoading(false);
       })
       .catch((err) => {
@@ -46,7 +47,7 @@ export default function RoomDetailPage() {
 
   const featuredRooms = allRooms
     .filter(
-      (room) => room.category === roomDetails.category && room.id !== roomId
+      (room) => room.category === roomDetails.category && room.roomId !== roomId
     )
     .slice(0, 3);
 
