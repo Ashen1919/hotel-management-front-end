@@ -15,6 +15,7 @@ import { RiCustomerService2Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+import toast from "react-hot-toast";
 
 export default function RoomDetailPage() {
   const { roomId } = useParams();
@@ -68,12 +69,23 @@ export default function RoomDetailPage() {
       window.location.href = "/login";
       return;
     }
-    console.log("RoomId: ",roomId);
-    console.log("Category: ",roomDetails.category);
-    console.log("Max Guests: ",roomDetails.maxGuests);
-    console.log("Email: ",email);
-    console.log("Check in date: ", checkInDate);
-    console.log("Check out date: ", checkOutDate);
+    if(!checkInDate && !checkOutDate){
+      toast.error("Please fill check in & check out dates");
+      return;
+    }
+
+    const bookingDetails = { roomId, email, start: checkInDate.toISOString(), end: checkOutDate.toISOString() };
+    axios.post(import.meta.env.VITE_BACKEND_URL + "/api/booking/", bookingDetails, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }).then((res) =>{
+      navigate("/successPage");
+      console.log(res);
+    }).catch((err)=>{
+      toast.error("Failed to create booking");
+      console.log(err.message);
+    })
   };
 
   return (
@@ -125,7 +137,9 @@ export default function RoomDetailPage() {
             <div className="flex flex-row space-x-9 md:space-x-10">
               <div className="gap-3 items-center flex flex-row">
                 <BsPeopleFill className="text-xl " />
-                <p className="text-xl font-semibold text-green-600">{roomDetails.maxGuests}</p>
+                <p className="text-xl font-semibold text-green-600">
+                  {roomDetails.maxGuests}
+                </p>
               </div>
               <div className="gap-3 items-center flex flex-row">
                 <FaBed className="text-xl " />
@@ -223,13 +237,21 @@ export default function RoomDetailPage() {
                 <label className="text-black text-[16px] font-semibold">
                   Max Guests
                 </label>
-                <input type="text" name="maxguests" value={roomDetails.maxGuests} id="maxguests" className="border-2 border-gray-400 rounded-lg p-2 w-full" disabled/>
+                <input
+                  type="text"
+                  name="maxguests"
+                  value={roomDetails.maxGuests}
+                  id="maxguests"
+                  className="border-2 border-gray-400 rounded-lg p-2 w-full"
+                  disabled
+                />
               </div>
             </div>
             <div className="mt-5">
               <button
                 className="p-5 bg-blue-600 text-white rounded-[15px] flex flex-row font-semibold items-center gap-4 hover:bg-blue-800 transition duration-500"
                 onClick={() => handleReserveBtn(roomId)}
+                disabled={!roomDetails.available}
               >
                 <FaRegBookmark className="font-semibold" /> Reserve Now
               </button>

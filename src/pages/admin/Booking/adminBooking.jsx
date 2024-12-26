@@ -38,12 +38,11 @@ export default function AdminBooking() {
         <thead>
           <tr className="bg-gray-200">
             <th className="p-2 border border-gray-300">Booking ID</th>
+            <th className="p-2 border border-gray-300">Room ID</th>
             <th className="p-2 border border-gray-300">Email</th>
             <th className="p-2 border border-gray-300">Status</th>
-            <th className="p-2 border border-gray-300">Reason</th>
             <th className="p-2 border border-gray-300">Start</th>
             <th className="p-2 border border-gray-300">End</th>
-            <th className="p-2 border border-gray-300">Notes</th>
             <th className="p-2 border border-gray-300">Timestamp</th>
             <th className="p-2 border border-gray-300">Action</th>
           </tr>
