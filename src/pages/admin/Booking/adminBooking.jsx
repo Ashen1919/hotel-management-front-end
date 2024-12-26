@@ -11,6 +11,7 @@ export default function AdminBooking() {
   const [notes, setNotes] = useState("The room is booked");
   const [showPopup, setShowPopup] = useState(false);
   const [activeBookingId, setActiveBookingId] = useState(null);
+  const [reason, setReason] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,17 +91,20 @@ export default function AdminBooking() {
     setActiveBookingId(null);
   };
 
-  const handleCancelBooking = (bookingId) => {
+  const handleCancelBooking = (activeBookingId) => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
       return;
     }
 
+    const cancelInfo = {
+      reason
+    }
     axios
       .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/booking/${bookingId}/cancel`,
-        {},
+        `${import.meta.env.VITE_BACKEND_URL}/api/booking/${activeBookingId}`,
+        cancelInfo,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -109,6 +113,16 @@ export default function AdminBooking() {
       )
       .then((res) => {
         toast.success("Booking canceled successfully.");
+        axios.put(import.meta.env.VITE_BACKEND_URL + "/api/booking/", {}, {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        }).then((res)=>{
+          toast.success("Successfully updated status");
+        }).catch((err)=>{
+          toast.error("Status Updation failed");
+          console.log(err.message)
+        });
       })
       .catch((err) => {
         toast.error("Failed to cancel booking");
@@ -178,7 +192,7 @@ export default function AdminBooking() {
 
       {/* Popup Page */}
       {showPopup && (
-        <div className="w-full h-[100vh] justify-center items-center flex text-black flex-col bg-gray-800 bg-opacity-50 fixed top-0 left-0 z-50 transition-opacity duration-300 ease-in-out">
+        <div className="w-full h-[100vh] justify-center items-center flex text-black flex-col bg-gray-800 bg-opacity-40 fixed top-0 left-0 z-50 transition-opacity duration-300 ease-in-out">
           <div className="w-[500px] h-auto p-5 rounded-lg bg-gray-200 flex flex-col opacity-100 transition-transform duration-300 ease-in-out transform scale-100">
             <button
               className="mb-3 flex ml-auto border-2 border-gray-400"
@@ -186,10 +200,13 @@ export default function AdminBooking() {
             >
               <IoCloseSharp className="text-2xl flex" />
             </button>
+            <p className="mt-2 mb-2 text-xl font-semibold">Enter Reason: </p>
             <textarea
               name="reason"
               id="reason"
               placeholder="Enter reason here"
+              onChange={(e) => setReason(e.target.value)}
+              required
               className="p-5 w-full rounded-lg outline-none transition duration-500 focus:border-2 focus:border-blue-600"
             ></textarea>
             <button
