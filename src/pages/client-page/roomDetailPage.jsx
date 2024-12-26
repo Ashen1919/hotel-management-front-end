@@ -51,6 +51,10 @@ export default function RoomDetailPage() {
     )
     .slice(0, 3);
 
+  const handleReserveBtn = (roomId) => {
+    console.log(roomId)
+  }
+
   return (
     <div className="flex flex-col w-full h-auto">
       <div className="w-full h-[250px] bg-gray-800 relative">
@@ -160,7 +164,9 @@ export default function RoomDetailPage() {
               </div>
             </div>
             <div className="mt-5">
-              <button className="p-5 bg-blue-600 text-white rounded-[15px] flex flex-row font-semibold items-center gap-4 hover:bg-blue-800 transition duration-500">
+              <button className="p-5 bg-blue-600 text-white rounded-[15px] flex flex-row font-semibold items-center gap-4 hover:bg-blue-800 transition duration-500"
+              onClick={()=> handleReserveBtn(roomId)}
+              >
                 <FaRegBookmark className="font-semibold" /> Reserve Now
               </button>
             </div>
