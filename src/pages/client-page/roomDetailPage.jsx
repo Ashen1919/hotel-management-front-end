@@ -118,7 +118,7 @@ export default function RoomDetailPage() {
             <div className="flex flex-row space-x-9 md:space-x-10">
               <div className="gap-3 items-center flex flex-row">
                 <BsPeopleFill className="text-xl " />
-                <p className="text-xl font-semibold text-green-600">3</p>
+                <p className="text-xl font-semibold text-green-600">{roomDetails.maxGuests}</p>
               </div>
               <div className="gap-3 items-center flex flex-row">
                 <FaBed className="text-xl " />
@@ -179,7 +179,7 @@ export default function RoomDetailPage() {
             </div>
             <div className="mt-5 flex flex-row gap-3">
               {/* Check-in Date */}
-              <div className="flex flex-col gap-3 mt-3 md:mt-0 md:items-center md:w-1/3">
+              <div className="flex flex-col gap-3 mt-3 md:mt-0 w-1/3">
                 <label className="text-black text-[16px] font-semibold">
                   Check-in
                 </label>
@@ -195,7 +195,7 @@ export default function RoomDetailPage() {
               </div>
 
               {/* Check-out Date */}
-              <div className="flex flex-col gap-3 mt-3 md:mt-0 md:items-center md:w-1/3">
+              <div className="flex flex-col gap-3 mt-3 md:mt-0 w-1/3">
                 <label className="text-black text-[16px] font-semibold">
                   Check-out
                 </label>
@@ -212,18 +212,11 @@ export default function RoomDetailPage() {
               </div>
 
               {/* Max Guests */}
-              <div className="flex flex-col gap-3 mt-3 md:mt-0 md:items-center md:w-1/3">
+              <div className="flex flex-col gap-3 mt-3 md:mt-0 w-1/3">
                 <label className="text-black text-[16px] font-semibold">
                   Max Guests
                 </label>
-                <select className="border-2 border-gray-400 rounded-lg p-2 w-full">
-                  <option value="">Select</option>
-                  {[1, 2, 3, 4].map((maxG) => (
-                    <option key={maxG} value={maxG}>
-                      {maxG}
-                    </option>
-                  ))}
-                </select>
+                <input type="text" name="maxguests" value={roomDetails.maxGuests} id="maxguests" className="border-2 border-gray-400 rounded-lg p-2 w-full" disabled/>
               </div>
             </div>
             <div className="mt-5">
