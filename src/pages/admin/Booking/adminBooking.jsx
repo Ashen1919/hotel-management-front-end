@@ -175,7 +175,7 @@ export default function AdminBooking() {
                     </button>
                     <button
                       className="bg-red-500 p-1 text-white rounded-sm hover:bg-red-600 w-20"
-                      onClick={() => handleCancel()}
+                      onClick={() => handleCancel(booking.bookingId)}
                     >
                       Cancel
                     </button>
