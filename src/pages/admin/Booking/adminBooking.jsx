@@ -84,6 +84,7 @@ export default function AdminBooking() {
   const handleCancel = (bookingId) => {
     setActiveBookingId(bookingId);
     setShowPopup(true);
+    console.log(bookingId)
   };
 
   const handleClose = () => {
@@ -97,6 +98,8 @@ export default function AdminBooking() {
       navigate("/login");
       return;
     }
+    console.log("Reason: ", newReason)
+    console.log("Booking Id: ", bookingId)
 
     const cancelInfo = {
       reason : newReason,
@@ -116,8 +119,7 @@ export default function AdminBooking() {
         toast.success("Booking canceled successfully.");
         setShowPopup(false);
         setBookingIsLoading(false);
-        console.log("Reason: ", newReason)
-        console.log("Booking Id: ", bookingId)
+        
       })
       .catch((err) => {
         toast.error("Failed to cancel booking");
@@ -206,7 +208,7 @@ export default function AdminBooking() {
             ></textarea>
             <button
               className="p-3 bg-red-600 text-white rounded-[10px] mt-5 w-[150px]"
-              onClick={() => handleCancelBooking(activeBookingId)}
+              onClick={() => handleCancelBooking(activeBookingId, reason)}
             >
               Cancel Booking
             </button>
