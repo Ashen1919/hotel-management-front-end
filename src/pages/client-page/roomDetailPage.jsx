@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { BsPeopleFill } from "react-icons/bs";
 import {
@@ -19,6 +19,7 @@ export default function RoomDetailPage() {
   const [allRooms, setAllRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [roomIds, setRoomIds] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
