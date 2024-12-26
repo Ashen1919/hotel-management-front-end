@@ -43,14 +43,19 @@ export default function RoomDetailPage() {
       });
   }, [roomId]);
 
-  if (loading) return <div className="justify-center items-center text-2xl font-semibold">Loading...</div>;
+  if (loading)
+    return (
+      <div className="justify-center items-center text-3xl font-semibold animate-fadeIn">
+        Loading room details...
+      </div>
+    );
 
   const featuredRooms = allRooms
     .filter(
       (room) => room.category === roomDetails.category && room.roomId !== roomId
     )
     .slice(0, 3);
-  
+
   const token = localStorage.getItem("token");
 
   const handleReserveBtn = (roomId) => {
@@ -58,8 +63,7 @@ export default function RoomDetailPage() {
       window.location.href = "/login";
       return;
     }
-    
-  }
+  };
 
   return (
     <div className="flex flex-col w-full h-auto">
@@ -170,8 +174,9 @@ export default function RoomDetailPage() {
               </div>
             </div>
             <div className="mt-5">
-              <button className="p-5 bg-blue-600 text-white rounded-[15px] flex flex-row font-semibold items-center gap-4 hover:bg-blue-800 transition duration-500"
-              onClick={()=> handleReserveBtn(roomId)}
+              <button
+                className="p-5 bg-blue-600 text-white rounded-[15px] flex flex-row font-semibold items-center gap-4 hover:bg-blue-800 transition duration-500"
+                onClick={() => handleReserveBtn(roomId)}
               >
                 <FaRegBookmark className="font-semibold" /> Reserve Now
               </button>
@@ -207,10 +212,8 @@ export default function RoomDetailPage() {
                 </p>
               </div>
               <div className="px-3 pt-4 pb-4">
-              <Link to={`/roomdetails/${room.roomId}`}>
-                  <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110"
-                  >
+                <Link to={`/roomdetails/${room.roomId}`}>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110">
                     Book Now
                   </button>
                 </Link>
