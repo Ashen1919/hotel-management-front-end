@@ -35,7 +35,9 @@ export default function AdminBooking() {
     }
     axios
       .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/booking/${bookingId}/${roomId}`,
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/booking/${bookingId}/${roomId}`,
         {},
         {
           headers: {
@@ -49,7 +51,7 @@ export default function AdminBooking() {
 
         const roomInfo = {
           available,
-          notes
+          notes,
         };
         axios
           .put(
@@ -82,7 +84,7 @@ export default function AdminBooking() {
     setActiveBookingId(bookingId);
     setShowPopup(true);
   };
-  
+
   const handleClose = () => {
     setShowPopup(false);
     setActiveBookingId(null);
@@ -94,7 +96,7 @@ export default function AdminBooking() {
       navigate("/login");
       return;
     }
-  
+
     axios
       .put(
         `${import.meta.env.VITE_BACKEND_URL}/api/booking/${bookingId}/cancel`,
@@ -113,7 +115,6 @@ export default function AdminBooking() {
         console.log(err.message);
       });
   };
-  
 
   return (
     <div className="w-full p-4">
@@ -168,38 +169,38 @@ export default function AdminBooking() {
                       Cancel
                     </button>
                   </div>
-
-                  {/* Popup Page */}
-                  {showPopup && (
-                    <div className="w-full h-[100vh] justify-center items-center flex text-black flex-col">
-                      <div className="w-[500px] h-auto p-5 rounded-lg bg-gray-200 flex flex-col">
-                        <button
-                          className="mb-3 flex ml-[430px]  border-2 border-gray-400"
-                          onClick={() => handleClose()}
-                        >
-                          <IoCloseSharp className="text-2xl flex" />
-                        </button>
-                        <textarea
-                          name="reason"
-                          id="reason"
-                          placeholder="Enter reason here"
-                          className="p-5 w-full rounded-lg outline-none transition duration-500 focus:border-2 focus:border-blue-600"
-                        ></textarea>
-                        <button
-                          className="p-3 bg-red-600 text-white rounded-[10px] mt-5 w-[150px]"
-                          onClick={() => handleCancelBooking(booking.bookingId)}
-                        >
-                          Cancel Booking
-                        </button>
-                      </div>
-                    </div>
-                  )}
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+
+      {/* Popup Page */}
+      {showPopup && (
+        <div className="w-full h-[100vh] justify-center items-center flex text-black flex-col">
+          <div className="w-[500px] h-auto p-5 rounded-lg bg-gray-200 flex flex-col">
+            <button
+              className="mb-3 flex ml-[430px]  border-2 border-gray-400"
+              onClick={() => handleClose()}
+            >
+              <IoCloseSharp className="text-2xl flex" />
+            </button>
+            <textarea
+              name="reason"
+              id="reason"
+              placeholder="Enter reason here"
+              className="p-5 w-full rounded-lg outline-none transition duration-500 focus:border-2 focus:border-blue-600"
+            ></textarea>
+            <button
+              className="p-3 bg-red-600 text-white rounded-[10px] mt-5 w-[150px]"
+              onClick={() => handleCancelBooking(booking.bookingId)}
+            >
+              Cancel Booking
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
