@@ -12,6 +12,7 @@ import {
 import { MdOutlinePayments } from "react-icons/md";
 import { IoShieldCheckmarkSharp } from "react-icons/io5";
 import { RiCustomerService2Fill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 export default function RoomDetailPage() {
   const { roomId } = useParams();
@@ -200,12 +201,13 @@ export default function RoomDetailPage() {
                 </p>
               </div>
               <div className="px-3 pt-4 pb-4">
+              <Link to={`/roomdetails/${room.roomId}`}>
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110"
-                    onClick={() => handleBookNow(room.roomId)}
                   >
                     Book Now
                   </button>
+                </Link>
               </div>
             </div>
           ))
