@@ -51,11 +51,6 @@ export default function RoomDetailPage() {
     )
     .slice(0, 3);
 
-  const handleBookNow = (roomId) => {
-    navigate(`/roomdetails/${room.roomId}`);
-    console.log(room.roomId);
-  };
-
   return (
     <div className="flex flex-col w-full h-auto">
       <div className="w-full h-[250px] bg-gray-800 relative">
@@ -200,12 +195,13 @@ export default function RoomDetailPage() {
                 </p>
               </div>
               <div className="px-3 pt-4 pb-4">
+              <Link to={`/roomdetails/${room.roomId}`}>
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-transform duration-300 transform group-hover:scale-110"
-                    onClick={() => handleBookNow(room.roomId)}
                   >
                     Book Now
                   </button>
+                </Link>
               </div>
             </div>
           ))
