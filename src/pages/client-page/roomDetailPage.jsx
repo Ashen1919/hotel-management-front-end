@@ -14,6 +14,7 @@ import { IoShieldCheckmarkSharp } from "react-icons/io5";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
 
 export default function RoomDetailPage() {
   const { roomId } = useParams();
@@ -178,8 +179,8 @@ export default function RoomDetailPage() {
             </div>
             <div className="mt-5 flex flex-row gap-3">
               {/* Check-in Date */}
-              <div className="flex flex-col md:flex-row gap-3 mt-3 md:mt-0 md:gap-7 md:border-r-[7px] md:border-sky-500 md:items-center w-full md:w-1/3">
-                <label className="text-black text-lg font-semibold w-24">
+              <div className="flex flex-col gap-3 mt-3 md:mt-0 md:items-center md:w-1/3">
+                <label className="text-black text-[16px] font-semibold">
                   Check-in
                 </label>
                 <DatePicker
@@ -194,8 +195,8 @@ export default function RoomDetailPage() {
               </div>
 
               {/* Check-out Date */}
-              <div className="flex flex-col md:flex-row mt-3 md:mt-0 gap-3 md:gap-7 md:items-center md:border-r-[7px] md:border-sky-500 w-full md:w-1/3 ml-0 md:ml-8">
-                <label className="text-black text-lg font-semibold w-24">
+              <div className="flex flex-col gap-3 mt-3 md:mt-0 md:items-center md:w-1/3">
+                <label className="text-black text-[16px] font-semibold">
                   Check-out
                 </label>
                 <DatePicker
@@ -211,8 +212,8 @@ export default function RoomDetailPage() {
               </div>
 
               {/* Max Guests */}
-              <div className="flex flex-col md:flex-row gap-3 mt-3 md:mt-0 md:gap-7 md:items-center w-full md:w-1/3 ml-0 md:ml-8">
-                <label className="text-black text-lg font-semibold w-40">
+              <div className="flex flex-col gap-3 mt-3 md:mt-0 md:items-center md:w-1/3">
+                <label className="text-black text-[16px] font-semibold">
                   Max Guests
                 </label>
                 <select className="border-2 border-gray-400 rounded-lg p-2 w-full">
