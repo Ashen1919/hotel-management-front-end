@@ -28,7 +28,6 @@ import axios from "axios";
 import AddRoomForm from "../admin/rooms/addRoom/addRoom.jsx";
 import UpdateRoomForm from "../admin/rooms/updateRoom/updateRoom.jsx";
 import UpdateUser from "../admin/users/updateUser/updateUser.jsx";
-import ReasonPage from "../admin/Booking/reasonPage.jsx";
 
 
 export default function AdminPage() {
@@ -214,7 +213,6 @@ export default function AdminPage() {
             <Route path="/add-gallery-item" element={<AddGalleryItemForm />} />
             <Route path="/update-gallery-item"element={<UpdateGalleryItemForm />}/>
             <Route path="/bookings" element={<AdminBooking />} />
-            <Route path="/reasonPage" element={<ReasonPage />} />
             <Route path="/ticketing" element={<AdminTicketing />} />
           </Routes>
         </div>
