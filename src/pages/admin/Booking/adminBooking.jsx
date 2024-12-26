@@ -178,11 +178,11 @@ export default function AdminBooking() {
 
       {/* Popup Page */}
       {showPopup && (
-        <div className="w-full h-[100vh] justify-center items-center flex text-black flex-col">
-          <div className="w-[500px] h-auto p-5 rounded-lg bg-gray-200 flex flex-col">
+        <div className="w-full h-[100vh] justify-center items-center flex text-black flex-col bg-gray-800 bg-opacity-50 fixed top-0 left-0 z-50 transition-opacity duration-300 ease-in-out">
+          <div className="w-[500px] h-auto p-5 rounded-lg bg-gray-200 flex flex-col opacity-100 transition-transform duration-300 ease-in-out transform scale-100">
             <button
-              className="mb-3 flex ml-[430px]  border-2 border-gray-400"
-              onClick={() => handleClose()}
+              className="mb-3 flex ml-auto border-2 border-gray-400"
+              onClick={handleClose}
             >
               <IoCloseSharp className="text-2xl flex" />
             </button>
@@ -194,7 +194,7 @@ export default function AdminBooking() {
             ></textarea>
             <button
               className="p-3 bg-red-600 text-white rounded-[10px] mt-5 w-[150px]"
-              onClick={() => handleCancelBooking(booking.bookingId)}
+              onClick={() => handleCancelBooking(activeBookingId)}
             >
               Cancel Booking
             </button>
