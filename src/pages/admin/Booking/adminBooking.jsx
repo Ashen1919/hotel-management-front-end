@@ -91,7 +91,7 @@ export default function AdminBooking() {
     setActiveBookingId(null);
   };
 
-  const handleCancelBooking = (bookingId) => {
+  const handleCancelBooking = (bookingId, newReason) => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
@@ -99,7 +99,8 @@ export default function AdminBooking() {
     }
 
     const cancelInfo = {
-      reason
+      reason : newReason,
+      status: "Cancel"
     }
     axios
       .put(
@@ -113,16 +114,10 @@ export default function AdminBooking() {
       )
       .then((res) => {
         toast.success("Booking canceled successfully.");
-        axios.put(import.meta.env.VITE_BACKEND_URL + "/api/booking/", {}, {
-          headers: {
-            Authorization: "Bearer " + token
-          }
-        }).then((res)=>{
-          toast.success("Successfully updated status");
-        }).catch((err)=>{
-          toast.error("Status Updation failed");
-          console.log(err.message)
-        });
+        setShowPopup(false);
+        setBookingIsLoading(false);
+        console.log("Reason: ", newReason)
+        console.log("Booking Id: ", bookingId)
       })
       .catch((err) => {
         toast.error("Failed to cancel booking");
