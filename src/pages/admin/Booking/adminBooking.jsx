@@ -91,7 +91,7 @@ export default function AdminBooking() {
     setActiveBookingId(null);
   };
 
-  const handleCancelBooking = (activeBookingId) => {
+  const handleCancelBooking = (bookingId) => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
@@ -103,7 +103,7 @@ export default function AdminBooking() {
     }
     axios
       .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/booking/${activeBookingId}`,
+        import.meta.env.VITE_BACKEND_URL + "/api/booking/" + bookingId,
         cancelInfo,
         {
           headers: {
