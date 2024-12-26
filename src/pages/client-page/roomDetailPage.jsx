@@ -52,7 +52,8 @@ export default function RoomDetailPage() {
     .slice(0, 3);
 
   const handleBookNow = (roomId) => {
-    navigate(`/roomdetails/${roomId}`);
+    navigate(`/roomdetails/${room.roomId}`);
+    console.log(room.roomId);
   };
 
   return (
