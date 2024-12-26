@@ -37,6 +37,7 @@ export default function RoomDetailPage() {
         setAllRooms(res.data.result);
         setLoading(false);
         setRoomIds(res.data.result.roomId);
+        console.log(res.data.result.roomId);
       })
       .catch((err) => {
         console.error("Error fetching all rooms:", err);
@@ -53,7 +54,7 @@ export default function RoomDetailPage() {
     .slice(0, 3);
 
   const handleBookNow = (roomIds) => {
-    navigate(`/roomdetails/${roomIds}`);
+    navigate(`/${roomIds}`);
   };
 
   return (
