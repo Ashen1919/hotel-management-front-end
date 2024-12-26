@@ -7,8 +7,6 @@ import { BsPeopleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 export default function BookingPage() {
-  const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(new Date());
   const [rooms, setRooms] = useState([]);
   const [roomIsLoading, setRoomIsLoading] = useState(false);
   const [filterCategory, setFilterCategory] = useState("All");
@@ -145,7 +143,7 @@ export default function BookingPage() {
 
   if (!roomIsLoading) {
     return (
-      <div className="justify-center items-center text-3xl font-semibold animate-fadeIn">
+      <div className="justify-center mt-96 ml-96 items-center text-3xl font-semibold animate-fadeIn">
         Loading rooms...
       </div>
     );
