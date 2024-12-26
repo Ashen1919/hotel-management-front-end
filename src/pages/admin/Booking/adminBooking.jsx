@@ -7,7 +7,7 @@ import { IoCloseSharp } from "react-icons/io5";
 export default function AdminBooking() {
   const [bookings, setBookings] = useState([]);
   const [bookingIsLoading, setBookingIsLoading] = useState(false);
-  const [available, setAvailable] = useState(true);
+  const [available, setAvailable] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [activeBookingId, setActiveBookingId] = useState(null);
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ export default function AdminBooking() {
           .then((res) => {
             toast.success("Room availability updated");
             console.log(res);
-            setAvailable(false);
+            setAvailable(true);
           })
           .catch((err) => {
             toast.error("Failed to update room availability");
