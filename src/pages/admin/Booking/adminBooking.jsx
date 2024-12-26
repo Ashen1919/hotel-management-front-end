@@ -8,6 +8,7 @@ export default function AdminBooking() {
   const [bookings, setBookings] = useState([]);
   const [bookingIsLoading, setBookingIsLoading] = useState(false);
   const [available, setAvailable] = useState(false);
+  const [notes, setNotes] = useState("The room is booked");
   const [showPopup, setShowPopup] = useState(false);
   const [activeBookingId, setActiveBookingId] = useState(null);
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ export default function AdminBooking() {
 
         const roomInfo = {
           available,
+          notes
         };
         axios
           .put(
@@ -63,6 +65,7 @@ export default function AdminBooking() {
             toast.success("Room availability updated");
             console.log(res);
             setAvailable(true);
+            setNotes("");
           })
           .catch((err) => {
             toast.error("Failed to update room availability");
