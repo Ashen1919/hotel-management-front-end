@@ -43,16 +43,22 @@ export default function RoomDetailPage() {
       });
   }, [roomId]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="justify-center items-center text-2xl font-semibold">Loading...</div>;
 
   const featuredRooms = allRooms
     .filter(
       (room) => room.category === roomDetails.category && room.roomId !== roomId
     )
     .slice(0, 3);
+  
+  const token = localStorage.getItem("token");
 
   const handleReserveBtn = (roomId) => {
-    console.log(roomId)
+    if (token == null) {
+      window.location.href = "/login";
+      return;
+    }
+    
   }
 
   return (
