@@ -50,7 +50,7 @@ export default function RoomDetailPage() {
 
   if (loading)
     return (
-      <div className="justify-center mt-96 ml-96 items-center text-3xl font-semibold animate-fadeIn">
+      <div className="justify-center flex items-center text-3xl font-semibold animate-fadeIn">
         Loading room details...
       </div>
     );

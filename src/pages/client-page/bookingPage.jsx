@@ -143,7 +143,7 @@ export default function BookingPage() {
 
   if (!roomIsLoading) {
     return (
-      <div className="justify-center mt-96 ml-96 items-center text-3xl font-semibold animate-fadeIn">
+      <div className="justify-center flex items-center text-3xl font-semibold animate-fadeIn">
         Loading rooms...
       </div>
     );
