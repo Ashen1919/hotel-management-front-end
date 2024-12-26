@@ -248,7 +248,7 @@ export default function BookingPage() {
             </div>
 
             {/* Sort by Availability */}
-            <p className="text-lg font-bold mt-7">Price</p>
+            <p className="text-lg font-bold mt-7">Availability</p>
             <div className="flex flex-col space-y-4 mt-3 ml-5">
               {["All", "Available", "Not Available"].map((available, index) => (
                 <label key={index} className="flex items-center space-x-2">
