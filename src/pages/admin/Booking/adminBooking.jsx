@@ -9,8 +9,6 @@ export default function AdminBooking() {
   const [bookingIsLoading, setBookingIsLoading] = useState(false);
   const [available, setAvailable] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
-  const [reason, setReason] = useState(""); 
-  const [currentBookingId, setCurrentBookingId] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,24 +20,24 @@ export default function AdminBooking() {
           setBookingIsLoading(true);
         })
         .catch((err) => {
-          console.log("Failed to fetch bookings", err.message);
+          console.log("Failed ti fetch bookings", err.message);
         });
     }
   }, [bookingIsLoading]);
 
   const handleConfirm = (bookingId, roomId) => {
     const token = localStorage.getItem("token");
-    if (!token) {
+    if (token == null) {
       navigate("/login");
       return;
     }
     axios
       .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/booking/${bookingId}${roomId}`,
+        import.meta.env.VITE_BACKEND_URL + "/api/booking/" + bookingId + roomId,
         {},
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: "Bearer " + token,
           },
         }
       )
@@ -52,11 +50,11 @@ export default function AdminBooking() {
         };
         axios
           .put(
-            `${import.meta.env.VITE_BACKEND_URL}/api/booking/${roomId}`,
+            import.meta.env.VITE_BACKEND_URL + "/api/booking/" + roomId,
             roomInfo,
             {
               headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: "Bearer " + token,
               },
             }
           )
@@ -76,43 +74,27 @@ export default function AdminBooking() {
       });
   };
 
-  const handleCancel = (bookingId) => {
+  function handleCancel() {
     setShowPopup(true);
-    setCurrentBookingId(bookingId); 
-  };
+  }
 
   const handleClose = () => {
     setShowPopup(false);
-    setReason(""); 
   };
 
-  const handleCancelBooking = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-      return;
-    }
+  const handleCancelBooking = (bookingId) => {
     axios
       .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/booking/${currentBookingId}`,
-        { reason },
+        import.meta.env.VITE_BACKEND_URL + "/api/booking/",
+        {},
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: "Bearer " + token,
           },
         }
       )
       .then((res) => {
         toast.success("Booking canceled successfully.");
-        console.log(res);
-        setBookings((prev) =>
-          prev.filter((booking) => booking.bookingId !== currentBookingId)
-        ); 
-        handleClose();
-      })
-      .catch((err) => {
-        toast.error("Failed to cancel booking");
-        console.log(err.message);
       });
   };
 
@@ -155,7 +137,7 @@ export default function AdminBooking() {
                 <td className="p-2 border border-gray-300">
                   <div className="flex space-x-4">
                     <button
-                      className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 w-20"
+                      className="bg-blue-500 p-1 text-white rounded-sm hover:bg-blue-600 w-20 "
                       onClick={() =>
                         handleConfirm(booking.bookingId, booking.roomId)
                       }
@@ -164,19 +146,19 @@ export default function AdminBooking() {
                     </button>
                     <button
                       className="bg-red-500 p-1 text-white rounded-sm hover:bg-red-600 w-20"
-                      onClick={() => handleCancel(booking.bookingId)}
+                      onClick={() => handleCancel()}
                     >
                       Cancel
                     </button>
                   </div>
 
                   {/* Popup Page */}
-                  {showPopup && currentBookingId === booking.bookingId && (
+                  {showPopup && (
                     <div className="w-full h-[100vh] justify-center items-center flex text-black flex-col">
                       <div className="w-[500px] h-auto p-5 rounded-lg bg-gray-200 flex flex-col">
                         <button
-                          className="mb-3 flex ml-[430px] border-2 border-gray-400"
-                          onClick={handleClose}
+                          className="mb-3 flex ml-[430px]  border-2 border-gray-400"
+                          onClick={() => handleClose()}
                         >
                           <IoCloseSharp className="text-2xl flex" />
                         </button>
@@ -185,12 +167,10 @@ export default function AdminBooking() {
                           id="reason"
                           placeholder="Enter reason here"
                           className="p-5 w-full rounded-lg outline-none transition duration-500 focus:border-2 focus:border-blue-600"
-                          value={reason}
-                          onChange={(e) => setReason(e.target.value)} 
                         ></textarea>
                         <button
                           className="p-3 bg-red-600 text-white rounded-[10px] mt-5 w-[150px]"
-                          onClick={handleCancelBooking}
+                          onClick={() => handleCancelBooking(booking.bookingId)}
                         >
                           Cancel Booking
                         </button>
