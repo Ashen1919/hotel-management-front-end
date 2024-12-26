@@ -13,12 +13,15 @@ import { MdOutlinePayments } from "react-icons/md";
 import { IoShieldCheckmarkSharp } from "react-icons/io5";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function RoomDetailPage() {
   const { roomId } = useParams();
   const [roomDetails, setRoomDetails] = useState([]);
   const [allRooms, setAllRooms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [checkInDate, setCheckInDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(new Date());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,7 +48,7 @@ export default function RoomDetailPage() {
 
   if (loading)
     return (
-      <div className="justify-center items-center text-3xl font-semibold animate-fadeIn">
+      <div className="justify-center mt-96 ml-96 items-center text-3xl font-semibold animate-fadeIn">
         Loading room details...
       </div>
     );
@@ -173,6 +176,55 @@ export default function RoomDetailPage() {
                 </p>
               </div>
             </div>
+            <div className="mt-5 flex flex-row gap-3">
+              {/* Check-in Date */}
+              <div className="flex flex-col md:flex-row gap-3 mt-3 md:mt-0 md:gap-7 md:border-r-[7px] md:border-sky-500 md:items-center w-full md:w-1/3">
+                <label className="text-black text-lg font-semibold w-24">
+                  Check-in
+                </label>
+                <DatePicker
+                  selected={checkInDate}
+                  onChange={(date) => setCheckInDate(date)}
+                  selectsStart
+                  startDate={checkInDate}
+                  endDate={checkOutDate}
+                  className="border-2 border-gray-400 rounded-lg p-2 w-full"
+                  placeholderText="Select date"
+                />
+              </div>
+
+              {/* Check-out Date */}
+              <div className="flex flex-col md:flex-row mt-3 md:mt-0 gap-3 md:gap-7 md:items-center md:border-r-[7px] md:border-sky-500 w-full md:w-1/3 ml-0 md:ml-8">
+                <label className="text-black text-lg font-semibold w-24">
+                  Check-out
+                </label>
+                <DatePicker
+                  selected={checkOutDate}
+                  onChange={(date) => setCheckOutDate(date)}
+                  selectsEnd
+                  startDate={checkInDate}
+                  endDate={checkOutDate}
+                  minDate={checkInDate}
+                  className="border-2 border-gray-400 rounded-lg p-2 w-full"
+                  placeholderText="Select date"
+                />
+              </div>
+
+              {/* Max Guests */}
+              <div className="flex flex-col md:flex-row gap-3 mt-3 md:mt-0 md:gap-7 md:items-center w-full md:w-1/3 ml-0 md:ml-8">
+                <label className="text-black text-lg font-semibold w-40">
+                  Max Guests
+                </label>
+                <select className="border-2 border-gray-400 rounded-lg p-2 w-full">
+                  <option value="">Select</option>
+                  {[1, 2, 3, 4].map((maxG) => (
+                    <option key={maxG} value={maxG}>
+                      {maxG}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
             <div className="mt-5">
               <button
                 className="p-5 bg-blue-600 text-white rounded-[15px] flex flex-row font-semibold items-center gap-4 hover:bg-blue-800 transition duration-500"
@@ -184,6 +236,7 @@ export default function RoomDetailPage() {
           </div>
         </div>
       </div>
+
       {/* Featured Rooms */}
       <p className="text-3xl font-bold mt-5 ml-8">Featured Rooms</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
