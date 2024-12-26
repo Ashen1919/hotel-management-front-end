@@ -142,7 +142,7 @@ export default function BookingPage() {
     );
   };
 
-  if (roomIsLoading) {
+  if (!roomIsLoading) {
     return (
       <div className="justify-center mt-96 ml-60 text-3xl font-semibold">
         Loading rooms...
