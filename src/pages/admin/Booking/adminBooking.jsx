@@ -51,7 +51,7 @@ export default function AdminBooking() {
         };
         axios
           .put(
-            import.meta.env.VITE_BACKEND_URL + "/api/booking/" + roomId,
+            import.meta.env.VITE_BACKEND_URL + "/api/rooms/" + roomId,
             roomInfo,
             {
               headers: {
