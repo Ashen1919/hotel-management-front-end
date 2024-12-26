@@ -9,6 +9,7 @@ export default function AdminBooking() {
   const [bookingIsLoading, setBookingIsLoading] = useState(false);
   const [available, setAvailable] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
+  const [activeBookingId, setActiveBookingId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function AdminBooking() {
     }
     axios
       .put(
-        import.meta.env.VITE_BACKEND_URL + "/api/booking/" + bookingId + roomId,
+        `${import.meta.env.VITE_BACKEND_URL}/api/booking/${bookingId}/${roomId}`,
         {},
         {
           headers: {
@@ -74,29 +75,42 @@ export default function AdminBooking() {
       });
   };
 
-  function handleCancel() {
+  const handleCancel = (bookingId) => {
+    setActiveBookingId(bookingId);
     setShowPopup(true);
-  }
-
+  };
+  
   const handleClose = () => {
     setShowPopup(false);
+    setActiveBookingId(null);
   };
 
   const handleCancelBooking = (bookingId) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  
     axios
       .put(
-        import.meta.env.VITE_BACKEND_URL + "/api/booking/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/booking/${bookingId}/cancel`,
         {},
         {
           headers: {
-            Authorization: "Bearer " + token,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
       .then((res) => {
         toast.success("Booking canceled successfully.");
+      })
+      .catch((err) => {
+        toast.error("Failed to cancel booking");
+        console.log(err.message);
       });
   };
+  
 
   return (
     <div className="w-full p-4">
