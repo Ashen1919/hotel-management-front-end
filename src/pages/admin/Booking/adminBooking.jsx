@@ -51,6 +51,7 @@ export default function AdminBooking() {
         toast.success("The Room is confirmed");
         console.log(res);
         setStatus("Confirmed");
+        setReason("");
 
         const roomInfo = {
           available,
