@@ -19,7 +19,7 @@ export default function UpdateUser() {
     return null;
   }
 
-  const userData = location.state;
+  const userData = location.state
 
   const [email, setEmail] = useState(userData.email);
   const [firstName, setFirstName] = useState(userData.firstName);
@@ -78,7 +78,7 @@ export default function UpdateUser() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full p-2 mb-4 border text-black border-gray-300 rounded"
           required
         />
 
@@ -87,7 +87,7 @@ export default function UpdateUser() {
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full p-2 mb-4 border text-black border-gray-300 rounded"
           required
         />
 
@@ -96,7 +96,7 @@ export default function UpdateUser() {
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full p-2 mb-4 border text-black border-gray-300 rounded"
           required
         />
 
@@ -105,7 +105,7 @@ export default function UpdateUser() {
           type="text"
           value={whatsapp}
           onChange={(e) => setWhatsapp(e.target.value)}
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
+          className="w-full p-2 mb-4 border text-black border-gray-300 rounded"
           required
         />
 
