@@ -38,7 +38,6 @@ export default function BookingPage() {
   };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const closeMenu = () => setIsMenuOpen(false);
 
   const DesktopRoomCard = ({
     image,
@@ -416,7 +415,7 @@ export default function BookingPage() {
                       name="category"
                       value={category}
                       className="cursor-pointer"
-                      onChange={(e) => {setFilterCategory(e.target.value); closeMenu()}}
+                      onChange={(e) => setFilterCategory(e.target.value)}
                       checked={filterCategory === category}
                     />
                     <span>{category}</span>
@@ -440,7 +439,7 @@ export default function BookingPage() {
                     name="available"
                     value={available}
                     className="cursor-pointer"
-                    onChange={(e) => {setFilterAvailable(e.target.value); closeMenu()}}
+                    onChange={(e) => setFilterAvailable(e.target.value)}
                     checked={filterAvailable === available}
                   />
                   <span>{available}</span>
@@ -461,7 +460,7 @@ export default function BookingPage() {
                     name="maxGuests"
                     value={maxGuest}
                     className="cursor-pointer"
-                    onChange={(e) => {setFilterMaxGuests(e.target.value); closeMenu()}}
+                    onChange={(e) => setFilterMaxGuests(e.target.value)}
                     checked={filterMaxGuests === maxGuest}
                     onClick={toggleMenu}
                   />
@@ -485,7 +484,7 @@ export default function BookingPage() {
                     name="price"
                     value={price}
                     className="cursor-pointer"
-                    onChange={(e) => {setFilterPrice(e.target.value); closeMenu()}}
+                    onChange={(e) => setFilterPrice(e.target.value)}
                     checked={filterPrice === price}
                     onClick={toggleMenu}
                   />
