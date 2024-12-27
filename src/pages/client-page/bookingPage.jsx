@@ -327,7 +327,7 @@ export default function BookingPage() {
         </div>
 
         {/* Mobile Menu bar */}
-        <div className="md:block hidden">
+        <div className="md:hidden">
           <div
             className={`fixed top-0 left-0 h-full w-[250px] bg-gray-100 text-black transform ${
               isMenuOpen ? "translate-x-0" : "-translate-x-full"
