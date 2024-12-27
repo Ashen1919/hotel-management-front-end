@@ -38,6 +38,7 @@ export default function BookingPage() {
   };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   const DesktopRoomCard = ({
     image,
@@ -415,9 +416,8 @@ export default function BookingPage() {
                       name="category"
                       value={category}
                       className="cursor-pointer"
-                      onChange={(e) => setFilterCategory(e.target.value)}
+                      onChange={(e) => {setFilterCategory(e.target.value); closeMenu()}}
                       checked={filterCategory === category}
-                      onClick={toggleMenu}
                     />
                     <span>{category}</span>
                   </label>
@@ -440,9 +440,8 @@ export default function BookingPage() {
                     name="available"
                     value={available}
                     className="cursor-pointer"
-                    onChange={(e) => setFilterAvailable(e.target.value)}
+                    onChange={(e) => {setFilterAvailable(e.target.value); closeMenu()}}
                     checked={filterAvailable === available}
-                    onClick={toggleMenu}
                   />
                   <span>{available}</span>
                 </label>
@@ -462,7 +461,7 @@ export default function BookingPage() {
                     name="maxGuests"
                     value={maxGuest}
                     className="cursor-pointer"
-                    onChange={(e) => setFilterMaxGuests(e.target.value)}
+                    onChange={(e) => {setFilterMaxGuests(e.target.value); closeMenu()}}
                     checked={filterMaxGuests === maxGuest}
                     onClick={toggleMenu}
                   />
@@ -486,7 +485,7 @@ export default function BookingPage() {
                     name="price"
                     value={price}
                     className="cursor-pointer"
-                    onChange={(e) => setFilterPrice(e.target.value)}
+                    onChange={(e) => {setFilterPrice(e.target.value); closeMenu()}}
                     checked={filterPrice === price}
                     onClick={toggleMenu}
                   />
