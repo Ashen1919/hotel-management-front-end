@@ -9,6 +9,7 @@ export default function Dashboard() {
   const [bookingCount, setBookingCount] = useState([]);
   const [categoriesCount, setCategoriesCount] = useState([]);
   const [CountIsLoading, setCountIsLoading] = useState(false);
+  const [pendingBooking, setPendingBooking] = useState([]);
 
   useEffect(() => {
     if (!CountIsLoading) {
@@ -46,6 +47,16 @@ export default function Dashboard() {
         .get(import.meta.env.VITE_BACKEND_URL + "/api/category/")
         .then((res) => {
           setCategoriesCount(res.data.categories.length);
+          setCountIsLoading(true);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+
+      axios
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/booking/")
+        .then((res) => {
+          setPendingBooking(res.data.List.status === "Pending");
           setCountIsLoading(true);
         })
         .catch((err) => {
@@ -99,6 +110,64 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Middle Details */}
+      <div className="flex flex-row w-full h-[100vh]">
+        {/* Booking Details */}
+        <div className="mt-6 w-[60%]">
+          <p className="mt-5 text-xl font-semibold text-white">New Bookings</p>
+          <table className="w-full bg-white mt-5 border border-gray-400 text-left">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="p-2 border border-gray-300 text-black">
+                  Booking Id
+                </th>
+                <th className="p-2 border border-gray-300 text-black">
+                  Room Id
+                </th>
+                <th className="p-2 border border-gray-300 text-black">Email</th>
+                <th className="p-2 border border-gray-300 text-black">
+                  Check In
+                </th>
+                <th className="p-2 border border-gray-300 text-black">
+                  Check Out
+                </th>
+                <th className="p-2 border border-gray-300 text-black">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {pendingBooking.map((booking) => {
+                <tr key={booking.bookingId} className="hover:bg-gray-100">
+                  <td className="p-2 border border-gray-300 text-black">
+                    {booking.bookingId}
+                  </td>
+                  <td className="p-2 border border-gray-300 text-black">
+                    {booking.roomId}
+                  </td>
+                  <td className="p-2 border border-gray-300 text-black">
+                    {booking.email}
+                  </td>
+                  <td className="p-2 border border-gray-300 text-black">
+                    {new Date(booking.start).toDateString()}
+                  </td>
+                  <td className="p-2 border border-gray-300 text-black">
+                    {new Date(booking.end).toDateString()}
+                  </td>
+                  <td className="p-2 border border-gray-300">
+                    <Link to={"/bookings"}>
+                      <button className="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 w-auto">
+                        View
+                      </button>
+                    </Link>
+                  </td>
+                </tr>;
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
