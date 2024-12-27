@@ -29,18 +29,18 @@ import AddRoomForm from "../admin/rooms/addRoom/addRoom.jsx";
 import UpdateRoomForm from "../admin/rooms/updateRoom/updateRoom.jsx";
 import UpdateUser from "../admin/users/updateUser/updateUser.jsx";
 
-
 export default function AdminPage() {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [roomCount, setRoomCount] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const email = localStorage.getItem("email");
     if (token !== null) {
       axios
-        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" +email, {
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" + email, {
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",
@@ -55,6 +55,13 @@ export default function AdminPage() {
           setIsLoggedIn(false);
         });
     }
+    axios.get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
+    .then((res)=>{
+      setRoomCount(res.data.result.length);
+    })
+    .catch((err)=>{
+      console.log(err.message);
+    })
   }, []);
 
   const handleLogout = () => {
@@ -197,6 +204,40 @@ export default function AdminPage() {
           </div>
         </div>
 
+        {/* Body Section */}
+        <div className="p-5 w-full max-h-[100vh] flex flex-col">
+          <div className="w-full h-auto flex flex-row justify-between gap-4">
+            <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+              <div className="flex flex-col items-center">
+                <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
+                <p className="text-6xl font-extrabold text-white mb-1">{roomCount}</p>
+                <p className="text-lg font-medium text-gray-300">Total Rooms</p>
+              </div>
+            </div>
+            <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+              <div className="flex flex-col items-center">
+                <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
+                <p className="text-6xl font-extrabold text-white mb-1">14</p>
+                <p className="text-lg font-medium text-gray-300">Rooms</p>
+              </div>
+            </div>
+            <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+              <div className="flex flex-col items-center">
+                <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
+                <p className="text-6xl font-extrabold text-white mb-1">14</p>
+                <p className="text-lg font-medium text-gray-300">Rooms</p>
+              </div>
+            </div>
+            <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+              <div className="flex flex-col items-center">
+                <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
+                <p className="text-6xl font-extrabold text-white mb-1">14</p>
+                <p className="text-lg font-medium text-gray-300">Rooms</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Routes Section */}
         <div className="overflow-auto h-full p-6">
           <Routes>
@@ -204,14 +245,17 @@ export default function AdminPage() {
             <Route path="/add-categories" element={<AddCategoryForm />} />
             <Route path="/update-category" element={<UpdateCategoryForm />} />
             <Route path="/rooms" element={<AdminRooms />} />
-            <Route path="/add-room" element={<AddRoomForm/>}/>
-            <Route path="/update-room" element={<UpdateRoomForm/>}/>
+            <Route path="/add-room" element={<AddRoomForm />} />
+            <Route path="/update-room" element={<UpdateRoomForm />} />
             <Route path="/users" element={<AdminUsers />} />
-            <Route path="/update-users" element={<UpdateUser/>} />
+            <Route path="/update-users" element={<UpdateUser />} />
             <Route path="/feedback" element={<AdminFeedback />} />
             <Route path="/galleryitems" element={<AdminGalleryItem />} />
             <Route path="/add-gallery-item" element={<AddGalleryItemForm />} />
-            <Route path="/update-gallery-item"element={<UpdateGalleryItemForm />}/>
+            <Route
+              path="/update-gallery-item"
+              element={<UpdateGalleryItemForm />}
+            />
             <Route path="/bookings" element={<AdminBooking />} />
             <Route path="/ticketing" element={<AdminTicketing />} />
           </Routes>
