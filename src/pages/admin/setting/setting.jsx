@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Client, Storage, ID } from "appwrite";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const client = new Client()
   .setEndpoint(import.meta.env.VITE_ENDPOINT)
@@ -11,30 +11,13 @@ const client = new Client()
 const storage = new Storage(client);
 
 export default function SettingPage() {
-  const location = useLocation();
   const navigate = useNavigate();
 
-  if (location.state == null) {
-    navigate("/admin");
-  }
-  const userData = location.state || { 
-    email: '', 
-    firstName: '', 
-    lastName: '', 
-    whatsapp: '', 
-    emailVerified: false, 
-    profileImage: '' 
-  };
-
-  console.log("Location State:", location.state);
-
-
-  const [email, setEmail] = useState(userData.email);
-  const [firstName, setFirstName] = useState(userData.firstName);
-  const [lastName, setLastName] = useState(userData.lastName);
-  const [whatsapp, setWhatsapp] = useState(userData.whatsapp);
-  const [emailVerified, setEmailVerified] = useState(userData.emailVerified);
-  const [currentImage, setCurrentImage] = useState(userData.profileImage);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [currentImage, setCurrentImage] = useState("");
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,6 +28,20 @@ export default function SettingPage() {
   };
 
   const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
+
+  useEffect(()=>{
+    axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/" + email)
+    .then((res)=>{
+        setFirstName(res.data.user.firstName);
+        setLastName(res.data.user.lastName);
+        setWhatsapp(res.data.user.whatsapp);
+        setEmailVerified(res.data.user.emailVerified);
+        setCurrentImage(res.data.user.profileImage);
+    }).catch((err)=>{
+        console.log(err.message);
+    })
+  })
 
   const getFileUrl = (fileId) => {
     return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${
@@ -76,7 +73,7 @@ export default function SettingPage() {
         lastName,
         whatsapp,
         emailVerified,
-        imageUrl
+        imageUrl,
       };
 
       await axios.put(
@@ -219,31 +216,33 @@ export default function SettingPage() {
                   {emailVerified ? (
                     <button
                       type="button"
-                      className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
+                      className="bg-green-500 text-white px-2 py-1 rounded-md hover:bg-green-600 transition"
                     >
                       Verified
                     </button>
                   ) : (
                     <button
-                      type="button" 
-                      className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
+                      type="button"
+                      className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition"
                     >
                       Not Verified
                     </button>
                   )}
                 </div>
+                <div className="w-[50%] mr-5">
+                  <button
+                    type="submit"
+                    className="w-[70%] text-lg mt-3 p-2 bg-blue-500 text-white items-center font-semibold rounded hover:bg-blue-600 flex justify-center"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <div className="border-white border-t-2 w-[20px] min-h-[20px] rounded-full animate-spin"></div>
+                    ) : (
+                      <span>Update User</span>
+                    )}
+                  </button>
+                </div>
               </div>
-              <button
-                type="submit"
-                className="w-[70%] text-lg mt-3 p-2 bg-blue-500 text-white items-center font-semibold rounded hover:bg-blue-600 flex justify-center"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <div className="border-white border-t-2 w-[20px] min-h-[20px] rounded-full animate-spin"></div>
-                ) : (
-                  <span>Update User</span>
-                )}
-              </button>
             </div>
           </div>
         </form>
