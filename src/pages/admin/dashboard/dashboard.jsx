@@ -1,8 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-import { FaDoorOpen } from "react-icons/fa";
+import {
+  FaRegBookmark,
+  FaDoorOpen,
+  FaUsers,
+  FaComments,
+  FaImages,
+  FaCalendarCheck,
+  FaTicketAlt,
+  FaSearch,
+  FaSignOutAlt,
+  FaHome,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
+
 
 export default function Dashboard() {
   const [roomCount, setRoomCount] = useState([]);
@@ -11,6 +22,7 @@ export default function Dashboard() {
   const [categoriesCount, setCategoriesCount] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pendingBooking, setPendingBooking] = useState([]);
+  
 
   useEffect(() => {
     if (!isLoading) {
@@ -73,8 +85,8 @@ export default function Dashboard() {
     <div>
       {/* Body Section */}
       <div className="p-5 w-full max-h-[100vh] flex flex-col">
-        <div className="w-full h-auto flex flex-row justify-between gap-4">
-          <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+        <div className="w-full h-auto lg:flex lg:flex-row grid grid-cols-2 justify-between gap-4">
+          <div className="lg:w-1/4 w-full p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center">
               <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
               <p className="text-6xl font-extrabold text-white mb-1">
@@ -83,18 +95,18 @@ export default function Dashboard() {
               <p className="text-lg font-medium text-gray-300">Total Rooms</p>
             </div>
           </div>
-          <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+          <div className="lg:w-1/4 w-full p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center">
-              <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
+              <FaUsers className="text-pink-400 text-6xl mb-2" />
               <p className="text-6xl font-extrabold text-white mb-1">
                 {userCount}
               </p>
               <p className="text-lg font-medium text-gray-300">Total Users</p>
             </div>
           </div>
-          <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+          <div className="lg:w-1/4 w-full p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center">
-              <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
+              <FaCalendarCheck className="text-pink-400 text-6xl mb-2" />
               <p className="text-6xl font-extrabold text-white mb-1">
                 {bookingCount}
               </p>
@@ -103,9 +115,9 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
-          <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
+          <div className="lg:w-1/4 w-full p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center">
-              <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
+              <FaRegBookmark className="text-pink-400 text-6xl mb-2" />
               <p className="text-6xl font-extrabold text-white mb-1">
                 {categoriesCount}
               </p>
@@ -118,9 +130,9 @@ export default function Dashboard() {
       </div>
 
       {/* Middle Details */}
-      <div className="flex flex-row w-full h-[100vh]">
+      <div className="md:flex hidden flex-row w-full h-[100vh]">
         {/* Booking Details */}
-        <div className="mt-6 w-[60%]">
+        <div className="mt-6 lg:w-[60%] w-full">
           <p className="mt-5 text-xl font-semibold text-white">New Bookings</p>
           <table className="w-full bg-white mt-5 border border-gray-400 text-left">
             <thead>
@@ -162,7 +174,7 @@ export default function Dashboard() {
                     {new Date(booking.end).toDateString()}
                   </td>
                   <td className="p-2 border border-gray-300">
-                    <Link to={"/bookings"}>
+                    <Link to={"/admin/bookings"}>
                       <button className="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 w-auto">
                         View
                       </button>
