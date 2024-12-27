@@ -61,6 +61,7 @@ export default function AdminUsers() {
             <th className="p-2 border border-gray-300 text-black">Type</th>
             <th className="p-2 border border-gray-300 text-black">Whatsapp</th>
             <th className="p-2 border border-gray-300 text-black">Email Verified</th>
+            <th className="p-2 border border-gray-300 text-black">Action</th>
           </tr>
         </thead>
         <tbody>
