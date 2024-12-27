@@ -77,7 +77,7 @@ export default function AdminPage() {
           {/* Dashboard */}
           <div className="text-gray-200 cursor-pointer text-[18px] flex items-center space-x-3 group m-0 p-2 rounded-xl hover:text-white transition-all duration-300 bg-red-600 w-full">
             <FaHome className="cursor-pointer group-hover:-rotate-90 transition-transform duration-300" />
-            <Link to="/" className="relative">
+            <Link to="/admin" className="relative">
               Dashboard
               <span className="absolute bottom-[-2px] left-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300"></span>
             </Link>
