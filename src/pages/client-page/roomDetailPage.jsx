@@ -10,7 +10,7 @@ import {
   FaWifi,
 } from "react-icons/fa6";
 import { MdOutlinePayments } from "react-icons/md";
-import { IoShieldCheckmarkSharp } from "react-icons/io5";
+import { IoCloseSharp, IoShieldCheckmarkSharp } from "react-icons/io5";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
@@ -69,23 +69,35 @@ export default function RoomDetailPage() {
       window.location.href = "/login";
       return;
     }
-    if(!checkInDate.toISOString() && !checkOutDate.toISOString()){
+    if (!checkInDate.toISOString() && !checkOutDate.toISOString()) {
       toast.error("Please fill check in & check out dates");
       return;
     }
 
-    const bookingDetails = { roomId, email, start: checkInDate.toISOString(), end: checkOutDate.toISOString() };
-    axios.post(import.meta.env.VITE_BACKEND_URL + "/api/booking/", bookingDetails, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    }).then((res) =>{
-      navigate("/successPage");
-      console.log(res);
-    }).catch((err)=>{
-      toast.error("Failed to create booking");
-      console.log(err.message);
-    })
+    const bookingDetails = {
+      roomId,
+      email,
+      start: checkInDate.toISOString(),
+      end: checkOutDate.toISOString(),
+    };
+    axios
+      .post(
+        import.meta.env.VITE_BACKEND_URL + "/api/booking/",
+        bookingDetails,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((res) => {
+        navigate("/successPage");
+        console.log(res);
+      })
+      .catch((err) => {
+        toast.error("Failed to create booking");
+        console.log(err.message);
+      });
   };
 
   return (
