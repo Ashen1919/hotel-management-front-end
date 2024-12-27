@@ -56,13 +56,6 @@ export default function AdminPage() {
           setIsLoggedIn(false);
         });
     }
-    axios.get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
-    .then((res)=>{
-      setRoomCount(res.data.result.length);
-    })
-    .catch((err)=>{
-      console.log(err.message);
-    })
   }, []);
 
   const handleLogout = () => {
