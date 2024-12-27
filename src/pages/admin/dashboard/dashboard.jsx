@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { FaDoorOpen } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const [roomCount, setRoomCount] = useState([]);
