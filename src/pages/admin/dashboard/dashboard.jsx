@@ -56,14 +56,14 @@ export default function Dashboard() {
       axios
         .get(import.meta.env.VITE_BACKEND_URL + "/api/booking/")
         .then((res) => {
-          const hasPendingBooking = res.data.List.some(
+          const pendingBookings = res.data.List.filter(
             (booking) => booking.status === "Pending"
           );
-          setPendingBooking(hasPendingBooking);
+          setPendingBooking(pendingBookings);
           setIsLoading(true);
         })
         .catch((err) => {
-          console.log(err.message);
+          console.error(err.message);
         });
     }
   }, [isLoading]);
@@ -143,7 +143,7 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {pendingBooking.map((booking) => {
+              {pendingBooking.map((booking) => (
                 <tr key={booking.bookingId} className="hover:bg-gray-100">
                   <td className="p-2 border border-gray-300 text-black">
                     {booking.bookingId}
@@ -167,8 +167,8 @@ export default function Dashboard() {
                       </button>
                     </Link>
                   </td>
-                </tr>;
-              })}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
