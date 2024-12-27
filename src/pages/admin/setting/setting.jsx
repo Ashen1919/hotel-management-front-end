@@ -10,7 +10,7 @@ const client = new Client()
 
 const storage = new Storage(client);
 
-export default function UpdateCategoryForm() {
+export default function SettingPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -210,7 +210,7 @@ export default function UpdateCategoryForm() {
                 <div className="flex flex-row items-center w-[50%] ml-5 space-x-3">
                   <label
                     htmlFor="emailVerified"
-                    className="text-2xl font-semibold flex items-center"
+                    className="text-xl font-semibold flex items-center"
                   >
                     Email Verified
                   </label>
@@ -235,7 +235,7 @@ export default function UpdateCategoryForm() {
               </div>
               <button
                 type="submit"
-                className="w-full p-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 flex justify-center"
+                className="w-[70%] text-lg mt-3 p-2 bg-blue-500 text-white items-center font-semibold rounded hover:bg-blue-600 flex justify-center"
                 disabled={isLoading}
               >
                 {isLoading ? (
