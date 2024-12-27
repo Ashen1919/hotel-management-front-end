@@ -370,126 +370,135 @@ export default function BookingPage() {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile Menu bar */}
       <div className="md:hidden">
         <div
-          className={`fixed top-0 left-0 h-full w-[250px] bg-gray-800 text-black transform ${
+          className={`fixed top-14 left-0 h-full w-[250px] bg-gray-800 text-white transform ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           } transition-transform duration-300 ease-in-out z-10`}
         >
           {/* Close Button */}
           <div className="p-4">
             <button
-              className="text-black border border-white p-2 rounded-md"
+              className="text-white border border-gray-500 p-2 rounded-md hover:bg-gray-600 transition duration-300"
               onClick={toggleMenu}
             >
-              <IoCloseSharp />
+              <IoCloseSharp className="text-xl" />
             </button>
           </div>
 
-          {/* Left sidebar */}
-          <div className="md:flex md:flex-col hidden w-[20%] h-auto bg-gray-100 border-r-2 text-black border-gray-400 p-5 ">
-            {/* Sort by category */}
-            <div className="flex flex-col">
-              {/* Search Bar */}
-              <div className="mt-5 mb-3">
-                <input
-                  type="text"
-                  placeholder="Search rooms..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full p-2 border border-gray-900 rounded"
-                />
-              </div>
+          {/* Menu Content */}
+          <div className="p-5">
+            {/* Search Bar */}
+            <div className="mt-5 mb-3">
+              <input
+                type="text"
+                placeholder="Search rooms..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full p-2 border border-gray-500 bg-gray-700 text-white rounded"
+              />
+            </div>
 
-              {/* Sort by Category */}
-              <p className="text-lg font-bold">Categories</p>
-              <div className="flex flex-col space-y-4 mt-3 ml-5">
-                {["All", "Standard Room", "Deluxe Room", "Luxury"].map(
-                  (category, index) => (
-                    <label key={index} className="flex items-center space-x-2">
-                      <input
-                        type="radio"
-                        name="category"
-                        value={category}
-                        className="cursor-pointer"
-                        onChange={(e) => setFilterCategory(e.target.value)}
-                        checked={filterCategory === category}
-                      />
-                      <span>{category}</span>
-                    </label>
-                  )
-                )}
-              </div>
-
-              {/* Sort by Availability */}
-              <p className="text-lg font-bold mt-7">Availability</p>
-              <div className="flex flex-col space-y-4 mt-3 ml-5">
-                {["All", "Available", "Not Available"].map(
-                  (available, index) => (
-                    <label key={index} className="flex items-center space-x-2">
-                      <input
-                        type="radio"
-                        name="available"
-                        value={available}
-                        className="cursor-pointer"
-                        onChange={(e) => setFilterAvailable(e.target.value)}
-                        checked={filterAvailable === available}
-                      />
-                      <span>{available}</span>
-                    </label>
-                  )
-                )}
-              </div>
-
-              {/* Sort by Max Guests */}
-              <p className="text-lg font-bold mt-7">Max Guests</p>
-              <div className="flex flex-col space-y-4 mt-3 ml-5">
-                {["All", "1", "2", "3", "4"].map((maxGuest, index) => (
-                  <label key={index} className="flex items-center space-x-2">
+            {/* Sort by Category */}
+            <p className="text-lg font-bold text-amber-400">Categories</p>
+            <div className="flex flex-col space-y-4 mt-3 ml-5">
+              {["All", "Standard Room", "Deluxe Room", "Luxury"].map(
+                (category, index) => (
+                  <label
+                    key={index}
+                    className="flex items-center space-x-2 text-white"
+                  >
                     <input
                       type="radio"
-                      name="maxGuests"
-                      value={maxGuest}
+                      name="category"
+                      value={category}
                       className="cursor-pointer"
-                      onChange={(e) => setFilterMaxGuests(e.target.value)}
-                      checked={filterMaxGuests === maxGuest}
+                      onChange={(e) => setFilterCategory(e.target.value)}
+                      checked={filterCategory === category}
                     />
-                    <span>
-                      {maxGuest} Person{maxGuest > 1 && "s"}
-                    </span>
+                    <span>{category}</span>
                   </label>
-                ))}
-              </div>
+                )
+              )}
+            </div>
 
-              {/* Sort by Price */}
-              <p className="text-lg font-bold mt-7">Price</p>
-              <div className="flex flex-col space-y-4 mt-3 ml-5">
-                {["All", "100", "125", "175"].map((price, index) => (
-                  <label key={index} className="flex items-center space-x-2">
-                    <input
-                      type="radio"
-                      name="price"
-                      value={price}
-                      className="cursor-pointer"
-                      onChange={(e) => setFilterPrice(e.target.value)}
-                      checked={filterPrice === price}
-                    />
-                    <span>${price}</span>
-                  </label>
-                ))}
-              </div>
-
-              {/* Clear radio buttons */}
-              <div className="mt-5">
-                <button
-                  onClick={clearFilters}
-                  className="mt-5 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            {/* Sort by Availability */}
+            <p className="text-lg font-bold text-amber-400 mt-7">
+              Availability
+            </p>
+            <div className="flex flex-col space-y-4 mt-3 ml-5">
+              {["All", "Available", "Not Available"].map((available, index) => (
+                <label
+                  key={index}
+                  className="flex items-center space-x-2 text-white"
                 >
-                  Clear Filters
-                </button>
-              </div>
+                  <input
+                    type="radio"
+                    name="available"
+                    value={available}
+                    className="cursor-pointer"
+                    onChange={(e) => setFilterAvailable(e.target.value)}
+                    checked={filterAvailable === available}
+                  />
+                  <span>{available}</span>
+                </label>
+              ))}
+            </div>
+
+            {/* Sort by Max Guests */}
+            <p className="text-lg font-bold text-amber-400 mt-7">Max Guests</p>
+            <div className="flex flex-col space-y-4 mt-3 ml-5">
+              {["All", "1", "2", "3", "4"].map((maxGuest, index) => (
+                <label
+                  key={index}
+                  className="flex items-center space-x-2 text-white"
+                >
+                  <input
+                    type="radio"
+                    name="maxGuests"
+                    value={maxGuest}
+                    className="cursor-pointer"
+                    onChange={(e) => setFilterMaxGuests(e.target.value)}
+                    checked={filterMaxGuests === maxGuest}
+                  />
+                  <span>
+                    {maxGuest} Person{maxGuest > 1 && "s"}
+                  </span>
+                </label>
+              ))}
+            </div>
+
+            {/* Sort by Price */}
+            <p className="text-lg font-bold text-amber-400 mt-7">Price</p>
+            <div className="flex flex-col space-y-4 mt-3 ml-5">
+              {["All", "100", "125", "175"].map((price, index) => (
+                <label
+                  key={index}
+                  className="flex items-center space-x-2 text-white"
+                >
+                  <input
+                    type="radio"
+                    name="price"
+                    value={price}
+                    className="cursor-pointer"
+                    onChange={(e) => setFilterPrice(e.target.value)}
+                    checked={filterPrice === price}
+                  />
+                  <span>${price}</span>
+                </label>
+              ))}
+            </div>
+
+            {/* Clear Filters */}
+            <div className="mt-5">
+              <button
+                onClick={clearFilters}
+                className="mt-5 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Clear Filters
+              </button>
             </div>
           </div>
         </div>
