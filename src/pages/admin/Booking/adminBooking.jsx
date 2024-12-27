@@ -94,12 +94,22 @@ export default function AdminBooking() {
     setActiveBookingId(null);
   };
 
+  const activeBooking = bookings.find(
+    (booking) => booking.bookingId === activeBookingId
+  );
+  const isConfirmed = activeBooking?.status === "Confirmed";
+
   const handleCancelBooking = (bookingId, newReason) => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
       return;
     }
+    if (!newReason) {
+      toast.error("Please give a reason");
+      return;
+    }
+
     console.log("Reason: ", newReason);
     console.log("Booking Id: ", bookingId);
 
@@ -209,12 +219,10 @@ export default function AdminBooking() {
             ></textarea>
             <button
               className={`p-3 ${
-                status === "Confirmed"
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-red-600"
+                isConfirmed ? "bg-gray-400 cursor-not-allowed" : "bg-red-600"
               } text-white rounded-[10px] mt-5 w-[150px] transition-opacity duration-300`}
               onClick={() => handleCancelBooking(activeBookingId, reason)}
-              disabled={status === "Confirmed"}
+              disabled={isConfirmed}
             >
               Cancel Booking
             </button>
