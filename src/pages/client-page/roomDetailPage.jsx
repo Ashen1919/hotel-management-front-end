@@ -212,6 +212,7 @@ export default function RoomDetailPage() {
                   endDate={checkOutDate}
                   className="border-2 border-gray-400 rounded-lg p-2 w-full"
                   placeholderText="Select date"
+                  required
                 />
               </div>
 
@@ -229,6 +230,7 @@ export default function RoomDetailPage() {
                   minDate={checkInDate}
                   className="border-2 border-gray-400 rounded-lg p-2 w-full"
                   placeholderText="Select date"
+                  required
                 />
               </div>
 
