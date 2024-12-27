@@ -17,7 +17,17 @@ export default function UpdateCategoryForm() {
   if (location.state == null) {
     navigate("/admin");
   }
-  const userData = location.state;
+  const userData = location.state || { 
+    email: '', 
+    firstName: '', 
+    lastName: '', 
+    whatsapp: '', 
+    emailVerified: false, 
+    profileImage: '' 
+  };
+
+  console.log("Location State:", location.state);
+
 
   const [email, setEmail] = useState(userData.email);
   const [firstName, setFirstName] = useState(userData.firstName);
@@ -66,6 +76,7 @@ export default function UpdateCategoryForm() {
         lastName,
         whatsapp,
         emailVerified,
+        imageUrl
       };
 
       await axios.put(
