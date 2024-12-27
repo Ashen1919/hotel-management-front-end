@@ -29,12 +29,14 @@ import AddRoomForm from "../admin/rooms/addRoom/addRoom.jsx";
 import UpdateRoomForm from "../admin/rooms/updateRoom/updateRoom.jsx";
 import UpdateUser from "../admin/users/updateUser/updateUser.jsx";
 import Dashboard from "../admin/dashboard/dashboard.jsx";
+import { IoCloseSharp, IoMenuSharp } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 export default function AdminPage() {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [roomCount, setRoomCount] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -64,16 +66,18 @@ export default function AdminPage() {
     navigate("/login");
   };
 
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   return (
-    <div className="flex w-full max-h-[100vh] overflow-hidden bg-gray-900">
+    <div className="flex w-full h-auto overflow-hidden bg-gray-900">
       {/* Sidebar */}
-      <div className="w-[20%] h-[100vh] bg-gray-800 flex flex-col p-4 space-y-6">
-        <div className="text-white text-[22px] font-semibold text-center">
-          Admin Dashboard
+      <div className="w-[20%] h-[100vh] bg-gray-800 hidden md:flex md:flex-col p-4 space-y-6">
+        <div className="text-white text-[22px] flex flex-row font-semibold  text-center">
+          <p className="md:flex hidden">Admin Dashboard</p>
         </div>
 
         {/* Navigation Links */}
-        <div className="space-y-7 relative">
+        <div className="space-y-7 relative ">
           {/* Dashboard */}
           <div className="text-gray-200 cursor-pointer text-[18px] flex items-center space-x-3 group m-0 p-2 rounded-xl hover:text-white transition-all duration-300 bg-red-600 w-full">
             <FaHome className="cursor-pointer group-hover:-rotate-90 transition-transform duration-300" />
@@ -160,11 +164,17 @@ export default function AdminPage() {
       </div>
 
       {/* Main Content Area */}
-      <div className="w-[80%] max-h-[100vh] flex flex-col bg-gray-900 text-white">
+      <div className="md:w-[80%] w-full max-h-[100vh] flex flex-col bg-gray-900 text-white">
         {/* Header Section */}
         <div className="flex items-center justify-between px-6 py-4 bg-gray-800 shadow-md">
+          <div className="text-white text-[22px] flex flex-row font-semibold gap-3 text-center">
+            <button onClick={toggleMenu}>
+              <IoMenuSharp className="md:hidden" />
+            </button>
+            <p className="flex md:hidden">Admin Dashboard</p>
+          </div>
           {/* Search Bar */}
-          <div className="flex items-center bg-gray-700 text-gray-400 rounded-lg px-3 py-2 space-x-3">
+          <div className="md:flex hidden items-center bg-gray-700 text-gray-400 rounded-lg px-3 py-2 space-x-3">
             <FaSearch />
             <input
               type="text"
@@ -174,10 +184,10 @@ export default function AdminPage() {
           </div>
 
           {/* Admin Tools */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center md:space-x-4">
             {/* Profile */}
             {isLoggedIn && (
-              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-amber-500 shadow-md">
+              <div className="w-10 h-10 rounded-full md:flex hidden overflow-hidden border-2 border-amber-500 shadow-md">
                 <img
                   src={image}
                   alt="Admin Profile"
@@ -185,7 +195,7 @@ export default function AdminPage() {
                 />
               </div>
             )}
-            <span className="text-gray-300 text-lg">Admin</span>
+            <span className="text-gray-300 md:flex hidden text-lg">Admin</span>
 
             {/* Logout Button */}
             <button
@@ -198,10 +208,96 @@ export default function AdminPage() {
           </div>
         </div>
 
+        {/* Mobile Menu */}
+        <div>
+          {/* Mobile nav menu */}
+          <div
+            className={`fixed top-0 left-0 h-full w-[250px] bg-gray-800 text-white transform ${
+              isMenuOpen ? "translate-x-0" : "-translate-x-full"
+            } transition-transform duration-300 ease-in-out z-10`}
+          >
+            {/* Close Button */}
+            <div className="p-4">
+              <button
+                className="text-white border border-white p-2 rounded-md"
+                onClick={toggleMenu}
+              >
+                <IoCloseSharp />
+              </button>
+            </div>
+
+            {/* Navigation Links */}
+            <div className="space-y-7 p-4">
+              <div className="flex items-center space-x-3 group">
+                <FaHome className="text-xl" />
+                <Link to="/admin" className="hover:text-red-400">
+                  Dashboard
+                </Link>
+              </div>
+
+              <div className="flex items-center space-x-3 group">
+                <FaRegBookmark className="text-xl" />
+                <Link to="/admin/categories" className="hover:text-red-400">
+                  Categories
+                </Link>
+              </div>
+
+              <div className="flex items-center space-x-3 group">
+                <FaDoorOpen className="text-xl" />
+                <Link to="/admin/rooms" className="hover:text-red-400">
+                  Rooms
+                </Link>
+              </div>
+
+              <div className="flex items-center space-x-3 group">
+                <FaUsers className="text-xl" />
+                <Link to="/admin/users" className="hover:text-red-400">
+                  Users
+                </Link>
+              </div>
+
+              <div className="flex items-center space-x-3 group">
+                <FaComments className="text-xl" />
+                <Link to="/admin/feedback" className="hover:text-red-400">
+                  Feedback
+                </Link>
+              </div>
+
+              <div className="flex items-center space-x-3 group">
+                <FaImages className="text-xl" />
+                <Link to="/admin/galleryitems" className="hover:text-red-400">
+                  Gallery
+                </Link>
+              </div>
+
+              <div className="flex items-center space-x-3 group">
+                <FaCalendarCheck className="text-xl" />
+                <Link to="/admin/bookings" className="hover:text-red-400">
+                  Bookings
+                </Link>
+              </div>
+
+              <div className="flex items-center space-x-3 group">
+                <FaTicketAlt className="text-xl" />
+                <Link to="/admin/ticketing" className="hover:text-red-400">
+                  Ticketing
+                </Link>
+              </div>
+
+              <div className="flex items-center space-x-3 group">
+                <FaGear className="text-xl" />
+                <Link to="/admin/setting" className="hover:text-red-400">
+                  Setting
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Routes Section */}
         <div className="overflow-auto h-full p-6">
           <Routes>
-            <Route path="/" element={<Dashboard/>}/>
+            <Route path="/" element={<Dashboard />} />
             <Route path="/categories" element={<AdminCategories />} />
             <Route path="/add-categories" element={<AddCategoryForm />} />
             <Route path="/update-category" element={<UpdateCategoryForm />} />
