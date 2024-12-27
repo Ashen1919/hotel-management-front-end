@@ -28,6 +28,7 @@ import axios from "axios";
 import AddRoomForm from "../admin/rooms/addRoom/addRoom.jsx";
 import UpdateRoomForm from "../admin/rooms/updateRoom/updateRoom.jsx";
 import UpdateUser from "../admin/users/updateUser/updateUser.jsx";
+import Dashboard from "../admin/dashboard/dashboard.jsx";
 
 export default function AdminPage() {
   const navigate = useNavigate();
@@ -204,43 +205,10 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Body Section */}
-        <div className="p-5 w-full max-h-[100vh] flex flex-col">
-          <div className="w-full h-auto flex flex-row justify-between gap-4">
-            <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
-              <div className="flex flex-col items-center">
-                <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
-                <p className="text-6xl font-extrabold text-white mb-1">{roomCount}</p>
-                <p className="text-lg font-medium text-gray-300">Total Rooms</p>
-              </div>
-            </div>
-            <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
-              <div className="flex flex-col items-center">
-                <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
-                <p className="text-6xl font-extrabold text-white mb-1">14</p>
-                <p className="text-lg font-medium text-gray-300">Rooms</p>
-              </div>
-            </div>
-            <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
-              <div className="flex flex-col items-center">
-                <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
-                <p className="text-6xl font-extrabold text-white mb-1">14</p>
-                <p className="text-lg font-medium text-gray-300">Rooms</p>
-              </div>
-            </div>
-            <div className="w-1/4 p-5 h-[200px] bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg cursor-pointer flex flex-col items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300">
-              <div className="flex flex-col items-center">
-                <FaDoorOpen className="text-pink-400 text-6xl mb-2" />
-                <p className="text-6xl font-extrabold text-white mb-1">14</p>
-                <p className="text-lg font-medium text-gray-300">Rooms</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Routes Section */}
         <div className="overflow-auto h-full p-6">
           <Routes>
+            <Route path="/admin" element={<Dashboard/>}/>
             <Route path="/categories" element={<AdminCategories />} />
             <Route path="/add-categories" element={<AddCategoryForm />} />
             <Route path="/update-category" element={<UpdateCategoryForm />} />
