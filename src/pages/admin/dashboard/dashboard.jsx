@@ -8,16 +8,16 @@ export default function Dashboard() {
   const [userCount, setUserCount] = useState([]);
   const [bookingCount, setBookingCount] = useState([]);
   const [categoriesCount, setCategoriesCount] = useState([]);
-  const [CountIsLoading, setCountIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [pendingBooking, setPendingBooking] = useState([]);
 
   useEffect(() => {
-    if (!CountIsLoading) {
+    if (!isLoading) {
       axios
         .get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
         .then((res) => {
           setRoomCount(res.data.result.length);
-          setCountIsLoading(true);
+          setIsLoading(true);
         })
         .catch((err) => {
           console.log(err.message);
@@ -27,7 +27,7 @@ export default function Dashboard() {
         .get(import.meta.env.VITE_BACKEND_URL + "/api/users/")
         .then((res) => {
           setUserCount(res.data.users.length);
-          setCountIsLoading(true);
+          setIsLoading(true);
         })
         .catch((err) => {
           console.log(err.message);
@@ -37,7 +37,7 @@ export default function Dashboard() {
         .get(import.meta.env.VITE_BACKEND_URL + "/api/booking/")
         .then((res) => {
           setBookingCount(res.data.List.length);
-          setCountIsLoading(true);
+          setIsLoading(true);
         })
         .catch((err) => {
           console.log(err.message);
@@ -47,7 +47,7 @@ export default function Dashboard() {
         .get(import.meta.env.VITE_BACKEND_URL + "/api/category/")
         .then((res) => {
           setCategoriesCount(res.data.categories.length);
-          setCountIsLoading(true);
+          setIsLoading(true);
         })
         .catch((err) => {
           console.log(err.message);
@@ -56,14 +56,17 @@ export default function Dashboard() {
       axios
         .get(import.meta.env.VITE_BACKEND_URL + "/api/booking/")
         .then((res) => {
-          setPendingBooking(res.data.List.status === "Pending");
-          setCountIsLoading(true);
+          const hasPendingBooking = res.data.List.some(
+            (booking) => booking.status === "Pending"
+          );
+          setPendingBooking(hasPendingBooking);
+          setIsLoading(true);
         })
         .catch((err) => {
           console.log(err.message);
         });
     }
-  }, [CountIsLoading]);
+  }, [isLoading]);
 
   return (
     <div>
