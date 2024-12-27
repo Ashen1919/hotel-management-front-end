@@ -80,6 +80,7 @@ export default function UpdateUser() {
           onChange={(e) => setEmail(e.target.value)}
           className="w-full p-2 mb-4 border text-black border-gray-300 rounded"
           required
+          disabled
         />
 
         <label className="block mb-2 text-black">First Name:</label>

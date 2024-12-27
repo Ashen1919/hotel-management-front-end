@@ -31,6 +31,7 @@ import UpdateUser from "../admin/users/updateUser/updateUser.jsx";
 import Dashboard from "../admin/dashboard/dashboard.jsx";
 import { IoCloseSharp, IoMenuSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
+import SettingPage from "../admin/setting/setting.jsx";
 
 export default function AdminPage() {
   const navigate = useNavigate();
@@ -315,6 +316,7 @@ export default function AdminPage() {
             />
             <Route path="/bookings" element={<AdminBooking />} />
             <Route path="/ticketing" element={<AdminTicketing />} />
+            <Route path="/setting" element={<SettingPage/>}/>
           </Routes>
         </div>
       </div>

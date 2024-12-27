@@ -79,7 +79,7 @@ export default function UpdateCategoryForm() {
       console.error("Update failed:", error);
       toast.error("Update failed.");
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
