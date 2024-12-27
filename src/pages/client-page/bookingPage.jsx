@@ -374,7 +374,7 @@ export default function BookingPage() {
       {/* Mobile Menu bar */}
       <div className="md:hidden h-auto">
         <div
-          className={`fixed overflow-scroll top-0 left-0 h-auto w-[250px] bg-gray-800 text-white transform ${
+          className={`top-0 left-0 h-auto w-[250px] bg-gray-800 text-white transform ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           } transition-transform duration-300 ease-in-out z-10`}
         >
@@ -417,6 +417,7 @@ export default function BookingPage() {
                       className="cursor-pointer"
                       onChange={(e) => setFilterCategory(e.target.value)}
                       checked={filterCategory === category}
+                      onClick={toggleMenu}
                     />
                     <span>{category}</span>
                   </label>
@@ -441,6 +442,7 @@ export default function BookingPage() {
                     className="cursor-pointer"
                     onChange={(e) => setFilterAvailable(e.target.value)}
                     checked={filterAvailable === available}
+                    onClick={toggleMenu}
                   />
                   <span>{available}</span>
                 </label>
@@ -462,6 +464,7 @@ export default function BookingPage() {
                     className="cursor-pointer"
                     onChange={(e) => setFilterMaxGuests(e.target.value)}
                     checked={filterMaxGuests === maxGuest}
+                    onClick={toggleMenu}
                   />
                   <span>
                     {maxGuest} Person{maxGuest > 1 && "s"}
@@ -485,6 +488,7 @@ export default function BookingPage() {
                     className="cursor-pointer"
                     onChange={(e) => setFilterPrice(e.target.value)}
                     checked={filterPrice === price}
+                    onClick={toggleMenu}
                   />
                   <span>${price}</span>
                 </label>
