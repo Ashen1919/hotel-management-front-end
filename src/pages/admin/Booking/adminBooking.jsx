@@ -12,6 +12,7 @@ export default function AdminBooking() {
   const [showPopup, setShowPopup] = useState(false);
   const [activeBookingId, setActiveBookingId] = useState(null);
   const [reason, setReason] = useState("");
+  const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function AdminBooking() {
           setBookingIsLoading(true);
         })
         .catch((err) => {
-          console.log("Failed ti fetch bookings", err.message);
+          console.log("Failed to fetch bookings", err.message);
         });
     }
   }, [bookingIsLoading]);
@@ -49,6 +50,7 @@ export default function AdminBooking() {
       .then((res) => {
         toast.success("The Room is confirmed");
         console.log(res);
+        setStatus("Confirmed");
 
         const roomInfo = {
           available,
@@ -84,7 +86,7 @@ export default function AdminBooking() {
   const handleCancel = (bookingId) => {
     setActiveBookingId(bookingId);
     setShowPopup(true);
-    console.log(bookingId)
+    console.log(bookingId);
   };
 
   const handleClose = () => {
@@ -98,13 +100,13 @@ export default function AdminBooking() {
       navigate("/login");
       return;
     }
-    console.log("Reason: ", newReason)
-    console.log("Booking Id: ", bookingId)
+    console.log("Reason: ", newReason);
+    console.log("Booking Id: ", bookingId);
 
     const cancelInfo = {
-      reason : newReason,
-      status: "Cancel"
-    }
+      reason: newReason,
+      status: "Cancel",
+    };
     axios
       .put(
         import.meta.env.VITE_BACKEND_URL + "/api/booking/" + bookingId,
@@ -119,7 +121,6 @@ export default function AdminBooking() {
         toast.success("Booking canceled successfully.");
         setShowPopup(false);
         setBookingIsLoading(false);
-        
       })
       .catch((err) => {
         toast.error("Failed to cancel booking");
@@ -207,8 +208,13 @@ export default function AdminBooking() {
               className="p-5 w-full rounded-lg outline-none transition duration-500 focus:border-2 focus:border-blue-600"
             ></textarea>
             <button
-              className="p-3 bg-red-600 text-white rounded-[10px] mt-5 w-[150px]"
+              className={`p-3 ${
+                status === "Confirmed"
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-red-600"
+              } text-white rounded-[10px] mt-5 w-[150px] transition-opacity duration-300`}
               onClick={() => handleCancelBooking(activeBookingId, reason)}
+              disabled={status === "Confirmed"}
             >
               Cancel Booking
             </button>
