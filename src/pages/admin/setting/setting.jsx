@@ -58,7 +58,7 @@ export default function SettingPage() {
     setIsLoading(true);
 
     try {
-      let imageUrl = location.state.image; // Default to existing image if no new image is uploaded
+      let imageUrl = currentImage // Default to existing image if no new image is uploaded
 
       if (image) {
         // Only upload a new file if an image is selected
@@ -101,7 +101,7 @@ export default function SettingPage() {
   }
   return (
     <div className="w-full h-auto p-5 flex justify-center items-center">
-      <div className="w-[800px] h-[100vh] flex flex-col rounded-xl bg-gray-200">
+      <div className="w-[800px] h-auto flex flex-col rounded-xl bg-gray-200">
         <form
           className="w-full bg-white p-6 rounded shadow-lg"
           onSubmit={handleForm}
