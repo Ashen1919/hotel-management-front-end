@@ -30,6 +30,10 @@ export default function SettingPage() {
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
 
+  if(token == null){
+    navigate("/login");
+  }
+
   useEffect(()=>{
     axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/" + email)
     .then((res)=>{
@@ -41,7 +45,7 @@ export default function SettingPage() {
     }).catch((err)=>{
         console.log(err.message);
     })
-  })
+  }, []);
 
   const getFileUrl = (fileId) => {
     return `${import.meta.env.VITE_ENDPOINT}/storage/buckets/${
@@ -87,7 +91,7 @@ export default function SettingPage() {
       );
 
       toast.success("User updated successfully!");
-      navigate("/admin/users");
+      navigate("/admin/");
     } catch (error) {
       console.error("Update failed:", error);
       toast.error("Update failed.");
