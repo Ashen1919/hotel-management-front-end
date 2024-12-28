@@ -93,7 +93,7 @@ export default function CustomerSettingPage() {
       );
 
       toast.success("User updated successfully!");
-      navigate("/admin/");
+      navigate("/");
     } catch (error) {
       console.error("Update failed:", error);
       toast.error("Update failed.");
@@ -105,7 +105,7 @@ export default function CustomerSettingPage() {
     <div className="w-full h-auto p-5 flex justify-center items-center">
       {/* Background Layer */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-black opacity-80 blur-sm"
+        className="absolute inset-0 h-auto bg-cover bg-center bg-black opacity-80 blur-sm"
         style={{
           backgroundImage:
             'url("https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6758fe3b003409d50e55/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin")',
