@@ -10,7 +10,7 @@ const client = new Client()
 
 const storage = new Storage(client);
 
-export default function SettingPage() {
+export default function CustomerSettingPage() {
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState("");
@@ -34,17 +34,19 @@ export default function SettingPage() {
     navigate("/login");
   }
 
-  useEffect(()=>{
-    axios.get(import.meta.env.VITE_BACKEND_URL + "/api/users/" + email)
-    .then((res)=>{
+  useEffect(() => {
+    axios
+      .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" + email)
+      .then((res) => {
         setFirstName(res.data.user.firstName);
         setLastName(res.data.user.lastName);
         setWhatsapp(res.data.user.whatsapp);
         setEmailVerified(res.data.user.emailVerified);
         setCurrentImage(res.data.user.profileImage);
-    }).catch((err)=>{
+      })
+      .catch((err) => {
         console.log(err.message);
-    })
+      });
   }, []);
 
   const getFileUrl = (fileId) => {
@@ -58,7 +60,7 @@ export default function SettingPage() {
     setIsLoading(true);
 
     try {
-      let imageUrl = currentImage // Default to existing image if no new image is uploaded
+      let imageUrl = currentImage; // Default to existing image if no new image is uploaded
 
       if (image) {
         // Only upload a new file if an image is selected
@@ -77,7 +79,7 @@ export default function SettingPage() {
         lastName,
         whatsapp,
         emailVerified,
-        profileImage: imageUrl
+        profileImage: imageUrl,
       };
 
       await axios.put(
@@ -101,9 +103,19 @@ export default function SettingPage() {
   }
   return (
     <div className="w-full h-auto p-5 flex justify-center items-center">
-      <div className="w-[800px] h-auto flex flex-col rounded-xl bg-gray-200">
+      {/* Background Layer */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-black opacity-80 blur-sm"
+        style={{
+          backgroundImage:
+            'url("https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6758fe3b003409d50e55/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin")',
+        }}
+      ></div>
+
+      {/* Form Container */}
+      <div className="w-[800px] h-auto flex flex-row md:flex-col rounded-xl bg-gray-700 text-black shadow-xl relative">
         <form
-          className="w-full bg-white p-6 rounded shadow-lg"
+          className="w-full bg-gray-700 text-black p-6 rounded-xl shadow-lg"
           onSubmit={handleForm}
         >
           <div className="flex flex-col justify-center mt-5 items-center">
@@ -112,7 +124,7 @@ export default function SettingPage() {
               <img
                 src={currentImage}
                 alt="User Profile"
-                className="w-[300px] h-auto rounded-full"
+                className="w-[300px] h-auto rounded-full border-4 border-gray-200 shadow-lg"
               />
 
               {/* Plus Button */}
@@ -133,12 +145,11 @@ export default function SettingPage() {
                 className="hidden"
               />
             </div>
-            <div className="mt-6 flex flex-row justify-between w-full text-black">
-              <div className="flex flex-col space-y-1 w-[50%] ml-5 ">
-                <label
-                  htmlFor="email"
-                  className="text-2xl font-semibold items-center flex"
-                >
+
+            <div className="mt-6 flex flex-col md:flex-row justify-between w-full text-gray-700">
+              {/* Email Field */}
+              <div className="flex flex-col space-y-3 md:space-y-1 w-full md:w-[50%] ml-5">
+                <label htmlFor="email" className="text-xl font-semibold text-white">
                   Email
                 </label>
                 <input
@@ -149,51 +160,48 @@ export default function SettingPage() {
                   id="email"
                   placeholder="Email"
                   disabled
-                  className="p-3 rounded-xl text-lg w-[90%] border-2 border-gray-400 focus:border-blue-600 outline-none"
+                  className="p-3 rounded-xl text-lg w-[90%] border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
                 />
               </div>
-              <div className="flex flex-col space-y-1 w-[50%] ml-5 mr-5">
-                <label
-                  htmlFor="email"
-                  className="text-2xl font-semibold items-center flex"
-                >
+
+              {/* First Name Field */}
+              <div className="flex flex-col space-y-3 md:space-y-1 w-full md:w-[50%] md:mt-0 mt-5 ml-5 mr-5">
+                <label htmlFor="firstName" className="text-xl font-semibold text-white">
                   First Name
                 </label>
                 <input
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  name="Name"
-                  id="Name"
-                  placeholder="FirstName"
-                  className="p-3 rounded-xl w-[90%] text-lg border-2 border-gray-400 focus:border-blue-600 outline-none"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="First Name"
+                  className="p-3 rounded-xl text-lg w-[90%] border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
                 />
               </div>
             </div>
-            <div className="mt-6 flex flex-row justify-between w-full text-black">
-              <div className="flex flex-col space-y-1 w-[50%] ml-5 ">
-                <label
-                  htmlFor="email"
-                  className="text-2xl font-semibold items-center flex"
-                >
+
+            <div className="mt-6 flex flex-col md:flex-row justify-between w-full text-gray-700">
+              {/* Last Name Field */}
+              <div className="flex flex-col space-y-3 md:space-y-1 w-full md:w-[50%] ml-5">
+                <label htmlFor="lastName" className="text-xl font-semibold text-white">
                   Last Name
                 </label>
                 <input
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  name="LastName"
-                  id="LastName"
+                  name="lastName"
+                  id="lastName"
                   placeholder="Last Name"
-                  className="p-3 rounded-xl text-lg w-[90%] border-2 border-gray-400 focus:border-blue-600 outline-none"
+                  className="p-3 rounded-xl text-lg w-[90%] border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
                 />
               </div>
-              <div className="flex flex-col space-y-1 w-[50%] ml-5 mr-5">
-                <label
-                  htmlFor="email"
-                  className="text-2xl font-semibold items-center flex"
-                >
-                  Whatsapp
+
+              {/* WhatsApp Field */}
+              <div className="flex flex-col space-y-3 md:space-y-1 w-full md:w-[50%] md:mt-0 mt-5 ml-5 mr-5">
+                <label htmlFor="whatsapp" className="text-xl font-semibold text-white">
+                  WhatsApp
                 </label>
                 <input
                   type="text"
@@ -201,51 +209,51 @@ export default function SettingPage() {
                   onChange={(e) => setWhatsapp(e.target.value)}
                   name="whatsapp"
                   id="whatsapp"
-                  placeholder="Whatsapp"
-                  className="p-3 rounded-xl w-[90%] text-lg border-2 border-gray-400 focus:border-blue-600 outline-none"
+                  placeholder="WhatsApp"
+                  className="p-3 rounded-xl text-lg w-[90%] border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
                 />
               </div>
             </div>
-            <div className="mt-6 flex flex-row justify-between w-full text-black">
-              <div className="mt-6 flex flex-row justify-between w-full text-black">
-                <div className="flex flex-row items-center w-[50%] ml-5 space-x-3">
-                  <label
-                    htmlFor="emailVerified"
-                    className="text-xl font-semibold flex items-center"
-                  >
-                    Email Verified
-                  </label>
 
-                  {/* Conditional Button */}
-                  {emailVerified ? (
-                    <button
-                      type="button"
-                      className="bg-green-500 text-white px-2 py-1 rounded-md hover:bg-green-600 transition"
-                    >
-                      Verified
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition"
-                    >
-                      Not Verified
-                    </button>
-                  )}
-                </div>
-                <div className="w-[50%] mr-5">
+            <div className="mt-6 flex flex-col md:flex-row justify-between w-full text-gray-700">
+              {/* Email Verified */}
+              <div className="flex items-center w-full md:w-[50%] ml-5 space-x-3">
+                <label
+                  htmlFor="emailVerified"
+                  className="text-lg font-semibold text-white"
+                >
+                  Email Verified
+                </label>
+                {emailVerified ? (
                   <button
-                    type="submit"
-                    className="w-[70%] text-lg mt-3 p-2 bg-blue-500 text-white items-center font-semibold rounded hover:bg-blue-600 flex justify-center"
-                    disabled={isLoading}
+                    type="button"
+                    className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
                   >
-                    {isLoading ? (
-                      <div className="border-white border-t-2 w-[20px] min-h-[20px] rounded-full animate-spin"></div>
-                    ) : (
-                      <span>Update User</span>
-                    )}
+                    Verified
                   </button>
-                </div>
+                ) : (
+                  <button
+                    type="button"
+                    className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                  >
+                    Not Verified
+                  </button>
+                )}
+              </div>
+
+              {/* Submit Button */}
+              <div className="w-[50%] md:ml-0 ml-5 md:mt-0 mt-5 mr-14 flex md:justify-end">
+                <button
+                  type="submit"
+                  className="px-6 py-2 text-lg bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="border-white border-t-2 w-6 h-6 rounded-full animate-spin"></div>
+                  ) : (
+                    "Update User"
+                  )}
+                </button>
               </div>
             </div>
           </div>
