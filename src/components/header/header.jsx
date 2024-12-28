@@ -5,7 +5,7 @@ import { FaCog, FaBookmark } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
 import { LuLogOut } from "react-icons/lu";
-import './header.css'
+import "./header.css";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,7 +33,7 @@ function Header() {
     console.log(email);
     if (token !== null) {
       axios
-        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" +email, {
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/users/" + email, {
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",
@@ -104,7 +104,7 @@ function Header() {
           Home
         </a>
         <a
-          href ="#about"
+          href="#about"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
         >
           About
@@ -118,21 +118,18 @@ function Header() {
         <a
           href="#rooms"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-         
         >
           Rooms
         </a>
         <a
           href="#gallery"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-          
         >
           Gallery
         </a>
         <a
           href="#contact"
           className="text-white relative before:content-[''] before:block before:w-0 before:h-0.5 before:bg-amber-500 before:absolute before:left-0 before:bottom-0 before:transition-all duration-300 before:duration-500 hover:text-amber-500 focus:text-amber-500 hover:before:w-full hover:before:h-[3px]"
-          
         >
           Contact
         </a>
@@ -153,12 +150,16 @@ function Header() {
                 {/* Dropdown Menu */}
                 {isDropdownOpen && (
                   <div className="absolute top-8 left-0 bg-gray-800 text-white rounded-lg shadow-lg w-40 py-2 space-y-2 z-10">
-                    <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
-                      <FaBookmark className="mr-2" /> My Booking
-                    </div>
-                    <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
-                      <FaCog className="mr-2" /> Settings
-                    </div>
+                    <Link to={"/myBooking"}>
+                      <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
+                        <FaBookmark className="mr-2" /> My Booking
+                      </div>
+                    </Link>
+                    <Link to={"/profileSetting"}>
+                      <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
+                        <FaCog className="mr-2" /> Settings
+                      </div>
+                    </Link>
                     <div className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md">
                       <LuLogOut className="mr-2" />{" "}
                       <button onClick={handleLogout}>Log Out</button>

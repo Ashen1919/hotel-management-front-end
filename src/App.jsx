@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import BookingPage from "./pages/client-page/bookingPage.jsx";
 import RoomDetailPage from "./pages/client-page/roomDetailPage.jsx";
 import SuccessPage from "./pages/client-page/successPage.jsx";
+import CustomerSettingPage from "./pages/client-page/profileSetting.jsx";
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/booking" element={<BookingPage/>}/>
         <Route path="/roomdetails/:roomId" element={<RoomDetailPage/>}/>
         <Route path="/successPage" element={<SuccessPage/>}/>
+        <Route path="/profileSetting" element={<CustomerSettingPage/>}/>
       </Routes>
     </BrowserRouter>
   );
