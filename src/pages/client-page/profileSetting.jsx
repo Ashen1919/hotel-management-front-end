@@ -3,6 +3,7 @@ import { Client, Storage, ID } from "appwrite";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const client = new Client()
   .setEndpoint(import.meta.env.VITE_ENDPOINT)
@@ -30,7 +31,7 @@ export default function CustomerSettingPage() {
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
 
-  if(token == null){
+  if (token == null) {
     navigate("/login");
   }
 
@@ -111,6 +112,14 @@ export default function CustomerSettingPage() {
             'url("https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6758fe3b003409d50e55/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin")',
         }}
       ></div>
+      {/* Back Button */}
+      <button
+        onClick={() => navigate("/")}
+        className="absolute top-4 left-4 items-center text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70 hidden lg:flex"
+      >
+        <AiOutlineArrowLeft className="text-xl" />
+        <span className="ml-2 text-sm font-medium">Back</span>
+      </button>
 
       {/* Form Container */}
       <div className="w-[800px] h-auto flex flex-row md:flex-col rounded-xl bg-gray-700 text-black shadow-xl relative">
@@ -149,7 +158,10 @@ export default function CustomerSettingPage() {
             <div className="mt-6 flex flex-col md:flex-row justify-between w-full text-gray-700">
               {/* Email Field */}
               <div className="flex flex-col space-y-3 md:space-y-1 w-full md:w-[50%] ml-5">
-                <label htmlFor="email" className="text-xl font-semibold text-white">
+                <label
+                  htmlFor="email"
+                  className="text-xl font-semibold text-white"
+                >
                   Email
                 </label>
                 <input
@@ -166,7 +178,10 @@ export default function CustomerSettingPage() {
 
               {/* First Name Field */}
               <div className="flex flex-col space-y-3 md:space-y-1 w-full md:w-[50%] md:mt-0 mt-5 ml-5 mr-5">
-                <label htmlFor="firstName" className="text-xl font-semibold text-white">
+                <label
+                  htmlFor="firstName"
+                  className="text-xl font-semibold text-white"
+                >
                   First Name
                 </label>
                 <input
@@ -184,7 +199,10 @@ export default function CustomerSettingPage() {
             <div className="mt-6 flex flex-col md:flex-row justify-between w-full text-gray-700">
               {/* Last Name Field */}
               <div className="flex flex-col space-y-3 md:space-y-1 w-full md:w-[50%] ml-5">
-                <label htmlFor="lastName" className="text-xl font-semibold text-white">
+                <label
+                  htmlFor="lastName"
+                  className="text-xl font-semibold text-white"
+                >
                   Last Name
                 </label>
                 <input
@@ -200,7 +218,10 @@ export default function CustomerSettingPage() {
 
               {/* WhatsApp Field */}
               <div className="flex flex-col space-y-3 md:space-y-1 w-full md:w-[50%] md:mt-0 mt-5 ml-5 mr-5">
-                <label htmlFor="whatsapp" className="text-xl font-semibold text-white">
+                <label
+                  htmlFor="whatsapp"
+                  className="text-xl font-semibold text-white"
+                >
                   WhatsApp
                 </label>
                 <input
