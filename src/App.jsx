@@ -9,6 +9,7 @@ import BookingPage from "./pages/client-page/bookingPage.jsx";
 import RoomDetailPage from "./pages/client-page/roomDetailPage.jsx";
 import SuccessPage from "./pages/client-page/successPage.jsx";
 import CustomerSettingPage from "./pages/client-page/profileSetting.jsx";
+import MyBookingPage from "./pages/client-page/myBookings.jsx";
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/roomdetails/:roomId" element={<RoomDetailPage/>}/>
         <Route path="/successPage" element={<SuccessPage/>}/>
         <Route path="/profileSetting" element={<CustomerSettingPage/>}/>
+        <Route path="/myBooking" element={<MyBookingPage/>}/>
       </Routes>
     </BrowserRouter>
   );
