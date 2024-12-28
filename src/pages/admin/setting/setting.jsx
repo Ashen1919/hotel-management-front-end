@@ -77,7 +77,7 @@ export default function SettingPage() {
         lastName,
         whatsapp,
         emailVerified,
-        imageUrl,
+        profileImage: imageUrl
       };
 
       await axios.put(
