@@ -55,7 +55,7 @@ export default function RoomsPage() {
         booking.status === "Confirmed"
     );
 
-    return !isBooked; 
+    return isBooked; 
   };
 
   function deleteRoom(roomId) {
