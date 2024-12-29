@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Client, Storage, ID } from "appwrite";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function MyBookingPage() {
@@ -10,6 +10,7 @@ export default function MyBookingPage() {
 
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisplay, setIsDisplay] = useState("");
 
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
@@ -33,55 +34,102 @@ export default function MyBookingPage() {
   }, [isLoading]);
 
   return (
-    <div className="w-full h-auto p-5 flex justify-center items-center">
-      {/* Background Layer */}
-      <div
-        className="absolute inset-0 h-auto bg-cover bg-center bg-black opacity-80 blur-sm"
-        style={{
-          backgroundImage:
-            'url("https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6748059d003be2d1b9d5/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin")',
-        }}
-      ></div>
+    <div className="w-full h-auto p-5 flex flex-col justify-center items-center">
       {/* Back Button */}
-      <button
-        onClick={() => navigate("/")}
-        className="absolute top-4 left-4 items-center text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70 hidden lg:flex"
-      >
+      <button className="absolute top-4 left-4 items-center text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70 hidden lg:flex">
         <AiOutlineArrowLeft className="text-xl" />
         <span className="ml-2 text-sm font-medium">Back</span>
       </button>
-      <table className="w-full mt-7 text-black text-left bg-white border border-gray-300 relative">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="p-2 border border-gray-300">Booking ID</th>
-            <th className="p-2 border border-gray-300">Room ID</th>
-            <th className="p-2 border border-gray-300">Email</th>
-            <th className="p-2 border border-gray-300">Status</th>
-            <th className="p-2 border border-gray-300">Start</th>
-            <th className="p-2 border border-gray-300">End</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.map((booking) => {
-            return (
-              <tr key={booking.bookingId} className="hover:bg-gray-100">
-                <td className="p-2 border border-gray-300">
-                  {booking.bookingId}
-                </td>
-                <td className="p-2 border border-gray-300">{booking.roomId}</td>
-                <td className="p-2 border border-gray-300">{booking.email}</td>
-                <td className="p-2 border border-gray-300">{booking.status}</td>
-                <td className="p-2 border border-gray-300">
-                  {new Date(booking.start).toDateString()}
-                </td>
-                <td className="p-2 border border-gray-300">
-                  {new Date(booking.end).toDateString()}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="mt-10 w-full h-auto p-5 flex flex-col justify-center items-center relative">
+        <p className="font-bold text-3xl relative left-4 mb-5">Your Bookings</p>
+        {bookings.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mr-10 w-full h-auto justify-between">
+            {bookings.map((booking) => (
+              <div
+                key={booking.bookingId}
+                className="ml-5 p-4 justify-between mr-5 w-full h-auto flex flex-col bg-gray-900 rounded-xl"
+              >
+                <div className="w-full h-auto flex flex-row">
+                  <div className="flex flex-col mt-2 space-y-10 w-[50%] text-white font-semibold">
+                    <p className="text-red-600 flex flex-row">
+                      Booking ID:
+                      <p className="text-white ml-3">
+                        {booking.bookingId}
+                      </p>{" "}
+                    </p>
+                    <p className="text-red-600 flex flex-row">
+                      Room ID:{" "}
+                      <p className="text-white ml-3">{booking.roomId}</p>{" "}
+                    </p>
+                    <p className="text-red-600 flex flex-row">
+                      Email <p className="text-white ml-3">{booking.email}</p>{" "}
+                    </p>
+                  </div>
+                  <div className="flex flex-col mt-2 space-y-10 w-[50%] text-white font-semibold">
+                    <p className="text-red-600 flex flex-row">
+                      Check In Date:{" "}
+                      <p className="text-white ml-3">
+                        {new Date(booking.start).toDateString()}
+                      </p>{" "}
+                    </p>
+                    <p className="text-red-600 flex flex-row">
+                      Check Out Date:{" "}
+                      <p className="text-white ml-3">
+                        {new Date(booking.end).toDateString()}
+                      </p>{" "}
+                    </p>
+                    <p className="text-red-600 flex flex-row">
+                      Status:{" "}
+                      {booking.status === "Confirmed" ? (
+                        <button
+                          type="button"
+                          className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
+                        >
+                          Confirmed
+                        </button>
+                      ) : booking.status === "Cancel" ? (
+                        <button
+                          type="button"
+                          className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                        >
+                          Canceled
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                        >
+                          Pending
+                        </button>
+                      )}{" "}
+                    </p>
+                  </div>
+                </div>
+                {booking.status === "Cancel" ? (
+                  <>
+                    <hr className="text-white font-semibold mt-3 mb-3" />
+                    <div className="w-full flex flex-row text-white font-semibold">
+                      <p className="text-red-600 flex flex-row">
+                        Reason: <p className="text-white ml-3">{booking.reason}</p>{" "}
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <div className="hidden"></div>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="mr-10 ">
+            <Link to={"/booking"}>
+              <button className="p-4 items-center rounded-xl bg-blue-600 border-2 border-blue-600 text-white text-xl font-bold transition duration-500 hover:bg-transparent hover:text-black">
+                Make a Booking
+              </button>
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
