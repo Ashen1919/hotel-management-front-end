@@ -374,7 +374,7 @@ export default function BookingPage() {
       {/* Mobile Menu bar */}
       <div className="md:hidden h-auto">
         <div
-          className={`fixed top-0 left-0 h-auto w-[250px] bg-gray-800 text-white transform ${
+          className={`absolute top-0 left-0 h-auto w-[250px] bg-gray-800 text-white transform ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           } transition-transform duration-300 ease-in-out z-10`}
         >
@@ -412,7 +412,7 @@ export default function BookingPage() {
                   >
                     <input
                       type="radio"
-                      name="category"
+                      name="categories"
                       value={category}
                       className="cursor-pointer"
                       onChange={(e) => setFilterCategory(e.target.value)}
@@ -436,7 +436,7 @@ export default function BookingPage() {
                 >
                   <input
                     type="radio"
-                    name="available"
+                    name="availablity"
                     value={available}
                     className="cursor-pointer"
                     onChange={(e) => setFilterAvailable(e.target.value)}
@@ -457,7 +457,7 @@ export default function BookingPage() {
                 >
                   <input
                     type="radio"
-                    name="maxGuests"
+                    name="maxGuest"
                     value={maxGuest}
                     className="cursor-pointer"
                     onChange={(e) => setFilterMaxGuests(e.target.value)}
@@ -480,7 +480,7 @@ export default function BookingPage() {
                 >
                   <input
                     type="radio"
-                    name="price"
+                    name="prices"
                     value={price}
                     className="cursor-pointer"
                     onChange={(e) => setFilterPrice(e.target.value)}
