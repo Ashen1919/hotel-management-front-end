@@ -139,6 +139,40 @@ export default function AdminBooking() {
       });
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentDate = new Date();
+
+      bookings.forEach((booking) => {
+        const checkoutDate = new Date(booking.end);
+        if (currentDate > checkoutDate && booking.status === "Confirmed") {
+          const token = localStorage.getItem("token");
+          if (token) {
+            axios
+              .put(
+                `${import.meta.env.VITE_BACKEND_URL}/api/rooms/${booking.roomId}`,
+                { available: true, notes: "" },
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              )
+              .then(() => {
+                toast.success(`Room ${booking.roomId} is now available.`);
+                setBookingIsLoading(false); 
+              })
+              .catch((err) => {
+                console.error("Failed to update room availability:", err.message);
+              });
+          }
+        }
+      });
+    }, 60000); 
+
+    return () => clearInterval(interval); 
+  }, [bookings]);
+
   return (
     <div className="w-full p-4">
       <table className="w-full text-black text-left bg-white border border-gray-300">

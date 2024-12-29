@@ -13,8 +13,6 @@ export default function RoomsPage() {
 
   const [rooms, setRooms] = useState([]);
   const [roomsIsLoaded, setRoomsIsLoaded] = useState(false);
-  const [bookings, setBookings] = useState([]);
-  const [bookingsIsLoaded, setBookingsIsLoaded] = useState(false);
 
   const navigate = useNavigate();
 
@@ -30,34 +28,12 @@ export default function RoomsPage() {
           console.error("Failed to load rooms:", err);
         });
     }
-
-    if (!bookingsIsLoaded) {
-      axios
-        .get(import.meta.env.VITE_BACKEND_URL + "/api/booking/")
-        .then((res) => {
-          setBookings(res.data.List || []);
-          setBookingsIsLoaded(true);
-        })
-        .catch((err) => {
-          console.error("Failed to load bookings:", err);
-        });
-    }
-  }, [roomsIsLoaded, bookingsIsLoaded]);
-
-  const getRoomAvailability = (roomId) => {
-    const currentDate = new Date();
-
-    const isBooked = bookings.some(
-      (booking) =>
-        booking.roomId === roomId &&
-        new Date(booking.checkOutDate) < currentDate
-    );
-
-    return isBooked; 
-  };
+  }, [roomsIsLoaded]);
 
   function deleteRoom(roomId) {
-    if (window.confirm("Are you sure you want to delete room ID: " + roomId + "?")) {
+    if (
+      window.confirm("Are you sure you want to delete room ID: " + roomId + "?")
+    ) {
       axios
         .delete(import.meta.env.VITE_BACKEND_URL + "/api/rooms/" + roomId, {
           headers: {
@@ -92,7 +68,9 @@ export default function RoomsPage() {
           <tr className="bg-gray-200">
             <th className="p-2 border border-gray-300 text-black">Room ID</th>
             <th className="p-2 border border-gray-300 text-black">Category</th>
-            <th className="p-2 border border-gray-300 text-black">Max Guests</th>
+            <th className="p-2 border border-gray-300 text-black">
+              Max Guests
+            </th>
             <th className="p-2 border border-gray-300 text-black">Available</th>
             <th className="p-2 border border-gray-300 text-black">Price($)</th>
             <th className="p-2 border border-gray-300 text-black">Photos</th>
@@ -102,13 +80,21 @@ export default function RoomsPage() {
         <tbody>
           {rooms.map((room) => (
             <tr key={room.roomId} className="hover:bg-gray-100">
-              <td className="p-2 border border-gray-300 text-black">{room.roomId}</td>
-              <td className="p-2 border border-gray-300 text-black">{room.category}</td>
-              <td className="p-2 border border-gray-300 text-black">{room.maxGuests}</td>
               <td className="p-2 border border-gray-300 text-black">
-                {getRoomAvailability(room.roomId) ? "Yes" : "No"}
+                {room.roomId}
               </td>
-              <td className="p-2 border border-gray-300 text-black">{room.price}</td>
+              <td className="p-2 border border-gray-300 text-black">
+                {room.category}
+              </td>
+              <td className="p-2 border border-gray-300 text-black">
+                {room.maxGuests}
+              </td>
+              <td className="p-2 border border-gray-300 text-black">
+                {room.available ? "Yes" : "No"}
+              </td>
+              <td className="p-2 border border-gray-300 text-black">
+                {room.price}
+              </td>
               <td className="p-2 border border-gray-300 text-black">
                 {room.photos.length > 0 ? (
                   <img
