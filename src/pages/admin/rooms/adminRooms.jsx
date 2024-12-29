@@ -13,6 +13,8 @@ export default function RoomsPage() {
 
   const [rooms, setRooms] = useState([]);
   const [roomsIsLoaded, setRoomsIsLoaded] = useState(false);
+  const [bookings, setBookings] = useState([]);
+  const [bookingsIsLoaded, setBookingsIsLoaded] = useState(false);
 
   const navigate = useNavigate();
 
@@ -21,7 +23,6 @@ export default function RoomsPage() {
       axios
         .get(import.meta.env.VITE_BACKEND_URL + "/api/rooms/")
         .then((res) => {
-            console.log("API Response:", res.data);
           setRooms(res.data.result || []);
           setRoomsIsLoaded(true);
         })
@@ -29,7 +30,33 @@ export default function RoomsPage() {
           console.error("Failed to load rooms:", err);
         });
     }
-  }, [roomsIsLoaded]);
+
+    if (!bookingsIsLoaded) {
+      axios
+        .get(import.meta.env.VITE_BACKEND_URL + "/api/booking/")
+        .then((res) => {
+          setBookings(res.data.List || []);
+          setBookingsIsLoaded(true);
+        })
+        .catch((err) => {
+          console.error("Failed to load bookings:", err);
+        });
+    }
+  }, [roomsIsLoaded, bookingsIsLoaded]);
+
+  const getRoomAvailability = (roomId) => {
+    const currentDate = new Date();
+
+    const isBooked = bookings.some(
+      (booking) =>
+        booking.roomId === roomId &&
+        new Date(booking.checkInDate) <= currentDate &&
+        new Date(booking.checkOutDate) > currentDate &&
+        booking.status === "Confirmed"
+    );
+
+    return !isBooked; 
+  };
 
   function deleteRoom(roomId) {
     if (window.confirm("Are you sure you want to delete room ID: " + roomId + "?")) {
@@ -81,7 +108,7 @@ export default function RoomsPage() {
               <td className="p-2 border border-gray-300 text-black">{room.category}</td>
               <td className="p-2 border border-gray-300 text-black">{room.maxGuests}</td>
               <td className="p-2 border border-gray-300 text-black">
-                {room.available ? "Yes" : "No"}
+                {getRoomAvailability(room.roomId) ? "Yes" : "No"}
               </td>
               <td className="p-2 border border-gray-300 text-black">{room.price}</td>
               <td className="p-2 border border-gray-300 text-black">
