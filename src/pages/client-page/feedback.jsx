@@ -73,7 +73,7 @@ export default function FeedBack() {
           ))}
         </div>
       ) : (
-        <p className="text-gray-500 italic">No approved feedbacks available.</p>
+        <p className="text-gray-500 italic">Loading.....</p>
       )}
     </div>
   );
