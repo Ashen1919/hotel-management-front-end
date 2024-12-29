@@ -50,7 +50,7 @@ export default function MyBookingPage() {
         <AiOutlineArrowLeft className="text-xl" />
         <span className="ml-2 text-sm font-medium">Back</span>
       </button>
-      <table className="w-full text-black text-left bg-white border border-gray-300">
+      <table className="w-full mt-7 text-black text-left bg-white border border-gray-300 relative">
         <thead>
           <tr className="bg-gray-200">
             <th className="p-2 border border-gray-300">Booking ID</th>
