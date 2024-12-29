@@ -50,11 +50,10 @@ export default function RoomsPage() {
     const isBooked = bookings.some(
       (booking) =>
         booking.roomId === roomId &&
-        new Date(booking.checkOutDate) < currentDate &&
-        booking.status === "Confirmed"
+        new Date(booking.checkOutDate) < currentDate
     );
 
-    return !isBooked; 
+    return isBooked; 
   };
 
   function deleteRoom(roomId) {
