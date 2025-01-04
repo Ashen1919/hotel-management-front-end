@@ -130,47 +130,47 @@ export default function Dashboard() {
       </div>
 
       {/* Middle Details */}
-      <div className="md:flex hidden flex-row w-full h-[100vh]">
+      <div className="md:flex flex-row w-full h-[100vh]">
         {/* Booking Details */}
-        <div className="mt-6 lg:w-[60%] w-full">
+        <div className="mt-6 md:block hidden lg:w-[60%] overflow-auto w-full p-5 bg-gray-800 rounded-[10px] relative opacity-80">
           <p className="mt-5 text-xl font-semibold text-white">New Bookings</p>
-          <table className="w-full bg-white mt-5 border border-gray-400 text-left">
+          <table className="w-full rounded-[10px] overflow-hidden mt-5 border text-white border-gray-400 text-left">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-2 border border-gray-300 text-black">
+              <tr className="bg-gray-900">
+                <th className="p-2 border border-gray-300 text-white">
                   Booking Id
                 </th>
-                <th className="p-2 border border-gray-300 text-black">
+                <th className="p-2 border border-gray-300 text-white">
                   Room Id
                 </th>
-                <th className="p-2 border border-gray-300 text-black">Email</th>
-                <th className="p-2 border border-gray-300 text-black">
+                <th className="p-2 border border-gray-300 text-white">Email</th>
+                <th className="p-2 border border-gray-300 text-white">
                   Check In
                 </th>
-                <th className="p-2 border border-gray-300 text-black">
+                <th className="p-2 border border-gray-300 text-white">
                   Check Out
                 </th>
-                <th className="p-2 border border-gray-300 text-black">
+                <th className="p-2 border border-gray-300 text-white">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
               {pendingBooking.map((booking) => (
-                <tr key={booking.bookingId} className="hover:bg-gray-100">
-                  <td className="p-2 border border-gray-300 text-black">
+                <tr key={booking.bookingId} className="hover:bg-gray-700 cursor-pointer">
+                  <td className="p-2 border border-gray-300 text-white">
                     {booking.bookingId}
                   </td>
-                  <td className="p-2 border border-gray-300 text-black">
+                  <td className="p-2 border border-gray-300 text-white">
                     {booking.roomId}
                   </td>
-                  <td className="p-2 border border-gray-300 text-black">
+                  <td className="p-2 border border-gray-300 text-white">
                     {booking.email}
                   </td>
-                  <td className="p-2 border border-gray-300 text-black">
+                  <td className="p-2 border border-gray-300 text-white">
                     {new Date(booking.start).toDateString()}
                   </td>
-                  <td className="p-2 border border-gray-300 text-black">
+                  <td className="p-2 border border-gray-300 text-white">
                     {new Date(booking.end).toDateString()}
                   </td>
                   <td className="p-2 border border-gray-300">
@@ -184,6 +184,10 @@ export default function Dashboard() {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="md:ml-5 p-5 lg:w-[40%] h-[60vh] bg-gray-800 mt-6 rounded-[10px] block md:w-[50%] w-full">
+            <p className="text-white font-semibold text-xl mt-5">Booking Overview</p>
+            <div className="mt-5"></div>
         </div>
       </div>
     </div>
