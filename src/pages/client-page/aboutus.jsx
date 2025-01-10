@@ -74,9 +74,9 @@ export default function AboutUsPage() {
           </div>
         </div>
         {/* about-cards */}
-        <div className="mt-8 w-full flex flex-row justify-between">
+        <div className="mt-8 w-full flex flex-col lg:flex-row justify-between">
           {/* story card */}
-          <div className="relative w-[30%] h-[50vh] overflow-hidden rounded-lg shadow-lg transform group-hover:scale-105 transition-transform duration-500 lg:shadow-gray-400 hover:cursor-pointer group">
+          <div className="relative w-full lg:w-[30%] h-[50vh] overflow-hidden rounded-lg shadow-lg transform group-hover:scale-105 transition-transform duration-500 lg:shadow-gray-400 hover:cursor-pointer group">
             <img
               src="https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/678161350018edfa1bf4/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin"
               alt="Our Vision"
@@ -96,7 +96,7 @@ export default function AboutUsPage() {
             </div>
           </div>
           {/* why choose us card */}
-          <div className="relative w-[30%] h-[50vh] overflow-hidden rounded-lg shadow-lg transform group-hover:scale-105 transition-transform duration-500 lg:shadow-gray-400 hover:cursor-pointer group">
+          <div className="relative w-full mt-5 lg:mt-0 lg:w-[30%] h-[50vh] overflow-hidden rounded-lg shadow-lg transform group-hover:scale-105 transition-transform duration-500 lg:shadow-gray-400 hover:cursor-pointer group">
             <img
               src="https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6781612a00256f8f0d0e/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin"
               alt="Our Vision"
@@ -115,10 +115,10 @@ export default function AboutUsPage() {
               </a>
             </div>
           </div>
-          {/* story card */}
-          <div className="relative w-[30%] h-[50vh] lg:mr-20 overflow-hidden rounded-lg shadow-lg transform group-hover:scale-105 transition-transform duration-500 lg:shadow-gray-400 hover:cursor-pointer group">
+          {/* awards card */}
+          <div className="relative w-full mt-5 lg:mt-0 lg:w-[30%] h-[50vh] lg:mr-20 overflow-hidden rounded-lg shadow-lg transform group-hover:scale-105 transition-transform duration-500 lg:shadow-gray-400 hover:cursor-pointer group">
             <img
-              src="https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/678161350018edfa1bf4/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin"
+              src="https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/6781679a0035fceea20d/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin"
               alt="Our Vision"
               className="w-full h-full object-cover"
             />
@@ -130,7 +130,7 @@ export default function AboutUsPage() {
                 className="text-white text-sm md:text-base underline transition-colors duration-300"
               >
                 <button className="p-3 bg-amber-400 font-semibold text-white hover:bg-transparent hover:text-amber-400 rounded-lg transition duration-300 hover:border-2 border-amber-400">
-                  Our Story
+                Our Awards
                 </button>
               </a>
             </div>
