@@ -244,7 +244,7 @@ const Footer = () => {
         <hr className="mt-16 mb-10 border-white" />
 
         <p className="text-sm text-center text-gray-100">
-          © Copyright 2024, All Rights Reserved by <a href="https://ashen1919.github.io/Ashen-gimhana-portfolio/" className="transition duration-500 hover:text-amber-500" target="_blank" >Ashen Gimhana</a>
+          © Copyright 2024, All Rights Reserved by <a href="https://ashen-gimhana.vercel.app/" className="transition duration-500 hover:text-amber-500" target="_blank" >Ashen Gimhana</a>
         </p>
       </div>
     </section>

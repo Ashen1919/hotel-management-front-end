@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "./footer";
 
 export default function AboutUsPage() {
   return (
@@ -137,6 +138,7 @@ export default function AboutUsPage() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
