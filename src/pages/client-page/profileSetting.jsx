@@ -281,7 +281,6 @@ export default function CustomerSettingPage() {
           </div>
         </form>
       </div>
-      <Footer/>
     </div>
   );
 }
