@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import Footer from "./footer";
 
 const client = new Client()
   .setEndpoint(import.meta.env.VITE_ENDPOINT)
@@ -280,6 +281,7 @@ export default function CustomerSettingPage() {
           </div>
         </form>
       </div>
+      <Footer/>
     </div>
   );
 }

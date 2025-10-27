@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import toast from "react-hot-toast";
+import Footer from "./footer";
 
 export default function RoomDetailPage() {
   const { roomId } = useParams();
@@ -314,6 +315,7 @@ export default function RoomDetailPage() {
           <p>No featured rooms available.</p>
         )}
       </div>
+      <Footer/>
     </div>
   );
 }
